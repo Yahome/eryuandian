@@ -1,6 +1,6 @@
 # yuan-architect
 
-状态：planned
+状态：active
 
 ## 角色
 
@@ -16,4 +16,19 @@
 
 ## 当前进度
 
-- 等待 profile 创建。
+- profile 已创建。
+- `SOUL.md` 已写入角色规则。
+- 已建立项目事实源 Markdown 文件集：
+  - `SOURCE_OF_TRUTH.md`
+  - `PRODUCT_REQUIREMENTS.md`
+  - `DESIGN_SYSTEM.md`
+  - `INFORMATION_ARCHITECTURE.md`
+  - `API_CONTRACT.md`
+  - `DATA_MODEL.md`
+  - `TECH_STACK.md`
+  - `AGENT_WORKFLOW.md`
+
+## 下一步
+
+- 基于事实源拆分 MVP 实施任务。
+- 进一步确认技术栈和 API 契约。

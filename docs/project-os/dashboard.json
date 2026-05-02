@@ -2,19 +2,32 @@
   "project": {
     "name_cn": "两元店",
     "slug": "eryuandian",
-    "status": "bootstrap_done",
-    "phase": "P0"
+    "status": "source_of_truth_active",
+    "phase": "P0",
+    "repo": "https://github.com/Yahome/eryuandian",
+    "visibility": "private"
   },
+  "source_of_truth": [
+    "SOURCE_OF_TRUTH.md",
+    "PRODUCT_REQUIREMENTS.md",
+    "DESIGN_SYSTEM.md",
+    "INFORMATION_ARCHITECTURE.md",
+    "API_CONTRACT.md",
+    "DATA_MODEL.md",
+    "TECH_STACK.md",
+    "AGENT_WORKFLOW.md"
+  ],
   "agents": [
     {"id": "yuan-control", "role": "总控 / Orchestrator", "status": "active"},
-    {"id": "yuan-architect", "role": "架构 / 文档 / 项目知识库", "status": "ready"},
+    {"id": "yuan-architect", "role": "架构 / 文档 / 项目知识库", "status": "active"},
     {"id": "yuan-frontend", "role": "前端开发", "status": "ready"},
     {"id": "yuan-backend", "role": "后端与 AI 业务开发", "status": "ready"},
     {"id": "yuan-reviewer", "role": "Review / QA", "status": "ready"}
   ],
   "tasks": [
     {"id": "T-000", "title": "Bootstrap Dev OS", "owner": "yuan-control", "status": "done", "priority": "P0"},
-    {"id": "T-001", "title": "GitHub private repo bootstrap", "owner": "yuan-control", "status": "in_progress", "priority": "P0"}
+    {"id": "T-001", "title": "GitHub private repo bootstrap", "owner": "yuan-control", "status": "done", "priority": "P0"},
+    {"id": "T-002", "title": "Establish project source-of-truth Markdown", "owner": "yuan-architect", "status": "in_progress", "priority": "P0"}
   ],
   "design_refs": [
     "brand-logo-identity.png",
