@@ -1,0 +1,36 @@
+{
+  "project": {
+    "name_cn": "两元店",
+    "slug": "eryuandian",
+    "status": "bootstrap_done",
+    "phase": "P0"
+  },
+  "agents": [
+    {"id": "yuan-control", "role": "总控 / Orchestrator", "status": "active"},
+    {"id": "yuan-architect", "role": "架构 / 文档 / 项目知识库", "status": "ready"},
+    {"id": "yuan-frontend", "role": "前端开发", "status": "ready"},
+    {"id": "yuan-backend", "role": "后端与 AI 业务开发", "status": "ready"},
+    {"id": "yuan-reviewer", "role": "Review / QA", "status": "ready"}
+  ],
+  "tasks": [
+    {"id": "T-000", "title": "Bootstrap Dev OS", "owner": "yuan-control", "status": "done", "priority": "P0"},
+    {"id": "T-001", "title": "GitHub private repo bootstrap", "owner": "yuan-control", "status": "in_progress", "priority": "P0"}
+  ],
+  "design_refs": [
+    "brand-logo-identity.png",
+    "desktop-login.png",
+    "desktop-home-dashboard.png",
+    "desktop-marketing-image-generator.png",
+    "desktop-paper-generator.png",
+    "mobile-login-register.png",
+    "mobile-home-dashboard.png",
+    "mobile-image-generator.png",
+    "mobile-paper-generator.png",
+    "dev-os-dashboard.png"
+  ],
+  "risks": [
+    {"id": "R-001", "title": "Codex CLI 与 Hermes OAuth 状态分离", "status": "monitoring"},
+    {"id": "R-002", "title": "多 Agent 并行修改冲突", "status": "open"},
+    {"id": "R-003", "title": "Dashboard 数据硬编码", "status": "open"}
+  ]
+}
