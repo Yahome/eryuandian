@@ -1,32 +1,32 @@
-# ROADMAP
+# Roadmap
 
-状态：初始化
+## Phase 0：Dev OS 与项目准备
+- [x] Hermes profiles 建立
+- [x] Agent 分工规则建立
+- [x] docs/project-os 文档体系建立
+- [ ] Dev Dashboard MVP
+- [ ] 任务看板与进度汇总机制
 
-## P0：项目开发操作系统
+## Phase 1：MVP 基础
+- [ ] 手机号登录
+- [ ] 首页工作台
+- [ ] PC / 移动端基础布局
+- [ ] 我的作品
 
-- 创建 Hermes profiles
-- 创建 Dev OS 文档事实源
-- 定义 Agent 分工
-- 定义任务文档模板
-- 验证 Codex CLI 可用
+## Phase 2：核心功能
+- [ ] 商家营销生图
+- [ ] 智能生成试卷
+- [ ] 生成记录
+- [ ] 导出 PDF / Word
 
-## P1：产品与设计基线
+## Phase 3：商业化
+- [ ] 会员套餐
+- [ ] 额度系统
+- [ ] 订单支付
+- [ ] 水印 / 高清下载
 
-- 固化 Logo 与品牌规范
-- 固化 PC / 移动端核心页面设计稿
-- 输出设计系统：颜色、字体、间距、组件
-
-## P2：Web App MVP
-
-- 手机号登录
-- 首页工作台
-- 生图工作台
-- 试卷生成工作台
-- 生成记录
-- 基础用户/额度模型
-
-## P3：Dashboard / Dev OS 可视化
-
-- 读取 `docs/project-os/dashboard.json`
-- 展示任务、Agent 状态、风险、变更日志
-- 支持从 Markdown 构建 dashboard 数据
+## Phase 4：上线
+- [ ] 部署
+- [ ] 日志
+- [ ] 监控
+- [ ] 备份
