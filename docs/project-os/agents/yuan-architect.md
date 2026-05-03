@@ -71,12 +71,13 @@
 
 ## 下一步
 
-- 等待 `yuan-control` 派 `yuan-frontend` 按 T-005 架构说明实现 Wiki Viewer。
-- T-005 实现阶段必须保持只读 Wiki 浏览边界，不写业务功能、不改数据库 schema、不新增后端业务 API。
-- `yuan-reviewer` 验收时检查 frontend 是否遵守 T-005 的结构、数据、接口和安全边界。
+- T-005 Project Wiki Viewer 已完成并验收通过。
+- T-006 Dashboard 视觉对齐 / Shell 重构已完成并验收通过。
+- 下一步 T-007：Dev OS 任务看板详情页 + 进度汇总机制；开工前必须先由 `yuan-architect` 输出轻量架构说明，明确结构、数据、边界和验收标准。
 
 ## 变更记录
 
 - 2026-05-03：完成 Dashboard Markdown 事实源编译，生成 `summary.md` 与 `dashboard.json`，并更新 T-004 状态。
 - 2026-05-03：记录 Architect 前置门禁；T-005 Project Wiki Viewer 开工前必须先输出轻量架构说明。
 - 2026-05-03：完成 T-005 Project Wiki Viewer 前置架构说明；结论为复用 `dashboard.json.wikiLinks`，本阶段不变更 dashboard schema。
+- 2026-05-03：记录 T-005、T-006 均已完成并验收通过；下一步为 T-007 前置架构说明。

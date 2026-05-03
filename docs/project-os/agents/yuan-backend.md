@@ -1,6 +1,6 @@
 # yuan-backend
 
-状态：planned
+状态：ready
 
 ## 角色
 
@@ -18,4 +18,6 @@
 
 ## 当前进度
 
-- 等待 profile 创建。
+- profile 已创建。
+- `SOUL.md` 已审计存在。
+- 当前未派业务任务；保持 ready/planned，不参与 T-003/T-005/T-006 Dev OS 前端任务。

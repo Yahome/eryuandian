@@ -57,7 +57,9 @@ yuan-control：同步状态和派发下一步
 - Dev OS bootstrap 已完成。
 - GitHub repo 已完成远端同步，公开前敏感信息预检通过。
 - 已完成 Dev OS 流程纠偏：把 Architect 前置门禁写入事实源。
-- 已将 T-005 Project Wiki Viewer 调整为 `yuan-architect` 架构前置后再交给 `yuan-frontend` 实现。
+- 已完成 T-005 Project Wiki Viewer：`yuan-architect` 前置架构、`yuan-frontend` 实现、`yuan-reviewer` 验收通过。
+- 已完成 T-006 Dashboard 视觉对齐 / Shell 重构并完成验收收口。
+- 当前下一步为 T-007：Dev OS 任务看板详情页 + 进度汇总机制。
 
 ## 当前边界
 

@@ -55,9 +55,10 @@
 
 ## 当前硬边界
 
-- 当前 Dev OS 阶段推进 T-005 Project Wiki Viewer，不开发登录、生图、试卷、支付等业务功能。
+- 当前 Dev OS 阶段聚焦 T-007：Dev OS 任务看板详情页 + 进度汇总机制。
+- 当前不开发登录、生图、试卷、支付等业务功能。
 - 当前不修改数据库 schema。
-- T-005 Project Wiki Viewer 只处理 Dev OS Wiki 浏览能力，不引入业务 API。
+- Dev OS Dashboard 继续以 Markdown-first / `dashboard.json` 为事实源，不硬编码示例数字。
 
 ## 视觉基准
 
@@ -143,12 +144,14 @@ yuan-control：同步状态和派发下一步
 - 5 个 Hermes profiles
 - 5 个 profile 角色规则 `SOUL.md`
 - 设计稿重命名与前端 profile 约束
-- T-003 `/dev-dashboard` 第一版 UI
+- T-003 `/dev-dashboard` 第一版 UI，已完成并验收通过
 - T-004 Dashboard JSON Sync
 - Dev OS 流程纠偏：触发结构、数据、接口、边界变化的任务必须先经过 `yuan-architect`
+- T-005 Project Wiki Viewer，已完成并验收通过
+- T-006 Dashboard 视觉对齐 / Shell 重构，已完成并验收通过
 
 下一步：
 
-- T-005 Project Wiki Viewer 的 `yuan-architect` 前置架构说明已完成。
-- 下一步由 `yuan-frontend` 按 T-005 架构边界实现只读 Project Wiki Viewer。
-- `yuan-reviewer` 验收 T-005 时检查 frontend 是否遵守 architect 的设计边界。
+- T-007：Dev OS 任务看板详情页 + 进度汇总机制。
+- T-007 属于新页面 / 新模块 / 进度数据汇总机制，开工前必须先由 `yuan-architect` 输出轻量架构说明。
+- `yuan-frontend` / `yuan-backend` 只能在架构说明完成后按边界实现，`yuan-reviewer` 验收时必须检查实现是否遵守 architect 的结构、数据和边界说明。
