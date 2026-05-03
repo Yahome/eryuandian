@@ -11,7 +11,7 @@
 | T-003 | Dev OS Dashboard UI | yuan-frontend | done | P0 | `tasks/T-003-dashboard-ui.md` |
 | T-004 | Dashboard JSON Sync | yuan-architect | done | P0 | `tasks/T-004-dashboard-json-sync.md` |
 | T-005 | Project Wiki Viewer | yuan-frontend | done | P1 | `tasks/T-005-wiki-viewer.md` |
-| T-006 | Dev OS Dashboard Visual Alignment / Shell Refactor | yuan-frontend | ready | P1 | `tasks/T-006-dashboard-visual-alignment.md` |
+| T-006 | Dev OS Dashboard Visual Alignment / Shell Refactor | yuan-frontend | done | P1 | `tasks/T-006-dashboard-visual-alignment.md` |
 
 ## 状态枚举
 
@@ -27,7 +27,7 @@
 
 1. Dev OS 流程纠偏已写入事实源：新页面 / 新模块 / 数据结构 / 接口协议 / Wiki 索引 / 系统边界 / 前后端协作边界，必须先由 `yuan-architect` 输出轻量架构说明。
 2. T-005 Project Wiki Viewer 已完成：`yuan-architect` 前置架构、`yuan-frontend` 实现、`yuan-reviewer` 验收均已通过。
-3. T-006 Dev OS Dashboard 视觉对齐 / Shell 重构已创建，下一步派 `yuan-frontend` 实现；完成后再继续 Dev OS 任务看板详情页与进度汇总机制。
+3. T-006 Dev OS Dashboard 视觉对齐 / Shell 重构已完成并验收通过；下一步继续 Dev OS 任务看板详情页与进度汇总机制。
 
 ## Architect 前置门禁
 

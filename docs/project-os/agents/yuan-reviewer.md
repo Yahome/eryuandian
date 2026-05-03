@@ -195,3 +195,78 @@ Gemini 结论：**Review Pass**。
 - `yuan-reviewer` 与 Gemini 对 T-005 主结论一致：无 Blocker/Major，符合架构边界，可通过验收。
 - Gemini 的 Minor/Nit 均属于后续体验或扩展能力，不影响当前 T-005 验收标准；当前任务没有要求完整 Markdown 引擎、远程图片渲染或递归目录。
 - `yuan-reviewer` 额外记录的 `TASK_BOARD.md` 状态滞后属于事实源同步 note，建议由 `yuan-control` 处理；不改变本次 T-005 Wiki Viewer 实现验收结论。
+
+## T-006 Dev OS Dashboard Visual Alignment / Shell Refactor 验收记录（2026-05-03）
+
+执行角色：`yuan-reviewer`（Review / QA Agent）。
+
+### 总体结论
+
+**PASS with notes / 无 Blocker**。
+
+- PASS：已先读取 `SOURCE_OF_TRUTH.md`、`AGENT_WORKFLOW.md`、`tasks/T-006-dashboard-visual-alignment.md`、`tasks/T-003-dashboard-ui.md`、`tasks/T-005-wiki-viewer.md`、本文件、`dashboard/dashboard.json`、`pic/dev-os-dashboard.png`、`src/main.tsx`、`src/styles.css`；补充读取 `DESIGN_SYSTEM.md` 并查看 `brand-logo-identity.png`。
+- PASS：当前 `/dev-dashboard` 比 T-003 第一版更接近 `pic/dev-os-dashboard.png`：紧凑 sidebar、顶部搜索/通知/用户占位、五张 KPI 卡、项目总览、Agent 卡片网格、Roadmap 时间线、风险/待确认、最近更新与 Wiki 快捷入口均已形成参考图式的 SaaS dashboard 壳。
+- PASS：保留 T-003 总览能力；KPI、项目总览、Agent 状态、Roadmap、风险/待确认、最近更新和 Wiki 入口仍可见。
+- PASS：保留 T-005 Project Wiki Viewer；浏览器 DOM 可见 `Project Wiki`、`只读预览`、`Agent 进度目录`、`任务文档目录` 与 T-006 任务文档入口；Markdown 仍通过 `import.meta.glob('../docs/project-os/**/*.md', { query: '?raw' })` 只读映射。
+- PASS：数据来源仍是 `src/main.tsx` 静态导入 `../docs/project-os/dashboard/dashboard.json`；任务、Agent、风险、Roadmap、recent updates、wikiLinks 均通过 `data.*` 或 `dashboardData.wikiLinks` 派生/遍历渲染，未发现硬编码这些业务状态数据。
+- PASS：未新增 API、未改 `docs/project-os/dashboard/SCHEMA.md`、未改数据库 schema，未开发登录、生图、试卷、支付等业务功能。Header 里的通知数字与用户姓名属于 T-006 明确允许的视觉占位，不承载业务状态。
+- NOTE：`docs/project-os/dashboard/summary.md` 当前仍有一条旧的 T-006 “下一步创建任务并交给 yuan-frontend 实现”重复行；这是事实源摘要 polish，不影响本次视觉壳验收。
+- NOTE：sidebar 的“任务看板”当前锚点落到 Wiki 快速入口区域；作为 T-003/T-006 的入口占位不阻塞，但后续任务看板详情页应拆成独立目标区或路由。
+
+### 验证命令与结果
+
+```bash
+npm run lint
+# PASS：exit 0
+
+npm run typecheck
+# PASS：exit 0
+
+npm run build
+# PASS：exit 0，Vite build 成功
+
+jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json
+# PASS：exit 0
+
+git diff --check
+# PASS：exit 0
+
+curl -I -s http://127.0.0.1:5173/dev-dashboard
+# PASS：HTTP/1.1 200 OK
+```
+
+补充浏览器验证：使用本机 `google-chrome --headless=new` 截图访问 `http://127.0.0.1:5173/dev-dashboard`，生成 `/tmp/t006-dev-dashboard.png` 与 `/tmp/t006-dev-dashboard-full.png`；截图确认 PC 宽屏布局已呈现参考图的 sidebar + top header + KPI + card grid + Wiki 区域。使用 `--dump-dom` 确认 Wiki Viewer 渲染，页面 DOM 仅有 1 个只读搜索 `<input>`，未发现 `textarea`、`contenteditable`、保存/编辑/上传/删除/重命名入口。
+
+### Gemini 第二审查结论
+
+调用命令：
+
+```bash
+HOME=/root/.hermes/profiles/yuan-reviewer/home gemini --prompt '你是第二审查员。请只读审查当前 git diff 与 T-006 Dashboard 视觉对齐验收标准，重点看是否更接近 pic/dev-os-dashboard.png、是否破坏 T-003/T-005、是否越界开发业务功能，按 Blocker/Major/Minor/Nit 输出问题和证据。不要修改文件。'
+```
+
+Gemini 结论：**无有效二审输出**。
+
+- 结果：Gemini CLI 已被调用，但服务端连续返回 `429 RESOURCE_EXHAUSTED / MODEL_CAPACITY_EXHAUSTED`，提示 `No capacity available for model gemini-3.1-pro-preview on the server`。
+- 处理：按 `AGENT_WORKFLOW.md`，Gemini 不可用必须记录原因，但不能替代或阻塞 `yuan-reviewer` 自身验收；本次结论以 `yuan-reviewer` 自身审查为准。
+
+### 冲突裁决
+
+- 无可裁决的 Gemini 审查意见；Gemini 未产出 Blocker/Major/Minor/Nit。
+- `yuan-reviewer` 自身审查未发现 Blocker/Major；两个 NOTE 均为后续事实源/交互 polish，不影响 T-006 核心验收。
+
+### 相对设计基准的改善点
+
+- 页面从大面积渐变 hero 调整为参考图式 dashboard shell：左侧白底导航、主内容浅背景、白色卡片与轻阴影。
+- 顶部 header 恢复搜索框、通知、帮助、用户区域占位，接近 `dev-os-dashboard.png` 的第一屏信息结构。
+- KPI 卡片使用图标、圆形进度、轻色块和横向五卡布局，信息密度明显更接近设计基准。
+- 项目总览、Agent 状态、Roadmap、风险/确认、最近更新改为多卡片网格和时间线结构，弱化临时内部页感。
+- Wiki 快速入口和 Project Wiki Viewer 保持 T-005 只读能力，同时视觉上并入统一 dashboard 卡片系统。
+- Logo 从整张 `brand-logo-identity.png` 设计总览图改为独立 `brand-app-icon.png` 资源，更符合参考图导航位的品牌使用方式。
+
+### 后续 polish 项
+
+- 进一步贴近参考图的精确间距、卡片高度、字体权重、头像/Agent 图标配色和右侧更新列表节奏。
+- 为“任务看板”“风险与决策”“日报”“设置”补独立 Coming soon 区域或后续真实页面，避免导航锚点复用 Wiki 快捷入口。
+- 清理 `docs/project-os/dashboard/summary.md` 中旧的 T-006 重复行，保持摘要事实源一致。
+- 移动端当前保证不崩和不严重横向溢出，后续可按移动端 Dev OS 需求做专门布局优化。

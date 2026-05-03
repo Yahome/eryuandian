@@ -2,6 +2,7 @@
 
 ## 2026-05-03
 
+- 完成 T-006 Dev OS Dashboard 视觉对齐 / Shell 重构：重构 sidebar、top header、KPI、Agent grid、Roadmap、Wiki 快捷入口和只读 Viewer 视觉，`yuan-reviewer` 验收通过。
 - 创建 T-006 Dev OS Dashboard Visual Alignment / Shell Refactor，准备由 `yuan-frontend` 进行 Dashboard 视觉壳对齐。
 - 完成 T-005 closeout 事实源同步：summary、Roadmap、TASK_BOARD、dashboard JSON 中 T-005 统一为 done，owner 统一为 `yuan-frontend`，移除 PA-005。
 - 完成 T-005 Project Wiki Viewer：`yuan-frontend` 在 `/dev-dashboard` 内实现只读 Wiki Viewer，`yuan-reviewer` 与 Gemini 双审查通过，验证 lint/typecheck/build/jq/diff-check 通过。

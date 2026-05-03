@@ -8,7 +8,7 @@
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "T-006 Dev OS Dashboard 视觉对齐 / Shell 重构已创建，下一步由 yuan-frontend 实现；之后继续任务看板详情页与进度汇总机制。",
+    "currentFocus": "T-006 Dev OS Dashboard 视觉对齐 / Shell 重构已完成并验收通过；下一步继续任务看板详情页与进度汇总机制。",
     "updatedAt": "2026-05-03"
   },
   "agents": [
@@ -181,10 +181,10 @@
       "id": "T-006",
       "title": "Dev OS Dashboard Visual Alignment / Shell Refactor",
       "owner": "yuan-frontend",
-      "status": "ready",
+      "status": "done",
       "priority": "P1",
-      "progress": 0,
-      "summary": "把 /dev-dashboard 从可用内部 MVP 调整为更接近设计基准的现代 SaaS dashboard 壳。",
+      "progress": 100,
+      "summary": "Dashboard 视觉壳已重构并验收通过：紧凑 sidebar、top header、KPI、Agent grid、Roadmap、风险/待确认、最近更新与 Wiki 快捷入口；未新增 API、未改 schema、未改数据库。",
       "wiki": "docs/project-os/tasks/T-006-dashboard-visual-alignment.md"
     }
   ],
@@ -355,6 +355,17 @@
     }
   ],
   "recentUpdates": [
+    {
+      "date": "2026-05-03",
+      "title": "完成 T-006 Dashboard 视觉对齐",
+      "description": "yuan-frontend 完成 /dev-dashboard 现代 SaaS dashboard shell 重构，yuan-reviewer 验收通过；Gemini 二审因 429 无有效输出已记录。",
+      "files": [
+        "src/main.tsx",
+        "src/styles.css",
+        "src/assets/brand-app-icon.png",
+        "docs/project-os/tasks/T-006-dashboard-visual-alignment.md"
+      ]
+    },
     {
       "date": "2026-05-03",
       "title": "创建 T-006 Dashboard 视觉对齐任务",

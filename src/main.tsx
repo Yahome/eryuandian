@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import dashboardData from '../docs/project-os/dashboard/dashboard.json';
-import logoUrl from '../pic/brand-logo-identity.png';
+import logoUrl from './assets/brand-app-icon.png';
 import './styles.css';
 
-type Status = 'done' | 'active' | 'ready' | 'planned' | 'open' | 'monitoring' | 'in_progress' | 'pending' | string;
+type Status = 'done' | 'active' | 'ready' | 'planned' | 'open' | 'monitoring' | 'in_progress' | 'pending' | 'review' | string;
 
 type DashboardData = typeof dashboardData;
 type Task = DashboardData['tasks'][number];
@@ -48,16 +48,36 @@ type WikiModel = {
   allowedPaths: Set<string>;
 };
 
-const navigation = [
-  { label: '总览', href: '/dev-dashboard', state: null },
-  { label: '任务看板', href: '#任务看板', state: 'Coming soon' },
-  { label: 'Agent 状态', href: '#Agent 状态', state: 'Coming soon' },
-  { label: '项目 Wiki', href: '#project-wiki', state: '可用' },
-  { label: '风险与决策', href: '#风险与决策', state: 'Coming soon' },
-  { label: '日报', href: '#日报', state: 'Coming soon' },
-  { label: '设置', href: '#设置', state: 'Coming soon' },
-];
 const projectTitle = '两元店 Dev OS';
+const navigation = [
+  { label: '总览', href: '#overview', state: null, icon: 'overview' },
+  { label: '任务看板', href: '#task-board', state: 'Coming soon', icon: 'tasks' },
+  { label: 'Agent 状态', href: '#agents', state: null, icon: 'agent' },
+  { label: '项目 Wiki', href: '#project-wiki', state: '可用', icon: 'wiki' },
+  { label: '风险与决策', href: '#risks', state: 'Coming soon', icon: 'risk' },
+  { label: '日报', href: '#daily', state: 'Coming soon', icon: 'daily' },
+  { label: '设置', href: '#settings', state: 'Coming soon', icon: 'settings' },
+] as const;
+
+const iconPaths = {
+  overview: 'M4 13h7V4H4v9Zm0 7h7v-5H4v5Zm9 0h7v-9h-7v9Zm0-11h7V4h-7v5Z',
+  tasks: 'M8 5h8M8 12h8M8 19h8M4 5h.01M4 12h.01M4 19h.01',
+  agent: 'M12 3v3m-5 5H5a2 2 0 0 0-2 2v3a5 5 0 0 0 5 5h8a5 5 0 0 0 5-5v-3a2 2 0 0 0-2-2h-2M8 11V8a4 4 0 0 1 8 0v3M9 15h.01M15 15h.01',
+  wiki: 'M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2V4Zm0 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2m3-12h6m-6 4h5',
+  risk: 'M12 3 2.8 19h18.4L12 3Zm0 6v5m0 3h.01',
+  daily: 'M7 3v3m10-3v3M4 8h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z',
+  settings: 'M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm7.4-3.2c0-.5-.1-.9-.2-1.3l2-1.5-2-3.4-2.4 1a7.7 7.7 0 0 0-2.2-1.3L14.3 3h-4.6l-.4 2.5a7.7 7.7 0 0 0-2.2 1.3l-2.4-1-2 3.4 2 1.5c-.1.4-.2.8-.2 1.3s.1.9.2 1.3l-2 1.5 2 3.4 2.4-1a7.7 7.7 0 0 0 2.2 1.3l.4 2.5h4.6l.4-2.5a7.7 7.7 0 0 0 2.2-1.3l2.4 1 2-3.4-2-1.5c.1-.4.2-.8.2-1.3Z',
+  search: 'm21 21-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z',
+  bell: 'M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Zm-7.7 12a2 2 0 0 0 3.4 0',
+  help: 'M9.1 9a3 3 0 1 1 5.6 1.5c-.9 1.1-2.2 1.4-2.2 3M12 17h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+  user: 'M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z',
+  rocket: 'M14 4c2.9.6 5.4 3.1 6 6-2.9.6-6.2 2.4-8 4.7L9.3 12C11.6 10.2 13.4 6.9 14 4ZM8 15l-3 3m8-3 3 3M5 13l6 6',
+  clock: 'M12 8v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+  check: 'm5 12 4 4L19 6',
+  trend: 'm3 17 6-6 4 4 8-8M14 7h7v7',
+} as const;
+type IconName = keyof typeof iconPaths;
+
 const markdownModules = import.meta.glob('../docs/project-os/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
 const markdownByPath = createMarkdownRegistry(markdownModules);
 const markdownPaths = Object.keys(markdownByPath).sort((a, b) => a.localeCompare(b));
@@ -96,6 +116,27 @@ function countByStatus<T extends { status: string }>(items: T[], statuses: strin
 
 function blockedTasks(tasks: Task[], risks: Risk[]) {
   return countByStatus(tasks, ['blocked']) + risks.filter((risk) => risk.status === 'open').length;
+}
+
+function percentage(part: number, total: number) {
+  if (total === 0) return 0;
+  return Math.round((part / total) * 100);
+}
+
+function phaseProgress(phase: RoadmapPhase) {
+  return percentage(phase.items.filter((item) => item.done).length, phase.items.length);
+}
+
+function shortPhaseTitle(title: string) {
+  return title.split('：').at(0) ?? title;
+}
+
+function statusClassName(status: Status) {
+  return `pill ${statusTone(status)}`;
+}
+
+function activeTaskCount(tasks: Task[]) {
+  return countByStatus(tasks, ['in_progress', 'ready', 'review']);
 }
 
 function createMarkdownRegistry(modules: Record<string, string>) {
@@ -515,111 +556,366 @@ function DevDashboard() {
   const data = dashboardData;
   const progress = averageProgress(data.tasks);
   const activeAgents = countByStatus(data.agents, ['active']);
-  const inProgressTasks = countByStatus(data.tasks, ['in_progress', 'ready']);
+  const inProgressTasks = activeTaskCount(data.tasks);
   const blockedCount = blockedTasks(data.tasks, data.risks);
-  const latestUpdate = data.recentUpdates[0]?.date ?? data.project.updatedAt;
-  const currentSprint = data.roadmap.find((phase) => phase.status === 'in_progress')?.title ?? data.project.phase;
-  const healthStatus = data.risks.some((risk) => risk.status === 'open') ? '需关注' : '健康';
+  const latestUpdate = data.recentUpdates[0];
+  const currentPhase = data.roadmap.find((phase) => phase.status === 'in_progress') ?? data.roadmap[0];
+  const healthStatus = data.risks.some((risk) => risk.status === 'open') ? '需关注' : '状态良好';
+  const currentPhaseProgress = currentPhase ? phaseProgress(currentPhase) : progress;
 
   const kpis = [
-    { label: '整体进度', value: `${progress}%`, hint: `${data.tasks.length} 个任务平均进度` },
-    { label: '进行中任务', value: String(inProgressTasks), hint: 'ready / in_progress' },
-    { label: '阻塞任务', value: String(blockedCount), hint: 'blocked 任务 + open 风险' },
-    { label: '活跃 Agent', value: `${activeAgents}/${data.agents.length}`, hint: 'active agents' },
-    { label: '最近更新', value: latestUpdate, hint: data.recentUpdates[0]?.title ?? '暂无更新' },
+    { label: '整体进度', value: `${progress}%`, hint: `${data.tasks.length} 个任务平均进度`, icon: 'trend' as const, tone: 'blue' },
+    { label: '进行中任务', value: String(inProgressTasks), hint: 'ready / in_progress / review', icon: 'tasks' as const, tone: 'violet' },
+    { label: '阻塞任务', value: String(blockedCount), hint: 'blocked 任务 + open 风险', icon: 'risk' as const, tone: 'red' },
+    { label: '活跃 Agent', value: String(activeAgents), hint: `${data.agents.length} 个 profiles`, icon: 'agent' as const, tone: 'green' },
+    { label: '最近更新', value: String(data.recentUpdates.length), hint: latestUpdate ? latestUpdate.title : data.project.updatedAt, icon: 'clock' as const, tone: 'sky' },
   ];
 
   return (
-    <main className="dashboard-shell">
-      <aside className="sidebar">
-        <div className="brand-card">
-          <img src={logoUrl} alt="两元店 AI创作好帮手" />
-          <span>Dev OS</span>
-        </div>
-        <nav className="nav-list" aria-label="Dev OS navigation">
-          {navigation.map((item, index) => (
-            <a className={index === 0 ? 'nav-item active' : 'nav-item'} href={item.href} key={item.label}>
-              <span>{item.label}</span>
-              {item.state ? <small>{item.state}</small> : null}
-            </a>
-          ))}
-        </nav>
-      </aside>
+    <div className="dashboard-shell">
+      <Sidebar />
 
-      <section className="content-panel">
-        <header className="hero card gradient-card">
-          <div>
-            <p className="eyebrow">{data.project.phase} · {data.project.slug}</p>
-            <h1>{projectTitle}</h1>
-            <p>{data.project.principle}</p>
-          </div>
-          <div className="hero-badge">
-            <span>{data.project.updatedAt}</span>
-            <strong>{data.project.status}</strong>
-          </div>
-        </header>
+      <main className="dashboard-main">
+        <TopHeader
+          status={data.project.status}
+          title={projectTitle}
+          updatedAt={data.project.updatedAt}
+        />
 
-        <section className="kpi-grid" aria-label="KPI">
+        <section className="kpi-grid" aria-label="Dev OS KPI">
           {kpis.map((kpi) => (
-            <article className="card kpi-card" key={kpi.label}>
-              <span>{kpi.label}</span>
-              <strong>{kpi.value}</strong>
-              <small>{kpi.hint}</small>
-            </article>
+            <KpiCard
+              hint={kpi.hint}
+              icon={kpi.icon}
+              key={kpi.label}
+              label={kpi.label}
+              progress={kpi.label === '整体进度' ? progress : undefined}
+              tone={kpi.tone}
+              value={kpi.value}
+            />
           ))}
         </section>
 
-        <section className="layout-grid">
-          <article className="card overview-card">
-            <SectionTitle title="项目总览" subtitle="Project Overview" />
-            <div className="overview-row"><span>当前阶段</span><strong>{data.project.phase}</strong></div>
-            <div className="overview-row"><span>Sprint</span><strong>{currentSprint}</strong></div>
-            <div className="overview-row"><span>健康状态</span><strong className={`pill ${healthStatus === '健康' ? 'success' : 'warning'}`}>{healthStatus}</strong></div>
-            <p className="muted-text">{data.project.currentFocus}</p>
-          </article>
+        <section className="dashboard-grid" id="overview">
+          <ProjectOverviewCard
+            currentPhase={currentPhase}
+            currentPhaseProgress={currentPhaseProgress}
+            data={data}
+            healthStatus={healthStatus}
+            progress={progress}
+          />
 
-          <article className="card agents-card">
-            <SectionTitle title="Agent 状态" subtitle={`${data.agents.length} profiles`} />
-            <div className="agent-list">
-              {data.agents.map((agent: Agent) => (
-                <div className="agent-item" key={agent.id}>
-                  <div>
-                    <strong>{agent.name}</strong>
-                    <span>{agent.role}</span>
-                  </div>
-                  <Badge status={agent.status} />
-                </div>
-              ))}
+          <AgentStatusGrid agents={data.agents} />
+        </section>
+
+        <section className="work-grid">
+          <RoadmapTimeline phases={data.roadmap} />
+          <div className="side-stack">
+            <RiskApprovalCard approvals={data.pendingApprovals} risks={data.risks} />
+            <RecentUpdatesCard updates={data.recentUpdates} />
+          </div>
+        </section>
+
+        <WikiQuickLinks links={data.wikiLinks} />
+        <ProjectWikiViewer updates={data.recentUpdates} />
+      </main>
+    </div>
+  );
+}
+
+function Sidebar() {
+  return (
+    <aside className="sidebar">
+      <BrandLockup />
+      <nav className="nav-list" aria-label="Dev OS navigation">
+        {navigation.map((item, index) => (
+          <a className={index === 0 ? 'nav-item active' : 'nav-item'} href={item.href} key={item.label}>
+            <Icon name={item.icon} />
+            <span>{item.label}</span>
+            {item.state ? <small>{item.state}</small> : null}
+          </a>
+        ))}
+      </nav>
+
+      <div className="sidebar-footer">
+        <img src={logoUrl} alt="" />
+        <div>
+          <strong>Dev OS</strong>
+          <span>v1.0.0</span>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function BrandLockup() {
+  return (
+    <a className="brand-lockup" href="#overview" aria-label="两元店 Dev OS 总览">
+      <img src={logoUrl} alt="两元店" />
+      <div>
+        <strong>两元店</strong>
+        <span>AI创作好帮手</span>
+      </div>
+    </a>
+  );
+}
+
+function TopHeader({ title, status, updatedAt }: { title: string; status: string; updatedAt: string }) {
+  return (
+    <header className="top-header">
+      <div className="title-block">
+        <h1>{title}</h1>
+        <p>{status}</p>
+      </div>
+
+      <label className="search-box">
+        <Icon name="search" />
+        <input aria-label="搜索项目、任务、文档、Agent" placeholder="搜索项目、任务、文档、Agent..." readOnly />
+        <kbd>⌘ K</kbd>
+      </label>
+
+      <div className="header-actions" aria-label="Header placeholders">
+        <button className="icon-button with-badge" type="button" aria-label="通知占位">
+          <Icon name="bell" />
+          <span>3</span>
+        </button>
+        <button className="icon-button" type="button" aria-label="帮助占位">
+          <Icon name="help" />
+        </button>
+        <button className="user-chip" type="button" aria-label="用户占位">
+          <span className="avatar"><Icon name="user" /></span>
+          <span>
+            <strong>张小圆</strong>
+            <small>项目负责人 · {updatedAt}</small>
+          </span>
+        </button>
+      </div>
+    </header>
+  );
+}
+
+function KpiCard({ label, value, hint, icon, tone, progress }: { label: string; value: string; hint: string; icon: IconName; tone: string; progress?: number }) {
+  return (
+    <article className={`dashboard-card kpi-card tone-${tone}`}>
+      <div className="kpi-visual">
+        {typeof progress === 'number'
+          ? <ProgressRing value={progress} />
+          : (
+            <span className="kpi-icon">
+              <Icon name={icon} />
+            </span>
+          )}
+      </div>
+      <div>
+        <span className="card-label">{label}</span>
+        <strong>{value}</strong>
+        <small>{hint}</small>
+      </div>
+    </article>
+  );
+}
+
+function ProgressRing({ value }: { value: number }) {
+  const degrees = Math.min(Math.max(value, 0), 100) * 3.6;
+
+  return (
+    <span
+      className="progress-ring"
+      style={{ background: `conic-gradient(#2f6bff ${degrees}deg, #e8ebf7 0deg)` }}
+      aria-label={`进度 ${value}%`}
+    >
+      <span />
+    </span>
+  );
+}
+
+function ProjectOverviewCard({
+  data,
+  currentPhase,
+  currentPhaseProgress,
+  healthStatus,
+  progress,
+}: {
+  data: DashboardData;
+  currentPhase?: RoadmapPhase;
+  currentPhaseProgress: number;
+  healthStatus: string;
+  progress: number;
+}) {
+  const taskStatusSegments = [
+    { label: '已完成', value: percentage(countByStatus(data.tasks, ['done']), data.tasks.length), tone: 'done' },
+    { label: '进行中', value: percentage(activeTaskCount(data.tasks), data.tasks.length), tone: 'active' },
+    { label: '未开始', value: percentage(countByStatus(data.tasks, ['planned', 'pending']), data.tasks.length), tone: 'pending' },
+  ];
+
+  return (
+    <article className="dashboard-card overview-card">
+      <SectionTitle title="项目总览" subtitle={data.project.principle} />
+
+      <div className="overview-topline">
+        <span className="overview-icon"><Icon name="rocket" /></span>
+        <div>
+          <span>当前阶段</span>
+          <strong>{data.project.phase}</strong>
+          <p>{data.project.currentFocus}</p>
+        </div>
+      </div>
+
+      <div className="overview-facts">
+        <InfoPair label="当前 Sprint" value={currentPhase?.title ?? data.project.phase} />
+        <InfoPair label="健康状态" value={healthStatus} tone={healthStatus === '状态良好' ? 'success' : 'warning'} />
+        <InfoPair label="阶段进度" value={`${currentPhaseProgress}%`} />
+      </div>
+
+      <div className="progress-summary">
+        <div className="progress-heading">
+          <span>整体任务进度</span>
+          <strong>{progress}%</strong>
+        </div>
+        <div className="stacked-progress" aria-label={`整体任务进度 ${progress}%`}>
+          {taskStatusSegments.map((segment) => (
+            <span
+              className={`segment ${segment.tone}`}
+              key={segment.label}
+              style={{ width: `${segment.value}%` }}
+            />
+          ))}
+        </div>
+        <div className="progress-legend">
+          {taskStatusSegments.map((segment) => (
+            <span key={segment.label}><i className={segment.tone} />{segment.label} {segment.value}%</span>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function InfoPair({ label, value, tone }: { label: string; value: string; tone?: string }) {
+  return (
+    <div className="info-pair">
+      <span>{label}</span>
+      {tone ? <strong className={`pill ${tone}`}>{value}</strong> : <strong>{value}</strong>}
+    </div>
+  );
+}
+
+function AgentStatusGrid({ agents }: { agents: Agent[] }) {
+  return (
+    <section className="dashboard-card agents-card" id="agents">
+      <SectionTitle title="Agent 状态" subtitle={`${agents.length} profiles · dashboard.json`} />
+      <div className="agent-grid">
+        {agents.map((agent) => (
+          <article className="agent-tile" key={agent.id}>
+            <div className="agent-head">
+              <span className={`agent-avatar ${statusTone(agent.status)}`}>
+                <Icon name="agent" />
+              </span>
+              <Badge status={agent.status} />
+            </div>
+            <strong>{agent.name}</strong>
+            <span>{agent.role}</span>
+            <div className="agent-meta">
+              <small>最近进展</small>
+              <p>{agent.progress.at(-1) ?? '暂无进展'}</p>
             </div>
           </article>
-        </section>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-        <section className="card roadmap-card">
-          <SectionTitle title="Roadmap" subtitle="Phase 0 ~ Phase 4" />
-          <div className="roadmap-list">
-            {data.roadmap.map((phase: RoadmapPhase) => (
-              <article className="phase-card" key={phase.id}>
+function RoadmapTimeline({ phases }: { phases: RoadmapPhase[] }) {
+  return (
+    <section className="dashboard-card roadmap-card">
+      <SectionTitle title="里程碑 / Roadmap" subtitle="Phase 0 ~ Phase 4" />
+      <div className="timeline">
+        {phases.map((phase) => {
+          const progress = phaseProgress(phase);
+
+          return (
+            <article className={phase.status === 'in_progress' ? 'timeline-item current' : 'timeline-item'} key={phase.id}>
+              <div className="timeline-dot"><Icon name={phase.status === 'done' ? 'check' : 'daily'} /></div>
+              <div className="timeline-copy">
                 <Badge status={phase.status} />
-                <h3>{phase.title}</h3>
-                <ul>
-                  {phase.items.map((item) => (
-                    <li key={item.title} className={item.done ? 'done' : ''}>{item.title}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+                <h3>{shortPhaseTitle(phase.title)}</h3>
+                <p>{phase.title.includes('：') ? phase.title.split('：').slice(1).join('：') : phase.title}</p>
+                <span>{progress}% · {phase.items.filter((item) => item.done).length}/{phase.items.length} 项完成</span>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function RiskApprovalCard({ risks, approvals }: { risks: Risk[]; approvals: DashboardData['pendingApprovals'] }) {
+  const riskItems = risks.slice(0, 3).map((risk) => ({
+    key: risk.id,
+    title: risk.title,
+    meta: `${statusLabel(risk.status)} · ${risk.impact}`,
+    tone: statusTone(risk.status),
+  }));
+  const approvalItems = approvals.slice(0, 3).map((approval) => ({
+    key: approval.id,
+    title: approval.title,
+    meta: approval.source,
+    tone: 'warning',
+  }));
+
+  return (
+    <section className="dashboard-card compact-list-card" id="risks">
+      <SectionTitle title="风险与待确认" subtitle={`${risks.length} risks · ${approvals.length} approvals`} />
+      <div className="compact-list">
+        {[...riskItems, ...approvalItems].map((item) => (
+          <div className="compact-row" key={item.key}>
+            <span className={`status-dot ${item.tone}`} />
+            <div>
+              <strong>{item.title}</strong>
+              <p>{item.meta}</p>
+            </div>
           </div>
-        </section>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-        <ProjectWikiViewer updates={data.recentUpdates} />
+function RecentUpdatesCard({ updates }: { updates: RecentUpdate[] }) {
+  return (
+    <section className="dashboard-card compact-list-card">
+      <SectionTitle title="最近更新" subtitle={`${updates.length} records`} />
+      <div className="update-timeline">
+        {updates.slice(0, 5).map((update) => (
+          <article key={`${update.date}-${update.title}`}>
+            <time>{update.date}</time>
+            <strong>{update.title}</strong>
+            <p>{update.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-        <section className="bottom-grid">
-          <ListCard title="风险与阻塞" subtitle="Risks" items={data.risks.map((risk) => ({ key: risk.id, title: risk.title, meta: `${statusLabel(risk.status)} · ${risk.impact}`, tone: statusTone(risk.status) }))} />
-          <ListCard title="待你确认" subtitle="Pending Approvals" items={data.pendingApprovals.map((approval) => ({ key: approval.id, title: approval.title, meta: approval.source, tone: 'warning' }))} />
-          <ListCard title="最近更新" subtitle="Recent Updates" items={data.recentUpdates.map((update) => ({ key: `${update.date}-${update.title}`, title: update.title, meta: `${update.date} · ${update.description}`, tone: 'success' }))} />
-        </section>
-      </section>
-    </main>
+function WikiQuickLinks({ links }: { links: readonly WikiLink[] }) {
+  return (
+    <section className="dashboard-card wiki-quick-card" id="task-board">
+      <SectionTitle title="Wiki 快速入口" subtitle="只读 Project OS Markdown" />
+      <div className="wiki-quick-grid">
+        {links.slice(0, 6).map((link) => (
+          <a href="#project-wiki" className="wiki-quick-link" key={`${link.type}-${link.path}`}>
+            <span className={`wiki-type type-${link.type}`}><Icon name={link.type === 'risks' ? 'risk' : 'wiki'} /></span>
+            <div>
+              <strong>{link.title}</strong>
+              <small>{link.path}</small>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -634,7 +930,7 @@ function ProjectWikiViewer({ updates }: { updates: RecentUpdate[] }) {
   }, []);
 
   return (
-    <section className="card wiki-viewer" id="project-wiki">
+    <section className="dashboard-card wiki-viewer" id="project-wiki">
       <div className="wiki-header">
         <SectionTitle title="Project Wiki" subtitle={`${wikiModel.entries.length} Markdown docs · dashboard.json wikiLinks`} />
         <span className="pill wiki-lock">只读预览</span>
@@ -838,25 +1134,14 @@ function SectionTitle({ title, subtitle }: { title: string; subtitle: string }) 
 }
 
 function Badge({ status }: { status: Status }) {
-  return <span className={`pill ${statusTone(status)}`}>{statusLabel(status)}</span>;
+  return <span className={statusClassName(status)}>{statusLabel(status)}</span>;
 }
 
-function ListCard({ title, subtitle, items }: { title: string; subtitle: string; items: Array<{ key: string; title: string; meta: string; tone: string }> }) {
+function Icon({ name }: { name: IconName }) {
   return (
-    <article className="card list-card">
-      <SectionTitle title={title} subtitle={subtitle} />
-      <div className="stack-list">
-        {items.map((item) => (
-          <div className="stack-item" key={item.key}>
-            <span className={`dot ${item.tone}`} />
-            <div>
-              <strong>{item.title}</strong>
-              <p>{item.meta}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </article>
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      <path d={iconPaths[name]} />
+    </svg>
   );
 }
 

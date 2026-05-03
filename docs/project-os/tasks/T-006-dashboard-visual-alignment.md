@@ -2,9 +2,9 @@
 id: T-006
 title: Dev OS Dashboard Visual Alignment / Shell Refactor
 owner: yuan-frontend
-status: ready
+status: done
 priority: P1
-progress: 0
+progress: 100
 created_at: 2026-05-03
 updated_at: 2026-05-03
 tags:
@@ -124,22 +124,22 @@ T-006 不涉及新数据结构、API、dashboard schema 或业务系统边界，
 
 ## 验收标准
 
-- [ ] `/dev-dashboard` 可访问。
-- [ ] 视觉明显更接近 `pic/dev-os-dashboard.png`。
-- [ ] 保留 T-003 总览能力。
-- [ ] 保留 T-005 Project Wiki Viewer 能力。
-- [ ] 所有任务、Agent、风险、Roadmap、recent updates、wikiLinks 数据仍来自 `dashboard.json`。
-- [ ] 不硬编码业务状态数据。
-- [ ] 不新增 API。
-- [ ] 不修改 dashboard schema。
-- [ ] 不修改数据库 schema。
-- [ ] 不开发登录、生图、试卷、支付业务功能。
-- [ ] `npm run lint` 通过。
-- [ ] `npm run typecheck` 通过。
-- [ ] `npm run build` 通过。
-- [ ] `jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json` 通过。
-- [ ] `git diff --check` 通过。
-- [ ] reviewer 提供截图或文字说明当前界面相对设计基准的改善点，以及仍未完成的后续 polish 项。
+- [x] `/dev-dashboard` 可访问。
+- [x] 视觉明显更接近 `pic/dev-os-dashboard.png`。
+- [x] 保留 T-003 总览能力。
+- [x] 保留 T-005 Project Wiki Viewer 能力。
+- [x] 所有任务、Agent、风险、Roadmap、recent updates、wikiLinks 数据仍来自 `dashboard.json`。
+- [x] 不硬编码业务状态数据。
+- [x] 不新增 API。
+- [x] 不修改 dashboard schema。
+- [x] 不修改数据库 schema。
+- [x] 不开发登录、生图、试卷、支付业务功能。
+- [x] `npm run lint` 通过。
+- [x] `npm run typecheck` 通过。
+- [x] `npm run build` 通过。
+- [x] `jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json` 通过。
+- [x] `git diff --check` 通过。
+- [x] reviewer 提供截图或文字说明当前界面相对设计基准的改善点，以及仍未完成的后续 polish 项。
 
 ## Reviewer 验收重点
 
@@ -153,3 +153,6 @@ T-006 不涉及新数据结构、API、dashboard schema 或业务系统边界，
 ## 进展记录
 
 - 2026-05-03：由 `yuan-control` 创建任务，状态 ready；下一步派 `yuan-frontend` 实现。
+
+- 2026-05-03：`yuan-frontend` 已完成 T-006 实现，重构 Dashboard shell、sidebar、top header、KPI、Agent grid、Roadmap、风险/待确认、最近更新和 Wiki 快捷入口；抽取独立 logo 资源，验证 lint/typecheck/build/jq/diff-check 通过，下一步等待 `yuan-reviewer` 验收。
+- 2026-05-03：`yuan-reviewer` 已完成 T-006 验收，结论 PASS with notes；验证 lint/typecheck/build/jq/diff-check 与浏览器截图通过。Gemini CLI 已调用但服务端返回 429 模型容量不足，无有效二审输出，已按流程记录。
