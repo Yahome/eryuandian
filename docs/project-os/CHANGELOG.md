@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2026-05-03
+
+- 完成 Dev OS 流程纠偏：凡涉及新页面、新模块、数据结构、`dashboard.json` / schema 变更、API / 接口协议、Wiki / 文档索引结构、业务系统边界、前后端协作边界的任务，frontend/backend 开工前必须先由 `yuan-architect` 输出轻量架构说明。
+- 明确例外：状态同步、文档小修、拼写修复、链接修正、reviewer 发现的小范围问题修复，不强制经过 `yuan-architect`。
+- 将 T-005 Project Wiki Viewer 调整为 `yuan-architect` 架构前置 → `yuan-frontend` 实现 → `yuan-reviewer` 按架构验收。
+- 完成 T-005 Project Wiki Viewer 前置架构说明：复用 `dashboard.json.wikiLinks`，本阶段不变更 dashboard schema，不新增 API，不修改数据库 schema；下一步等待 `yuan-frontend` 实现。
+- 明确当前阶段不开发登录、生图、试卷、支付等业务功能，不修改数据库 schema。
+
 ## 2026-05-02
 
 - 初始化 `/root/eryuandian` 项目目录。

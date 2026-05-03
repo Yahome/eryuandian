@@ -5,7 +5,7 @@
 
 ## 结论
 
-两元店 Dev OS 的 Markdown 事实源已经建立，5 个 Hermes Agent 的职责文档已就位，T-001、T-002、T-004 已完成。`yuan-frontend` 已完成 T-003 `/dev-dashboard` 第一版总览页；`yuan-reviewer` 已验收通过：页面可访问、读取 `docs/project-os/dashboard/dashboard.json`、未硬编码 agent/task/risk/roadmap 业务数据、lint/typecheck/build 通过，Git diff 未越界。
+两元店 Dev OS 的 Markdown 事实源已经建立，5 个 Hermes Agent 的职责文档已就位，T-001、T-002、T-004 已完成。`yuan-frontend` 已完成 T-003 `/dev-dashboard` 第一版总览页；`yuan-reviewer` 已验收通过：页面可访问、读取 `docs/project-os/dashboard/dashboard.json`、未硬编码 agent/task/risk/roadmap 业务数据、lint/typecheck/build 通过，Git diff 未越界。T-005 Project Wiki Viewer 的 `yuan-architect` 前置架构说明已完成，下一步等待 `yuan-frontend` 按架构边界实现。
 
 ## T-003 Dashboard UI 验收结论（yuan-reviewer，2026-05-03）
 
@@ -49,10 +49,11 @@ T-003 放行建议：**可以交给 `yuan-frontend` 开发 `/dev-dashboard`**。
 - T-002：建立 Project OS 文档事实源，已完成。
 - T-003：Dev OS Dashboard UI，第一版总览页已完成并经 `yuan-reviewer` 验收通过。
 - T-004：Dashboard JSON Sync，本次已生成 `summary.md` 与合法 JSON 数据。
+- T-005 架构前置阶段：Project Wiki Viewer 轻量架构说明已完成；本阶段复用 `dashboard.json.wikiLinks`，不变更 schema，不新增 API，不修改数据库 schema。
 
 ## 进行中 / 可开工
 
-- T-005：Project Wiki Viewer，状态 ready；优先级 P1，当前 Dashboard 已提供 Wiki 快速入口，完整浏览器仍待后续实现。
+- T-005：Project Wiki Viewer，状态 in_progress；优先级 P1，progress 40；前置架构说明已完成，下一步等待 `yuan-control` 派 `yuan-frontend` 按 `tasks/T-005-wiki-viewer.md` 实现。
 - Phase 0 仍有任务看板详情页与进度汇总机制待继续完善。
 
 ## 阻塞与风险
@@ -63,10 +64,9 @@ T-003 放行建议：**可以交给 `yuan-frontend` 开发 `/dev-dashboard`**。
 
 ## 待确认事项
 
-1. 确认 `/dev-dashboard` 前端是否可以基于 `docs/project-os/dashboard/dashboard.json` 开工。
-2. 确认 T-003 的验收范围是否只覆盖 Dev OS Dashboard，不进入登录、生图、试卷等业务功能。
-3. 确认后续 Dashboard 是否继续由 `yuan-architect` 手动同步，还是增加自动同步脚本。
-4. 确认 Phase 1 开工前的技术栈、API 契约、数据模型是否以现有草案为准。
+1. T-005 Project Wiki Viewer 等待 `yuan-control` 派 `yuan-frontend` 按架构说明实现。
+2. 确认后续 Dashboard 是否继续由 `yuan-architect` 手动同步，还是增加自动同步脚本。
+3. 确认 Phase 1 开工前的技术栈、API 契约、数据模型是否以现有草案为准。
 
 ## Wiki 快速入口
 

@@ -1,6 +1,7 @@
 # TASK_BOARD
 
 状态：Phase 0 / Dev OS 闭环建立中
+更新时间：2026-05-03
 
 | ID | 标题 | 负责人 | 状态 | 优先级 | 文档 |
 |---|---|---|---|---|---|
@@ -9,7 +10,7 @@
 | T-002 | 建立 Project OS 文档事实源 | yuan-architect | done | P0 | `tasks/T-002-project-os-docs.md` |
 | T-003 | Dev OS Dashboard UI | yuan-frontend | done | P0 | `tasks/T-003-dashboard-ui.md` |
 | T-004 | Dashboard JSON Sync | yuan-architect | done | P0 | `tasks/T-004-dashboard-json-sync.md` |
-| T-005 | Project Wiki Viewer | yuan-frontend | ready | P1 | `tasks/T-005-wiki-viewer.md` |
+| T-005 | Project Wiki Viewer | yuan-frontend（等待按架构实现） | in_progress | P1 | `tasks/T-005-wiki-viewer.md` |
 
 ## 状态枚举
 
@@ -23,10 +24,30 @@
 
 ## 当前执行顺序
 
-1. 测试 5 个 Hermes profiles 响应。
-2. 让 `yuan-control` 读取任务并确认 Phase 0 计划。
-3. 让 `yuan-architect` 生成 `docs/project-os/dashboard/dashboard.json`。
-4. 确认数据源后再让 `yuan-frontend` 开发 `/dev-dashboard`。
+1. Dev OS 流程纠偏已写入事实源：新页面 / 新模块 / 数据结构 / 接口协议 / Wiki 索引 / 系统边界 / 前后端协作边界，必须先由 `yuan-architect` 输出轻量架构说明。
+2. T-005 Project Wiki Viewer 前置架构说明已由 `yuan-architect` 完成，任务文档已明确结构、数据、边界和验收标准。
+3. 下一步等待 `yuan-control` 派 `yuan-frontend` 按 `tasks/T-005-wiki-viewer.md` 实现 Wiki Viewer，不得超出架构边界。
+4. `yuan-reviewer` 验收 T-005 时必须检查 frontend 是否遵守 architect 的设计边界。
+
+## Architect 前置门禁
+
+必须先经过 `yuan-architect`：
+
+- 新页面。
+- 新模块。
+- 数据结构。
+- `dashboard.json` / schema 变更。
+- API / 接口协议。
+- Wiki / 文档索引结构。
+- 业务系统边界。
+- 前后端协作边界。
+
+可不经过 `yuan-architect`：
+
+- 状态同步。
+- 文档小修、拼写修复、链接修正。
+- reviewer 发现的小范围问题修复。
+- 与既有事实一致的任务状态同步。
 
 ## 今天不做
 
@@ -35,4 +56,5 @@
 - 不接支付。
 - 不让所有 agent 都进群。
 - 不直接开发业务功能。
-- 不使用 `--yolo`。
+- 不开发登录、生图、试卷、支付等业务功能。
+- 不修改数据库 schema。
