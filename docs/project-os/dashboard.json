@@ -8,7 +8,7 @@
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "T-005 Project Wiki Viewer 已完成并通过验收；下一步继续推进 Dev OS 任务看板详情页与进度汇总机制。",
+    "currentFocus": "T-005 已完成；下一步进行 Dev OS Dashboard 视觉对齐 / Shell 重构，然后继续任务看板详情页与进度汇总机制。",
     "updatedAt": "2026-05-03"
   },
   "agents": [
@@ -170,11 +170,11 @@
     {
       "id": "T-005",
       "title": "Project Wiki Viewer",
-      "owner": "yuan-reviewer",
+      "owner": "yuan-frontend",
       "status": "done",
       "priority": "P1",
       "progress": 100,
-      "summary": "Project Wiki Viewer 已在 /dev-dashboard 内实现只读 Wiki 浏览；复用 dashboard.json.wikiLinks，不变更 schema，不新增 API，yuan-reviewer 与 Gemini 双审查通过。",
+      "summary": "Project Wiki Viewer 已完成：yuan-frontend 实现，yuan-reviewer 与 Gemini 双审查通过。",
       "wiki": "docs/project-os/tasks/T-005-wiki-viewer.md"
     }
   ],
@@ -342,12 +342,6 @@
       "title": "确认 Phase 1 开工前技术栈、API 契约、数据模型是否以现有草案为准",
       "owner": "user",
       "source": "README.md / ROADMAP.md"
-    },
-    {
-      "id": "PA-005",
-      "title": "T-005 Project Wiki Viewer 已完成，等待总控提交同步",
-      "owner": "yuan-control",
-      "source": "TASK_BOARD.md / tasks/T-005-wiki-viewer.md"
     }
   ],
   "recentUpdates": [

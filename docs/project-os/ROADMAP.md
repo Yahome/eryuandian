@@ -5,8 +5,9 @@
 - [x] Agent 分工规则建立
 - [x] docs/project-os 文档体系建立
 - [x] Dev Dashboard MVP
+- [ ] T-006 Dev OS Dashboard 视觉对齐 / Shell 重构
 - [ ] 任务看板与进度汇总机制
-- [ ] T-005 Project Wiki Viewer：in_progress，架构前置已完成，下一步由 `yuan-frontend` 实现
+- [x] T-005 Project Wiki Viewer：已完成，`yuan-frontend` 实现，`yuan-reviewer` 与 Gemini 双审查通过
 
 ## Phase 1：MVP 基础
 - [ ] 手机号登录
