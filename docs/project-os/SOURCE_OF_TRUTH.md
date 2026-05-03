@@ -17,7 +17,7 @@
 | 英文目录名 | eryuandian |
 | 本地项目目录 | `/root/eryuandian` |
 | GitHub 仓库 | `https://github.com/Yahome/eryuandian` |
-| GitHub 可见性 | private |
+| GitHub 可见性 | public |
 | Dev OS 事实源 | `/root/eryuandian/docs/project-os` |
 | 设计稿目录 | `/root/eryuandian/pic` |
 
@@ -101,7 +101,7 @@
 已完成：
 
 - 本地项目目录 `/root/eryuandian`
-- GitHub private repo `Yahome/eryuandian`
+- GitHub repo `Yahome/eryuandian` 已完成远端同步，计划公开访问
 - Dev OS 基础文档
 - 5 个 Hermes profiles
 - 5 个 profile 角色规则 `SOUL.md`
