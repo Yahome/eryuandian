@@ -43,3 +43,9 @@
   - 左侧导航已实现；任务看板、Agent 状态、项目 Wiki、风险与决策、日报、设置为第一版 `Coming soon` 占位。
   - UI 使用 `pic/brand-logo-identity.png`、紫蓝渐变、白底圆角卡片风格。
   - 验证通过：`npm run lint`、`npm run typecheck`、`npm run build`；`/dev-dashboard` 本地访问返回 200。
+- 2026-05-03：已完成 T-005 Project Wiki Viewer 前端实现，等待 `yuan-reviewer` 验收。
+  - 继续使用现有 `/dev-dashboard`，未新建业务系统。
+  - Wiki 索引来自 `docs/project-os/dashboard/dashboard.json` 的 `wikiLinks`，最近更新复用 `recentUpdates`。
+  - Markdown 正文通过 Vite raw glob 固定映射到 `docs/project-os/**/*.md`，目录入口 `docs/project-os/agents/` 与 `docs/project-os/tasks/` 展开为目录下 Markdown 文件。
+  - Markdown 只读渲染，不提供编辑、保存、上传、删除、重命名；原始 HTML/script 不执行。
+  - 未修改 dashboard schema，未新增 API，未修改数据库 schema，未开发登录、生图、试卷、支付等业务功能。

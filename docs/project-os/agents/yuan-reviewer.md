@@ -131,3 +131,67 @@ PY
 
 - 已修复：`docs/project-os/TASK_BOARD.md` 中 T-004 状态已同步为 `done`。
 - 已补充：5 个 profile 的 `SOUL.md` 审计记录已写入 `docs/project-os/agents/profile-audit.md`，只包含路径、角色摘要和最后修改时间，不包含敏感信息。
+
+## T-005 Project Wiki Viewer 验收记录（2026-05-03）
+
+执行角色：`yuan-reviewer`（Review / QA Agent）。
+
+### 总体结论
+
+**PASS with notes / 可交给 `yuan-control` 做后续状态同步与提交前确认**。
+
+- PASS：已先读取 `SOURCE_OF_TRUTH.md`、`AGENT_WORKFLOW.md`、`TASK_BOARD.md`、`tasks/T-005-wiki-viewer.md`、本文件、两个 dashboard JSON、`src/main.tsx`、`src/styles.css`。
+- PASS：T-005 已有 `yuan-architect` 前置架构说明，明确复用 `dashboard.json.wikiLinks`、不新增 API、不修改 schema、不修改数据库、不开发登录/生图/试卷/支付业务。
+- PASS：`/dev-dashboard` 中 Project Wiki Viewer 可用；浏览器脚本验证可见 `Project Wiki`、`只读预览`、README、Roadmap、Task Board、Decisions、Risks、Agent 进度目录、任务文档目录，并可切换到 `docs/project-os/tasks/T-005-wiki-viewer.md` 与 `docs/project-os/agents/yuan-reviewer.md`。
+- PASS：Wiki 索引来自 `dashboardData.wikiLinks`；Markdown 正文通过 Vite raw glob 固定映射到 `docs/project-os/**/*.md`，并通过 `wikiLinks` 文件路径或目录前缀生成可选入口。
+- PASS：路径边界符合要求：只接受 `docs/project-os/` 下的 `.md` 文件或目录，拒绝 `..`，内部 Markdown 链接也必须落在 `wikiModel.allowedPaths` 后才允许切换。
+- PASS：Markdown 只读渲染，未使用 `dangerouslySetInnerHTML`；浏览器检查 `#project-wiki` 内 `input`、`textarea`、`contenteditable`、保存/编辑/上传/删除/重命名按钮数量均为 0。
+- PASS：外链只允许 `http:` / `https:`，并使用 `target="_blank"` 与 `rel="noreferrer noopener"`；`javascript:`、`data:`、`file:` 等协议不会打开。
+- PASS：未新增依赖、未新增后端 API、未修改 `docs/project-os/dashboard/SCHEMA.md`、未修改数据库 schema，未开发登录/生图/试卷/支付业务功能。
+- PASS：未发现前端硬编码 Agent / Task / Risk / Roadmap / Wiki 业务数据；状态中文映射、类型标签和导航文案属于 UI 展示文案。
+- NOTE：`docs/project-os/TASK_BOARD.md` 仍显示 T-005 为 `in_progress` 且“等待按架构实现”，与 T-005 任务文档和两个 dashboard JSON 的 `review` 状态不一致。该问题不阻断 Wiki Viewer 功能验收，但建议 `yuan-control` 后续做事实源状态同步。
+
+### 验证命令与结果
+
+```bash
+npm run lint
+# PASS：exit 0
+
+npm run typecheck
+# PASS：exit 0
+
+npm run build
+# PASS：exit 0，Vite build 成功
+
+jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json
+# PASS：exit 0
+
+git diff --check
+# PASS：exit 0
+
+curl -I -s http://127.0.0.1:5173/dev-dashboard
+# PASS：HTTP/1.1 200 OK
+```
+
+补充页面验证：使用本机 Chrome + Playwright 只读访问 `http://127.0.0.1:5173/dev-dashboard`，确认 Wiki 入口、目录展开、文档切换、只读控件边界均符合预期。
+
+### Gemini 第二审查结论
+
+调用命令：
+
+```bash
+HOME=/root/.hermes/profiles/yuan-reviewer/home gemini --prompt '你是第二审查员。请只读审查当前 git diff 与 T-005 Project Wiki Viewer 验收标准，按 Blocker/Major/Minor/Nit 输出问题和证据。不要修改文件。'
+```
+
+Gemini 结论：**Review Pass**。
+
+- Blocker：无。
+- Major：无。
+- Minor：图片 Markdown 被降级为文本占位；轻量 Markdown 解析器不支持复杂表格和复杂嵌套列表。
+- Nit：目录展开仅支持直属 Markdown 文件；安全过滤与未使用 `dangerouslySetInnerHTML` 符合架构边界。
+
+### 冲突裁决
+
+- `yuan-reviewer` 与 Gemini 对 T-005 主结论一致：无 Blocker/Major，符合架构边界，可通过验收。
+- Gemini 的 Minor/Nit 均属于后续体验或扩展能力，不影响当前 T-005 验收标准；当前任务没有要求完整 Markdown 引擎、远程图片渲染或递归目录。
+- `yuan-reviewer` 额外记录的 `TASK_BOARD.md` 状态滞后属于事实源同步 note，建议由 `yuan-control` 处理；不改变本次 T-005 Wiki Viewer 实现验收结论。

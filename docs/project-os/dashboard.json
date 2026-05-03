@@ -8,7 +8,7 @@
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "T-005 Project Wiki Viewer 前置架构说明已完成；下一步等待 yuan-frontend 按架构边界实现。",
+    "currentFocus": "T-005 Project Wiki Viewer 已完成并通过验收；下一步继续推进 Dev OS 任务看板详情页与进度汇总机制。",
     "updatedAt": "2026-05-03"
   },
   "agents": [
@@ -73,7 +73,8 @@
       "progress": [
         "profile 已创建",
         "SOUL.md 已写入角色规则",
-        "设计稿基准已写入前端 profile"
+        "设计稿基准已写入前端 profile",
+        "已完成 T-005 Project Wiki Viewer 前端实现：在现有 /dev-dashboard 内提供只读 Markdown 浏览、wikiLinks 索引和目录展开"
       ],
       "wiki": "docs/project-os/agents/yuan-frontend.md"
     },
@@ -169,11 +170,11 @@
     {
       "id": "T-005",
       "title": "Project Wiki Viewer",
-      "owner": "yuan-frontend",
-      "status": "in_progress",
+      "owner": "yuan-reviewer",
+      "status": "done",
       "priority": "P1",
-      "progress": 40,
-      "summary": "yuan-architect 已完成 Project Wiki Viewer 前置架构说明；复用 dashboard.json.wikiLinks，不变更 schema，不新增 API，下一步等待 yuan-frontend 实现。",
+      "progress": 100,
+      "summary": "Project Wiki Viewer 已在 /dev-dashboard 内实现只读 Wiki 浏览；复用 dashboard.json.wikiLinks，不变更 schema，不新增 API，yuan-reviewer 与 Gemini 双审查通过。",
       "wiki": "docs/project-os/tasks/T-005-wiki-viewer.md"
     }
   ],
@@ -344,12 +345,34 @@
     },
     {
       "id": "PA-005",
-      "title": "T-005 Project Wiki Viewer 等待 yuan-frontend 按架构说明实现",
-      "owner": "yuan-frontend",
+      "title": "T-005 Project Wiki Viewer 已完成，等待总控提交同步",
+      "owner": "yuan-control",
       "source": "TASK_BOARD.md / tasks/T-005-wiki-viewer.md"
     }
   ],
   "recentUpdates": [
+    {
+      "date": "2026-05-03",
+      "title": "完成 T-005 Project Wiki Viewer",
+      "description": "yuan-frontend 完成 /dev-dashboard 只读 Project Wiki Viewer；yuan-reviewer 与 Gemini 双审查通过，未新增 API、未变更 schema、未修改数据库 schema。",
+      "files": [
+        "src/main.tsx",
+        "src/styles.css",
+        "docs/project-os/tasks/T-005-wiki-viewer.md",
+        "docs/project-os/agents/yuan-reviewer.md"
+      ]
+    },
+    {
+      "date": "2026-05-03",
+      "title": "完成 T-005 Project Wiki Viewer 前端实现",
+      "description": "yuan-frontend 已在现有 /dev-dashboard 内实现只读 Project Wiki Viewer：索引来自 dashboard.json.wikiLinks，目录型入口展开 docs/project-os 下 Markdown 文件，正文通过 Vite raw glob 静态映射渲染，原始 HTML/script 不执行；未变更 dashboard schema，未新增 API。",
+      "files": [
+        "src/main.tsx",
+        "src/styles.css",
+        "docs/project-os/tasks/T-005-wiki-viewer.md",
+        "docs/project-os/dashboard/dashboard.json"
+      ]
+    },
     {
       "date": "2026-05-03",
       "title": "完成 T-005 Project Wiki Viewer 前置架构说明",

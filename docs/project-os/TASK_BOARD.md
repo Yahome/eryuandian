@@ -10,7 +10,7 @@
 | T-002 | 建立 Project OS 文档事实源 | yuan-architect | done | P0 | `tasks/T-002-project-os-docs.md` |
 | T-003 | Dev OS Dashboard UI | yuan-frontend | done | P0 | `tasks/T-003-dashboard-ui.md` |
 | T-004 | Dashboard JSON Sync | yuan-architect | done | P0 | `tasks/T-004-dashboard-json-sync.md` |
-| T-005 | Project Wiki Viewer | yuan-frontend（等待按架构实现） | in_progress | P1 | `tasks/T-005-wiki-viewer.md` |
+| T-005 | Project Wiki Viewer | yuan-reviewer | done | P1 | `tasks/T-005-wiki-viewer.md` |
 
 ## 状态枚举
 
@@ -25,9 +25,8 @@
 ## 当前执行顺序
 
 1. Dev OS 流程纠偏已写入事实源：新页面 / 新模块 / 数据结构 / 接口协议 / Wiki 索引 / 系统边界 / 前后端协作边界，必须先由 `yuan-architect` 输出轻量架构说明。
-2. T-005 Project Wiki Viewer 前置架构说明已由 `yuan-architect` 完成，任务文档已明确结构、数据、边界和验收标准。
-3. 下一步等待 `yuan-control` 派 `yuan-frontend` 按 `tasks/T-005-wiki-viewer.md` 实现 Wiki Viewer，不得超出架构边界。
-4. `yuan-reviewer` 验收 T-005 时必须检查 frontend 是否遵守 architect 的设计边界。
+2. T-005 Project Wiki Viewer 已完成：`yuan-architect` 前置架构、`yuan-frontend` 实现、`yuan-reviewer` 验收均已通过。
+3. 下一步继续推进 Dev OS 任务看板详情页与进度汇总机制；仍不进入登录、生图、试卷、支付等业务功能。
 
 ## Architect 前置门禁
 

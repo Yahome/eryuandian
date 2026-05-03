@@ -2,9 +2,9 @@
 id: T-005
 title: Project Wiki Viewer
 owner: yuan-frontend
-status: in_progress
+status: done
 priority: P1
-progress: 40
+progress: 100
 created_at: 2026-05-02
 updated_at: 2026-05-03
 tags:
@@ -34,7 +34,8 @@ tags:
 ## 架构前置状态
 
 - 状态：done，2026-05-03 已由 `yuan-architect` 完成本文件内的轻量架构说明。
-- 下一步：等待 `yuan-control` 派 `yuan-frontend` 按本说明实现 Wiki Viewer。
+- 实现：2026-05-03 已由 `yuan-frontend` 在现有 `/dev-dashboard` 内完成只读 Project Wiki Viewer。
+- 验收：2026-05-03 已由 `yuan-reviewer` 完成验收，结论 PASS with notes。
 - 验收：`yuan-reviewer` 必须按本说明检查实现是否越界。
 
 ## 页面模块
@@ -149,18 +150,25 @@ Markdown 内容边界：
 
 ## 验证命令
 
+- `npm run lint`
+- `npm run typecheck`
+- `npm run build`
 - `jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`
+- `git diff --check`
 
 ## 验收标准
 - [x] 已有 `yuan-architect` 前置架构说明。
-- [ ] 能看到 README、Roadmap、Task Board、Decisions、Risks
-- [ ] 能看到 Agent 进度文档入口
-- [ ] 能看到任务文档入口
-- [ ] 不修改 Markdown 事实源内容
-- [ ] 与 Dashboard UI 风格一致
-- [ ] reviewer 已检查 frontend 是否遵守 architect 的结构、数据和边界说明
+- [x] 能看到 README、Roadmap、Task Board、Decisions、Risks
+- [x] 能看到 Agent 进度文档入口
+- [x] 能看到任务文档入口
+- [x] 不修改 Markdown 事实源内容
+- [x] 与 Dashboard UI 风格一致
+- [x] reviewer 已检查 frontend 是否遵守 architect 的结构、数据和边界说明
 
 ## 进展记录
 
 - 2026-05-03：Dev OS 流程纠偏后，本任务调整为先由 `yuan-architect` 做前置架构说明，再交给 `yuan-frontend` 实现。
 - 2026-05-03：`yuan-architect` 已完成 T-005 轻量架构说明，明确复用 `dashboard.json.wikiLinks`、不变更 schema、不新增 API、不改数据库 schema；下一步等待 `yuan-frontend` 实现。
+- 2026-05-03：`yuan-frontend` 已完成 T-005 前端实现。`/dev-dashboard` 内新增只读 Project Wiki Viewer，索引来自 `dashboard.json.wikiLinks`，最近更新复用 `dashboard.json.recentUpdates`，Markdown 正文通过 Vite raw glob 固定映射到 `docs/project-os/**/*.md`；目录型入口 `docs/project-os/agents/` 与 `docs/project-os/tasks/` 已展开为目录下 Markdown 文件列表；未新增 API、未修改 dashboard schema、未修改数据库 schema，下一步等待 `yuan-reviewer` 验收。
+
+- 2026-05-03：`yuan-reviewer` 已完成 T-005 验收，结论 PASS with notes；自身审查与 Gemini 第二审查均无 Blocker/Major，验证 lint/typecheck/build/jq/diff-check 通过。
