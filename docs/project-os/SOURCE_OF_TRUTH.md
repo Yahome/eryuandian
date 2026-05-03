@@ -55,7 +55,7 @@
 
 ## 当前硬边界
 
-- 当前 Dev OS 纠偏与 T-005 前置架构阶段，不开发登录、生图、试卷、支付等业务功能。
+- 当前 Dev OS 阶段推进 T-005 Project Wiki Viewer，不开发登录、生图、试卷、支付等业务功能。
 - 当前不修改数据库 schema。
 - T-005 Project Wiki Viewer 只处理 Dev OS Wiki 浏览能力，不引入业务 API。
 
@@ -138,7 +138,7 @@ yuan-control：同步状态和派发下一步
 已完成：
 
 - 本地项目目录 `/root/eryuandian`
-- GitHub repo `Yahome/eryuandian` 已完成远端同步，计划公开访问
+- GitHub repo `Yahome/eryuandian` 已完成远端同步，当前可公开访问
 - Dev OS 基础文档
 - 5 个 Hermes profiles
 - 5 个 profile 角色规则 `SOUL.md`
@@ -149,6 +149,6 @@ yuan-control：同步状态和派发下一步
 
 下一步：
 
-- T-005 Project Wiki Viewer 开工前，先由 `yuan-architect` 输出轻量架构说明。
-- `yuan-frontend` 只能在 T-005 架构说明完成后实现。
+- T-005 Project Wiki Viewer 的 `yuan-architect` 前置架构说明已完成。
+- 下一步由 `yuan-frontend` 按 T-005 架构边界实现只读 Project Wiki Viewer。
 - `yuan-reviewer` 验收 T-005 时检查 frontend 是否遵守 architect 的设计边界。

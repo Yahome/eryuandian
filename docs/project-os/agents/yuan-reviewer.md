@@ -15,10 +15,25 @@ Review / QA Agent。
 - 安全风险检查
 - 验收标准核对
 
+## Gemini 并行审查规则
+
+- `yuan-reviewer` 做最终验收时，除自身审查外，应尽量调用 Gemini CLI 做第二审查视角。
+- Gemini CLI 使用 default/root 已登录配置：`/root/.hermes/profiles/yuan-reviewer/home/.gemini -> /root/.gemini`。
+- 标准调用方式：
+
+```bash
+HOME=/root/.hermes/profiles/yuan-reviewer/home gemini --prompt "你是第二审查员。请只读审查当前 git diff 与任务验收标准，按 Blocker/Major/Minor/Nit 输出问题和证据。不要修改文件。"
+```
+
+- Gemini 只能只读审查，不能修改文件、提交、推送、重启服务或执行高风险写操作。
+- 最终验收报告必须汇总：`yuan-reviewer` 自身结论、Gemini 结论、冲突项裁决。
+- Gemini 不可用时必须记录原因，并继续完成 `yuan-reviewer` 自身验收。
+
 ## 当前进度
 
 - 等待 profile 创建。
 - 2026-05-03：已完成 T-003 `/dev-dashboard` 第一版实现验收，结论 **PASS with notes**；验证页面访问、JSON 数据源、5 个 Agent 展示、KPI、风险/待确认/最近更新、Logo、业务边界、lint/typecheck/build 与 Git diff 范围。
+- 2026-05-03：已接入 Gemini CLI 并行审查规则；`yuan-reviewer` profile HOME 下 `.gemini` 已软链到 default/root 的 `/root/.gemini`，smoke test 返回 `REVIEWER_GEMINI_OK`。
 
 ## T-003 `/dev-dashboard` 第一版验收记录（2026-05-03）
 

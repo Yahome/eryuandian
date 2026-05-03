@@ -20,7 +20,7 @@
 
 ## Phase 0 启动验收结论（yuan-reviewer，2026-05-03）
 
-总体结论：**PASS with notes / T-003 可条件放行**。
+总体结论：**PASS with notes**。
 
 - PASS：5 个 profiles 职责清晰。证据：`docs/project-os/agents/yuan-control.md`、`yuan-architect.md`、`yuan-frontend.md`、`yuan-backend.md`、`yuan-reviewer.md` 均有 `## 角色` 和 `## 职责`；实际执行 `hermes -p <profile> chat -Q -q ...` 均返回对应职责说明。
 - PASS：5 个 `SOUL.md` 已补充审计。证据：实际执行 `hermes profile show <profile>` 确认 5 个 profile home directory，且各自 home 下均存在 `SOUL.md`；审计摘要见 `docs/project-os/agents/profile-audit.md`，未写入敏感信息。
@@ -30,7 +30,7 @@
 - PASS：根部 `docs/project-os/dashboard.json` 合法且包含用户要求的 8 个顶层字段。
 - PASS：事实源不一致已修复。`docs/project-os/TASK_BOARD.md` 中 T-004 已按 `docs/project-os/tasks/T-004-dashboard-json-sync.md`、`docs/project-os/dashboard/dashboard.json`、`docs/project-os/dashboard.json` 同步为 `done`。
 
-T-003 放行建议：**可以交给 `yuan-frontend` 开发 `/dev-dashboard`**。前置条件：只做 Dev OS Dashboard；读取 `docs/project-os/dashboard/dashboard.json`；不硬编码状态/统计数据；不进入登录、生图、试卷、支付等业务功能；UI 验收以 `docs/project-os/tasks/T-003-dashboard-ui.md` 为准。
+T-003 已完成并验收通过；该历史放行项不再作为待确认事项保留。
 
 ## 当前项目状态
 

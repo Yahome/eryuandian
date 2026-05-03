@@ -4,8 +4,9 @@
 - [x] Hermes profiles 建立
 - [x] Agent 分工规则建立
 - [x] docs/project-os 文档体系建立
-- [ ] Dev Dashboard MVP
+- [x] Dev Dashboard MVP
 - [ ] 任务看板与进度汇总机制
+- [ ] T-005 Project Wiki Viewer：in_progress，架构前置已完成，下一步由 `yuan-frontend` 实现
 
 ## Phase 1：MVP 基础
 - [ ] 手机号登录
