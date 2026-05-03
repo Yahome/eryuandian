@@ -18,6 +18,45 @@ Review / QA Agent。
 ## 当前进度
 
 - 等待 profile 创建。
+- 2026-05-03：已完成 T-003 `/dev-dashboard` 第一版实现验收，结论 **PASS with notes**；验证页面访问、JSON 数据源、5 个 Agent 展示、KPI、风险/待确认/最近更新、Logo、业务边界、lint/typecheck/build 与 Git diff 范围。
+
+## T-003 `/dev-dashboard` 第一版验收记录（2026-05-03）
+
+执行角色：`yuan-reviewer`（Review / QA Agent）。
+
+### 总体结论
+
+**PASS with notes / 建议提交 commit**。
+
+- PASS：`/dev-dashboard` 可通过 Vite dev server 正常访问，返回 `HTTP/1.1 200 OK`。
+- PASS：页面通过 `src/main.tsx` 静态导入 `../docs/project-os/dashboard/dashboard.json`，Agent、Roadmap、风险、待确认、最近更新、Wiki 入口均由 JSON map/派生渲染。
+- PASS：未发现复制硬编码的 agent、task、risk、roadmap 业务数据；仅有导航标签、页面标题、状态中文映射、Coming soon 等 UI 文案。
+- PASS：5 个 Agent 均来自 `dashboard.json` 并展示：`yuan-control`、`yuan-architect`、`yuan-frontend`、`yuan-backend`、`yuan-reviewer`。
+- PASS：KPI 与 `dashboard.json` 当前数据一致：任务平均进度 `67%`、进行中任务 `2`、阻塞任务/开放风险计数 `2`、活跃 Agent `2/5`、最近更新 `2026-05-03`。
+- PASS：风险、待确认、最近更新均使用 `data.risks`、`data.pendingApprovals`、`data.recentUpdates` 展示。
+- PASS：UI 使用 `pic/brand-logo-identity.png` 新版两元店 Logo。
+- PASS：未发现登录、生图、试卷、支付业务功能代码；未修改数据库 schema。
+- PASS：`npm run lint`、`npm run typecheck`、`npm run build` 均通过。
+- PASS：Git diff 范围未越界，变更集中在 Dev OS Dashboard 必需前端文件与相关验收/实现记录文档；未提交 commit。
+
+### 执行命令与结果
+
+```bash
+git status --short && git rev-parse --show-toplevel && git diff --stat
+# PASS：仓库为 /root/eryuandian；仅有前端工程文件、src、T-003 相关 docs 未提交变更。
+
+npm run lint && npm run typecheck && npm run build
+# PASS：eslint、tsc -b、vite build 全部 exit 0。
+
+npm run dev
+curl -I -s http://127.0.0.1:5173/dev-dashboard
+# PASS：返回 HTTP/1.1 200 OK。
+```
+
+### Notes / 后续建议
+
+- 当前 `/dev-dashboard` 是单页总览 MVP，左侧非总览导航为 `Coming soon`，符合第一版范围；后续 T-005 或任务看板详情页可继续扩展。
+- `dist/` 与 `*.tsbuildinfo` 已存在且本次 build 后未显示新增未提交 diff；提交前仍建议总控确认是否需要纳入或忽略构建产物。
 
 ## Phase 0 启动验收记录（2026-05-03）
 

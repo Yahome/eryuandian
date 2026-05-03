@@ -5,7 +5,18 @@
 
 ## 结论
 
-两元店 Dev OS 的 Markdown 事实源已经建立，5 个 Hermes Agent 的职责文档已就位，T-001 与 T-002 已完成。当前关键闭环是：`yuan-architect` 已从 `docs/project-os` Markdown 事实源生成 Dashboard 汇总数据，下一步可交给 `yuan-frontend` 基于 `docs/project-os/dashboard/dashboard.json` 开发 `/dev-dashboard`，但不得硬编码任务、风险、Agent 状态等展示数字。
+两元店 Dev OS 的 Markdown 事实源已经建立，5 个 Hermes Agent 的职责文档已就位，T-001、T-002、T-004 已完成。`yuan-frontend` 已完成 T-003 `/dev-dashboard` 第一版总览页；`yuan-reviewer` 已验收通过：页面可访问、读取 `docs/project-os/dashboard/dashboard.json`、未硬编码 agent/task/risk/roadmap 业务数据、lint/typecheck/build 通过，Git diff 未越界。
+
+## T-003 Dashboard UI 验收结论（yuan-reviewer，2026-05-03）
+
+总体结论：**PASS with notes / 建议提交 commit**。
+
+- `/dev-dashboard`：Vite dev server 下 `curl -I http://127.0.0.1:5173/dev-dashboard` 返回 `HTTP/1.1 200 OK`。
+- 数据源：`src/main.tsx` 直接 import `../docs/project-os/dashboard/dashboard.json`；Agent、Roadmap、风险、待确认、最近更新等均由该 JSON 渲染。
+- KPI：当前与 JSON 一致，整体进度 `67%`、进行中任务 `2`、阻塞/开放风险计数 `2`、活跃 Agent `2/5`、最近更新 `2026-05-03`。
+- 范围：未发现登录、生图、试卷、支付业务功能代码；未修改数据库 schema。
+- 质量命令：`npm run lint`、`npm run typecheck`、`npm run build` 均通过。
+- Diff 边界：未提交变更集中在 Dev OS Dashboard 必需前端文件与相关 docs；未执行 commit。
 
 ## Phase 0 启动验收结论（yuan-reviewer，2026-05-03）
 
@@ -36,13 +47,13 @@ T-003 放行建议：**可以交给 `yuan-frontend` 开发 `/dev-dashboard`**。
 - T-000：Bootstrap Dev OS，已完成。
 - T-001：设置 Hermes Agent Profiles，已完成；5 个 profile 已验证能返回职责说明。
 - T-002：建立 Project OS 文档事实源，已完成。
+- T-003：Dev OS Dashboard UI，第一版总览页已完成并经 `yuan-reviewer` 验收通过。
 - T-004：Dashboard JSON Sync，本次已生成 `summary.md` 与合法 JSON 数据。
 
 ## 进行中 / 可开工
 
-- T-003：Dev OS Dashboard UI，状态 ready；可基于本次 JSON 数据源开工。
-- T-005：Project Wiki Viewer，状态 ready；优先级 P1，依赖 Dashboard / Wiki 入口展示。
-- Phase 0 仍有 Dev Dashboard MVP 与任务看板进度汇总机制待完成。
+- T-005：Project Wiki Viewer，状态 ready；优先级 P1，当前 Dashboard 已提供 Wiki 快速入口，完整浏览器仍待后续实现。
+- Phase 0 仍有任务看板详情页与进度汇总机制待继续完善。
 
 ## 阻塞与风险
 

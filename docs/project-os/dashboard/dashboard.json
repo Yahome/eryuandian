@@ -147,10 +147,10 @@
       "id": "T-003",
       "title": "Dev OS Dashboard UI",
       "owner": "yuan-frontend",
-      "status": "ready",
+      "status": "done",
       "priority": "P0",
-      "progress": 0,
-      "summary": "开发 /dev-dashboard 页面，用于展示两元店项目开发过程。",
+      "progress": 100,
+      "summary": "完成 /dev-dashboard 第一版总览页，读取 dashboard.json 展示 KPI、Agent、Roadmap、风险、待确认、最近更新和 Wiki 快速入口。",
       "wiki": "docs/project-os/tasks/T-003-dashboard-ui.md"
     },
     {
@@ -209,7 +209,7 @@
         { "title": "Hermes profiles 建立", "done": true },
         { "title": "Agent 分工规则建立", "done": true },
         { "title": "docs/project-os 文档体系建立", "done": true },
-        { "title": "Dev Dashboard MVP", "done": false },
+        { "title": "Dev Dashboard MVP", "done": true },
         { "title": "任务看板与进度汇总机制", "done": false }
       ],
       "wiki": "docs/project-os/ROADMAP.md"
@@ -290,6 +290,16 @@
     }
   ],
   "recentUpdates": [
+    {
+      "date": "2026-05-03",
+      "title": "完成 /dev-dashboard 第一版总览页",
+      "description": "yuan-frontend 完成 Dev OS Dashboard MVP，总览页读取 dashboard.json 展示 KPI、5 个 Agent、Roadmap、风险、待确认、最近更新和 Wiki 快速入口；yuan-reviewer 验收通过。",
+      "files": [
+        "src/main.tsx",
+        "src/styles.css",
+        "docs/project-os/tasks/T-003-dashboard-ui.md"
+      ]
+    },
     {
       "date": "2026-05-03",
       "title": "生成 Dashboard 汇总数据",

@@ -7,7 +7,7 @@
 | T-000 | Bootstrap Dev OS | yuan-control | done | P0 | `tasks/T-000-bootstrap-dev-os.md` |
 | T-001 | 设置 Hermes Agent Profiles | yuan-control | done | P0 | `tasks/T-001-setup-agent-profiles.md` |
 | T-002 | 建立 Project OS 文档事实源 | yuan-architect | done | P0 | `tasks/T-002-project-os-docs.md` |
-| T-003 | Dev OS Dashboard UI | yuan-frontend | ready | P0 | `tasks/T-003-dashboard-ui.md` |
+| T-003 | Dev OS Dashboard UI | yuan-frontend | done | P0 | `tasks/T-003-dashboard-ui.md` |
 | T-004 | Dashboard JSON Sync | yuan-architect | done | P0 | `tasks/T-004-dashboard-json-sync.md` |
 | T-005 | Project Wiki Viewer | yuan-frontend | ready | P1 | `tasks/T-005-wiki-viewer.md` |
 
