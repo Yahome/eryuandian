@@ -8,7 +8,7 @@
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "T-005 已完成；下一步进行 Dev OS Dashboard 视觉对齐 / Shell 重构，然后继续任务看板详情页与进度汇总机制。",
+    "currentFocus": "T-006 Dev OS Dashboard 视觉对齐 / Shell 重构已创建，下一步由 yuan-frontend 实现；之后继续任务看板详情页与进度汇总机制。",
     "updatedAt": "2026-05-03"
   },
   "agents": [
@@ -176,6 +176,16 @@
       "progress": 100,
       "summary": "Project Wiki Viewer 已完成：yuan-frontend 实现，yuan-reviewer 与 Gemini 双审查通过。",
       "wiki": "docs/project-os/tasks/T-005-wiki-viewer.md"
+    },
+    {
+      "id": "T-006",
+      "title": "Dev OS Dashboard Visual Alignment / Shell Refactor",
+      "owner": "yuan-frontend",
+      "status": "ready",
+      "priority": "P1",
+      "progress": 0,
+      "summary": "把 /dev-dashboard 从可用内部 MVP 调整为更接近设计基准的现代 SaaS dashboard 壳。",
+      "wiki": "docs/project-os/tasks/T-006-dashboard-visual-alignment.md"
     }
   ],
   "risks": [
@@ -345,6 +355,15 @@
     }
   ],
   "recentUpdates": [
+    {
+      "date": "2026-05-03",
+      "title": "创建 T-006 Dashboard 视觉对齐任务",
+      "description": "T-006 将重构 /dev-dashboard 的视觉壳、sidebar、top header、KPI、Roadmap、Agent grid 与 Wiki 快捷入口，不改变 schema，不新增 API。",
+      "files": [
+        "docs/project-os/tasks/T-006-dashboard-visual-alignment.md",
+        "docs/project-os/TASK_BOARD.md"
+      ]
+    },
     {
       "date": "2026-05-03",
       "title": "完成 T-005 Project Wiki Viewer",
