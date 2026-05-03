@@ -46,11 +46,13 @@
 - `yuan-frontend`、`yuan-backend`：编码或工程改文件时，必须在 `/root/eryuandian` git repo 内通过 `codex --yolo exec "<任务说明>"` 让 Codex 完成实际修改；Hermes 聊天模型只做任务理解、上下文准备、调用 Codex、复核结果。
 - `yuan-architect`：纯文档/架构汇总可直接处理；涉及脚本、工程代码、自动化生成器或应用代码修改时，必须走 `codex --yolo exec`。
 - `yuan-reviewer`：只读验收可直接运行检查命令；若被要求修复工程代码，必须走 `codex --yolo exec`。
-- 如果 Codex CLI 不可用、`codex login status` 未登录或 Codex 执行失败，干活 profile 必须停止并向 `yuan-control` 报告，不得改用聊天模型直接手写业务代码。
+- 5 个 yuan profiles 的 `$HOME/.codex` 已统一软链到 `/root/.codex`，因此各 profile 直接运行 `codex --yolo exec --cd /root/eryuandian "<任务说明>"` 会读取共享 CPA 中转配置。
+- `codex login status` 可能显示未登录；本项目以 `/root/.codex/config.toml` 中的 CPA provider / bearer token 为准，判断可用性应跑只读 smoke test，而不是只看登录状态。
+- 如果 Codex CLI 不可用、CPA smoke test 失败、或 Codex 执行失败，干活 profile 必须停止并向 `yuan-control` 报告，不得改用聊天模型直接手写业务代码。
 
 ## 结论
 
-5 个 profile home directory 均已确认，且各自 home 下均存在 `SOUL.md`。本审计记录只保留非敏感摘要，不包含 `.env`、API key、token、auth、password、secret 等凭证信息。本次已补充干活 profile 的 Codex `--yolo` 执行规范。
+5 个 profile home directory 均已确认，且各自 home 下均存在 `SOUL.md`。本审计记录只保留非敏感摘要，不包含 `.env`、API key、token、auth、password、secret 等凭证信息。本次已补充干活 profile 的 Codex `--yolo` 执行规范，并统一各 profile 的 Codex 配置入口到 `/root/.codex`。
 
 ## 后续建议
 
