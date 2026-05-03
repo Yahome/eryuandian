@@ -110,7 +110,7 @@ yuan-control：同步状态和派发下一步
 标准格式：
 
 ```text
-codex --yolo "/goal <当前任务 ID + 角色 + 本次目标 + 非目标 / 禁止事项 + 验证命令 + 完成后交付物>"
+codex --yolo exec --cd /root/eryuandian "/goal <当前任务 ID + 角色 + 本次目标 + 非目标 / 禁止事项 + 验证命令 + 完成后交付物>"
 ```
 
 对实现完成的任务，交给 `yuan-reviewer` 做验收。
