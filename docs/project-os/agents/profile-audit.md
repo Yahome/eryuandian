@@ -33,17 +33,24 @@
 
 ## SOUL.md 审计明细
 
-| Profile | SOUL.md 路径 | 状态 | 最后修改时间 | 角色摘要 |
-|---|---|---|---|---|
-| `yuan-control` | `/root/.hermes/profiles/yuan-control/SOUL.md` | PASS | 2026-05-02T23:38:30+08:00 | 两元店 / eryuandian 项目总控 Agent；Orchestrator / 项目经理 / 调度员。 |
-| `yuan-architect` | `/root/.hermes/profiles/yuan-architect/SOUL.md` | PASS | 2026-05-02T23:38:42+08:00 | 两元店 / eryuandian 项目架构与项目知识库 Agent；Architect / Technical Writer / Knowledge Compiler。 |
-| `yuan-frontend` | `/root/.hermes/profiles/yuan-frontend/SOUL.md` | PASS | 2026-05-02T23:59:12+08:00 | 两元店 / eryuandian 项目前端开发 Agent；Frontend Engineer / UI Implementer。 |
-| `yuan-backend` | `/root/.hermes/profiles/yuan-backend/SOUL.md` | PASS | 2026-05-02T23:39:12+08:00 | 两元店 / eryuandian 项目后端与 AI 业务开发 Agent；Backend Engineer / AI Service Integrator。 |
-| `yuan-reviewer` | `/root/.hermes/profiles/yuan-reviewer/SOUL.md` | PASS | 2026-05-02T23:39:34+08:00 | 两元店 / eryuandian 项目 Review / QA Agent；Code Reviewer / QA Engineer / Release Gatekeeper。 |
+| Profile | SOUL.md 路径 | 状态 | 最后修改时间 | Codex 执行规范 | 角色摘要 |
+|---|---|---|---|---|---|
+| `yuan-control` | `/root/.hermes/profiles/yuan-control/SOUL.md` | PASS | 2026-05-02T23:38:30+08:00 | N/A | 总控 profile；负责调度与复核，不长期亲自写业务代码。 |
+| `yuan-architect` | `/root/.hermes/profiles/yuan-architect/SOUL.md` | PASS | 2026-05-03T14:02:37+08:00 | PASS | 架构/文档 profile；文档可直接处理，涉及脚本/工程代码时必须调用 Codex CLI：`codex --yolo exec`。 |
+| `yuan-frontend` | `/root/.hermes/profiles/yuan-frontend/SOUL.md` | PASS | 2026-05-03T14:02:21+08:00 | PASS | 干活 profile；编码/工程改文件必须调用 Codex CLI：`codex --yolo exec`。 |
+| `yuan-backend` | `/root/.hermes/profiles/yuan-backend/SOUL.md` | PASS | 2026-05-03T14:02:29+08:00 | PASS | 干活 profile；编码/工程改文件必须调用 Codex CLI：`codex --yolo exec`。 |
+| `yuan-reviewer` | `/root/.hermes/profiles/yuan-reviewer/SOUL.md` | PASS | 2026-05-03T14:02:44+08:00 | PASS | 验收 profile；只读验证可直接执行，若需修复工程代码必须调用 Codex CLI：`codex --yolo exec`。 |
+
+## Codex 执行规范补充（2026-05-03）
+
+- `yuan-frontend`、`yuan-backend`：编码或工程改文件时，必须在 `/root/eryuandian` git repo 内通过 `codex --yolo exec "<任务说明>"` 让 Codex 完成实际修改；Hermes 聊天模型只做任务理解、上下文准备、调用 Codex、复核结果。
+- `yuan-architect`：纯文档/架构汇总可直接处理；涉及脚本、工程代码、自动化生成器或应用代码修改时，必须走 `codex --yolo exec`。
+- `yuan-reviewer`：只读验收可直接运行检查命令；若被要求修复工程代码，必须走 `codex --yolo exec`。
+- 如果 Codex CLI 不可用、`codex login status` 未登录或 Codex 执行失败，干活 profile 必须停止并向 `yuan-control` 报告，不得改用聊天模型直接手写业务代码。
 
 ## 结论
 
-5 个 profile home directory 均已确认，且各自 home 下均存在 `SOUL.md`。本审计记录只保留非敏感摘要，不包含 `.env`、API key、token、auth、password、secret 等凭证信息。
+5 个 profile home directory 均已确认，且各自 home 下均存在 `SOUL.md`。本审计记录只保留非敏感摘要，不包含 `.env`、API key、token、auth、password、secret 等凭证信息。本次已补充干活 profile 的 Codex `--yolo` 执行规范。
 
 ## 后续建议
 
