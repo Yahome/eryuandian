@@ -1,7 +1,7 @@
 # yuan-architect
 
 状态：活跃（内部标识：`active`）
-更新时间：2026-05-03
+更新时间：2026-05-05
 
 ## 角色
 
@@ -60,6 +60,7 @@
 - 已把 T-004 状态推进为“已完成”（内部枚举：`done`），并记录本次验收结果。
 - Dev OS 流程已纠偏：后续新页面 / 新模块 / 数据结构 / 接口协议 / Wiki 索引 / 边界类任务，必须先由本 profile 输出轻量架构说明。
 - 已完成 T-005 Project Wiki Viewer 前置架构说明，明确复用 `dashboard.json.wikiLinks`、不变更 schema、不新增 API、不修改数据库 schema。
+- 已完成 T-007 任务看板详情页 + 进度汇总机制前置架构说明，结论为复用现有 dashboard JSON，不变更 schema、不新增 API、不修改数据库 schema；等待 `yuan-control` 确认后才能交给 `yuan-frontend`。
 
 ## 当前边界
 
@@ -73,7 +74,7 @@
 
 - T-005 Project Wiki Viewer 已完成并验收通过。
 - T-006 Dashboard 视觉对齐 / Shell 重构已完成并验收通过。
-- 下一步 T-007：Dev OS 任务看板详情页 + 进度汇总机制；开工前必须先由 `yuan-architect` 输出轻量架构说明，明确结构、数据、边界和验收标准。
+- T-007 已完成前置架构说明，并已由 `yuan-control` 确认后交给 `yuan-frontend` 实现；当前 T-007 已通过 `yuan-reviewer` 验收。
 
 ## 变更记录
 
@@ -81,3 +82,5 @@
 - 2026-05-03：记录 Architect 前置门禁；T-005 Project Wiki Viewer 开工前必须先输出轻量架构说明。
 - 2026-05-03：完成 T-005 Project Wiki Viewer 前置架构说明；结论为复用 `dashboard.json.wikiLinks`，本阶段不变更 dashboard schema。
 - 2026-05-03：记录 T-005、T-006 均已完成并验收通过；下一步为 T-007 前置架构说明。
+- 2026-05-05：完成 T-007 前置架构说明；结论为复用现有 `/dev-dashboard` shell 与 `docs/project-os/dashboard/dashboard.json`，不变更 dashboard schema，不新增 API，不修改数据库 schema，建议后续新增只读校验脚本 `scripts/dev-os-validate.mjs`。
+- 2026-05-05：T-007 已完成 `yuan-frontend` 实现并通过 `yuan-reviewer` 验收；架构边界未发现越界。

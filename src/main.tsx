@@ -4,7 +4,23 @@ import dashboardData from '../docs/project-os/dashboard/dashboard.json';
 import logoUrl from './assets/brand-app-icon.png';
 import './styles.css';
 
-type Status = 'done' | 'active' | 'ready' | 'planned' | 'open' | 'monitoring' | 'in_progress' | 'pending' | 'review' | string;
+type Status =
+  | 'done'
+  | 'completed'
+  | 'success'
+  | 'succeeded'
+  | 'active'
+  | 'ready'
+  | 'planned'
+  | 'open'
+  | 'monitoring'
+  | 'in_progress'
+  | 'pending'
+  | 'todo'
+  | 'blocked'
+  | 'review'
+  | 'reviewing'
+  | string;
 
 type DashboardData = typeof dashboardData;
 type Task = DashboardData['tasks'][number];
@@ -51,7 +67,7 @@ type WikiModel = {
 const projectTitle = '两元店 Dev OS';
 const navigation = [
   { label: '总览', href: '#overview', state: null, icon: 'overview' },
-  { label: '任务看板', href: '#task-board', state: 'Coming soon', icon: 'tasks' },
+  { label: '任务看板', href: '#task-board', state: '可用', icon: 'tasks' },
   { label: 'Agent 状态', href: '#agents', state: null, icon: 'agent' },
   { label: '项目 Wiki', href: '#project-wiki', state: '可用', icon: 'wiki' },
   { label: '风险与决策', href: '#risks', state: 'Coming soon', icon: 'risk' },
@@ -82,26 +98,48 @@ const markdownModules = import.meta.glob('../docs/project-os/**/*.md', { query: 
 const markdownByPath = createMarkdownRegistry(markdownModules);
 const markdownPaths = Object.keys(markdownByPath).sort((a, b) => a.localeCompare(b));
 const wikiModel = createWikiModel(dashboardData.wikiLinks);
+const completedTaskStatuses = ['done', 'completed', 'success', 'succeeded'];
+const reviewTaskStatuses = ['review', 'reviewing'];
+const taskStatusGroups = [
+  { key: 'ready', label: '准备中', statuses: ['ready'] },
+  { key: 'in_progress', label: '进行中', statuses: ['in_progress'] },
+  { key: 'review', label: '审核中', statuses: reviewTaskStatuses },
+  { key: 'blocked', label: '已阻塞', statuses: ['blocked'] },
+  { key: 'done', label: '已完成', statuses: completedTaskStatuses },
+  { key: 'pending', label: '待处理 / 待办', statuses: ['pending', 'todo'] },
+  { key: 'other', label: '其他状态', statuses: [] },
+];
 
 function statusLabel(status: Status) {
   const labels: Record<string, string> = {
     done: '已完成',
+    completed: '已完成',
+    success: '已完成',
+    succeeded: '已完成',
     active: '活跃',
-    ready: '就绪',
+    ready: '准备中',
     planned: '计划中',
     open: '开放',
     monitoring: '监控中',
     in_progress: '进行中',
-    pending: '待开始',
-    review: '待验收',
+    pending: '待处理',
+    todo: '待办',
+    blocked: '已阻塞',
+    review: '审核中',
+    reviewing: '审核中',
+    failed: '失败',
+    cancelled: '已取消',
+    canceled: '已取消',
+    archived: '已归档',
+    draft: '草稿',
   };
   return labels[status] ?? status;
 }
 
 function statusTone(status: Status) {
-  if (['done', 'active'].includes(status)) return 'success';
-  if (['ready', 'in_progress', 'monitoring', 'review'].includes(status)) return 'warning';
-  if (['open'].includes(status)) return 'danger';
+  if (['done', 'completed', 'success', 'succeeded', 'active'].includes(status)) return 'success';
+  if (['ready', 'in_progress', 'monitoring', 'review', 'reviewing', 'pending', 'todo'].includes(status)) return 'warning';
+  if (['open', 'blocked', 'failed'].includes(status)) return 'danger';
   return 'muted';
 }
 
@@ -110,7 +148,7 @@ function averageProgress(tasks: Task[]) {
   return Math.round(tasks.reduce((sum, task) => sum + task.progress, 0) / tasks.length);
 }
 
-function countByStatus<T extends { status: string }>(items: T[], statuses: string[]) {
+function countByStatus<T extends { status: string }>(items: T[], statuses: readonly string[]) {
   return items.filter((item) => statuses.includes(item.status)).length;
 }
 
@@ -136,7 +174,51 @@ function statusClassName(status: Status) {
 }
 
 function activeTaskCount(tasks: Task[]) {
-  return countByStatus(tasks, ['in_progress', 'ready', 'review']);
+  return countByStatus(tasks, ['in_progress', 'ready', ...reviewTaskStatuses]);
+}
+
+function taskStats(tasks: Task[]) {
+  return {
+    total: tasks.length,
+    completed: countByStatus(tasks, completedTaskStatuses),
+    ready: countByStatus(tasks, ['ready']),
+    inProgress: countByStatus(tasks, ['in_progress']),
+    reviewing: countByStatus(tasks, reviewTaskStatuses),
+    blocked: countByStatus(tasks, ['blocked']),
+    averageProgress: averageProgress(tasks),
+  };
+}
+
+function taskStatusGroupKey(status: string) {
+  const matchedGroup = taskStatusGroups.find((group) => group.statuses.includes(status));
+  return matchedGroup?.key ?? 'other';
+}
+
+function groupTasksByStatus(tasks: Task[]) {
+  const grouped = new Map(taskStatusGroups.map((group) => [group.key, [] as Task[]]));
+
+  for (const task of tasks) {
+    grouped.get(taskStatusGroupKey(task.status))?.push(task);
+  }
+
+  return taskStatusGroups.map((group) => ({
+    ...group,
+    tasks: grouped.get(group.key) ?? [],
+  }));
+}
+
+function taskRelatedUpdates(task: Task, updates: RecentUpdate[]) {
+  return updates
+    .filter((update) => (
+      update.files.includes(task.wiki)
+      || update.title.includes(task.id)
+      || update.description.includes(task.id)
+    ))
+    .slice(0, 3);
+}
+
+function clampedProgress(value: number) {
+  return Math.min(Math.max(value, 0), 100);
 }
 
 function createMarkdownRegistry(modules: Record<string, string>) {
@@ -554,6 +636,7 @@ function renderInlineLink(token: string, currentPath: string, onNavigate: (path:
 
 function DevDashboard() {
   const data = dashboardData;
+  const [selectedWikiPath, setSelectedWikiPath] = React.useState(() => wikiModel.entries[0]?.path ?? '');
   const progress = averageProgress(data.tasks);
   const activeAgents = countByStatus(data.agents, ['active']);
   const inProgressTasks = activeTaskCount(data.tasks);
@@ -562,6 +645,21 @@ function DevDashboard() {
   const currentPhase = data.roadmap.find((phase) => phase.status === 'in_progress') ?? data.roadmap[0];
   const healthStatus = data.risks.some((risk) => risk.status === 'open') ? '需关注' : '状态良好';
   const currentPhaseProgress = currentPhase ? phaseProgress(currentPhase) : progress;
+  const handleWikiSelect = React.useCallback((path: string) => {
+    if (wikiModel.entryMap.has(path)) {
+      setSelectedWikiPath(path);
+    }
+  }, []);
+  const handleOpenTaskWiki = React.useCallback((path: string) => {
+    if (!wikiModel.entryMap.has(path)) {
+      return;
+    }
+
+    setSelectedWikiPath(path);
+    window.requestAnimationFrame(() => {
+      document.getElementById('project-wiki')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, []);
 
   const kpis = [
     { label: '整体进度', value: `${progress}%`, hint: `${data.tasks.length} 个任务平均进度`, icon: 'trend' as const, tone: 'blue' },
@@ -616,8 +714,15 @@ function DevDashboard() {
           </div>
         </section>
 
+        <TaskBoardSection
+          approvals={data.pendingApprovals}
+          onOpenWiki={handleOpenTaskWiki}
+          recentUpdates={data.recentUpdates}
+          risks={data.risks}
+          tasks={data.tasks}
+        />
         <WikiQuickLinks links={data.wikiLinks} />
-        <ProjectWikiViewer updates={data.recentUpdates} />
+        <ProjectWikiViewer onSelect={handleWikiSelect} selectedPath={selectedWikiPath} updates={data.recentUpdates} />
       </main>
     </div>
   );
@@ -900,9 +1005,305 @@ function RecentUpdatesCard({ updates }: { updates: RecentUpdate[] }) {
   );
 }
 
+function TaskBoardSection({
+  tasks,
+  risks,
+  approvals,
+  recentUpdates,
+  onOpenWiki,
+}: {
+  tasks: Task[];
+  risks: Risk[];
+  approvals: DashboardData['pendingApprovals'];
+  recentUpdates: RecentUpdate[];
+  onOpenWiki: (path: string) => void;
+}) {
+  const [selectedTaskId, setSelectedTaskId] = React.useState(tasks[0]?.id ?? '');
+  const selectedTask = tasks.find((task) => task.id === selectedTaskId) ?? tasks[0];
+  const stats = React.useMemo(() => taskStats(tasks), [tasks]);
+  const groupedTasks = React.useMemo(() => groupTasksByStatus(tasks), [tasks]);
+
+  const handleSelectTask = React.useCallback((taskId: string) => {
+    setSelectedTaskId(taskId);
+  }, []);
+
+  return (
+    <section className="dashboard-card task-board-card" id="task-board">
+      <div className="task-board-header">
+        <SectionTitle title="任务看板" subtitle={`${tasks.length} tasks · dashboard.json.tasks`} />
+        <span className="pill wiki-lock">只读</span>
+      </div>
+
+      <TaskStatsGrid stats={stats} />
+
+      <div className="task-board-layout">
+        <div className="task-columns" aria-label="按状态分组任务">
+          {groupedTasks.map((group) => (
+            <TaskColumn
+              group={group}
+              key={group.key}
+              onOpenWiki={onOpenWiki}
+              onSelectTask={handleSelectTask}
+              selectedTaskId={selectedTask?.id ?? ''}
+            />
+          ))}
+        </div>
+
+        <TaskDetailPanel
+          approvals={approvals}
+          onOpenWiki={onOpenWiki}
+          recentUpdates={recentUpdates}
+          risks={risks}
+          task={selectedTask}
+        />
+      </div>
+    </section>
+  );
+}
+
+function TaskStatsGrid({ stats }: { stats: ReturnType<typeof taskStats> }) {
+  const statItems = [
+    { label: '总任务数', value: String(stats.total), hint: 'dashboard.json.tasks' },
+    { label: '已完成', value: String(stats.completed), hint: completedTaskStatuses.join(' / ') },
+    { label: '准备中', value: String(stats.ready), hint: 'ready' },
+    { label: '进行中', value: String(stats.inProgress), hint: 'in_progress' },
+    { label: '审核中', value: String(stats.reviewing), hint: reviewTaskStatuses.join(' / ') },
+    { label: '已阻塞', value: String(stats.blocked), hint: 'blocked' },
+    { label: '平均进度', value: `${stats.averageProgress}%`, hint: 'progress 平均值' },
+  ];
+
+  return (
+    <div className="task-stat-grid" aria-label="任务统计">
+      {statItems.map((item) => (
+        <div className="task-stat-card" key={item.label}>
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+          <small>{item.hint}</small>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TaskColumn({
+  group,
+  selectedTaskId,
+  onSelectTask,
+  onOpenWiki,
+}: {
+  group: ReturnType<typeof groupTasksByStatus>[number];
+  selectedTaskId: string;
+  onSelectTask: (taskId: string) => void;
+  onOpenWiki: (path: string) => void;
+}) {
+  return (
+    <section className={`task-column status-${group.key}`}>
+      <div className="task-column-header">
+        <div>
+          <h3>{group.label}</h3>
+          <small>{group.statuses.length > 0 ? group.statuses.join(' / ') : 'fallback'}</small>
+        </div>
+        <span>{group.tasks.length}</span>
+      </div>
+
+      <div className="task-column-list">
+        {group.tasks.length > 0 ? group.tasks.map((task) => (
+          <TaskCard
+            isSelected={task.id === selectedTaskId}
+            key={task.id}
+            onOpenWiki={onOpenWiki}
+            onSelect={onSelectTask}
+            task={task}
+          />
+        )) : (
+          <p className="task-empty-state">暂无该状态任务</p>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function TaskCard({
+  task,
+  isSelected,
+  onSelect,
+  onOpenWiki,
+}: {
+  task: Task;
+  isSelected: boolean;
+  onSelect: (taskId: string) => void;
+  onOpenWiki: (path: string) => void;
+}) {
+  const progress = clampedProgress(task.progress);
+
+  return (
+    <article className={isSelected ? 'task-card selected' : 'task-card'}>
+      <button className="task-card-button" type="button" aria-pressed={isSelected} onClick={() => onSelect(task.id)}>
+        <span className="task-card-topline">
+          <span className="task-card-id">{task.id}</span>
+          <span className="task-priority">{task.priority}</span>
+        </span>
+        <strong>{task.title}</strong>
+        <span className="task-card-meta">
+          <span>Owner <b>{task.owner}</b></span>
+          <span>Status <b>{statusLabel(task.status)}</b></span>
+          <span>Progress <b>{progress}%</b></span>
+        </span>
+        <span className="task-progress-track" aria-label={`${task.id} 进度 ${progress}%`}>
+          <span style={{ width: `${progress}%` }} />
+        </span>
+        <span className="task-card-summary">{task.summary}</span>
+        <code className="task-wiki-path">{task.wiki}</code>
+      </button>
+      <TaskWikiLink path={task.wiki} onOpenWiki={onOpenWiki} />
+    </article>
+  );
+}
+
+function TaskDetailPanel({
+  task,
+  risks,
+  approvals,
+  recentUpdates,
+  onOpenWiki,
+}: {
+  task?: Task;
+  risks: Risk[];
+  approvals: DashboardData['pendingApprovals'];
+  recentUpdates: RecentUpdate[];
+  onOpenWiki: (path: string) => void;
+}) {
+  if (!task) {
+    return (
+      <aside className="task-detail-panel">
+        <div className="task-empty-detail">
+          <h3>暂无任务</h3>
+          <p>dashboard.json.tasks 当前为空。</p>
+        </div>
+      </aside>
+    );
+  }
+
+  const progress = clampedProgress(task.progress);
+  const relatedUpdates = taskRelatedUpdates(task, recentUpdates);
+  const visibleUpdates = relatedUpdates.length > 0 ? relatedUpdates : recentUpdates.slice(0, 3);
+
+  return (
+    <aside className="task-detail-panel" aria-label={`${task.id} 任务详情`}>
+      <div className="task-detail-head">
+        <span>{task.id}</span>
+        <Badge status={task.status} />
+      </div>
+      <h3>{task.title}</h3>
+      <p>{task.summary}</p>
+
+      <div className="task-detail-facts">
+        <TaskFact label="Owner" value={task.owner} />
+        <TaskFact label="Priority" value={task.priority} />
+        <TaskFact label="Status" value={statusLabel(task.status)} />
+        <TaskFact label="Progress" value={`${progress}%`} />
+      </div>
+
+      <div className="task-detail-progress">
+        <div>
+          <span>进度</span>
+          <strong>{progress}%</strong>
+        </div>
+        <span className="task-progress-track">
+          <span style={{ width: `${progress}%` }} />
+        </span>
+      </div>
+
+      <div className="task-detail-wiki">
+        <span>Task Markdown</span>
+        <code>{task.wiki}</code>
+        <TaskWikiLink path={task.wiki} onOpenWiki={onOpenWiki} variant="primary" />
+      </div>
+
+      <div className="task-context-stack">
+        <TaskContextBlock title="风险" subtitle={`${risks.length} risks`}>
+          {risks.slice(0, 3).map((risk) => (
+            <div className="task-context-row" key={risk.id}>
+              <Badge status={risk.status} />
+              <strong>{risk.title}</strong>
+              <p>{risk.impact}</p>
+            </div>
+          ))}
+        </TaskContextBlock>
+
+        <TaskContextBlock title="待确认" subtitle={`${approvals.length} approvals`}>
+          {approvals.slice(0, 3).map((approval) => (
+            <div className="task-context-row" key={approval.id}>
+              <span className="task-context-id">{approval.id}</span>
+              <strong>{approval.title}</strong>
+              <p>{approval.owner} · {approval.source}</p>
+            </div>
+          ))}
+        </TaskContextBlock>
+
+        <TaskContextBlock title={relatedUpdates.length > 0 ? '关联最近更新' : '最近更新'} subtitle={`${visibleUpdates.length} records`}>
+          {visibleUpdates.length > 0 ? visibleUpdates.map((update) => (
+            <div className="task-context-row" key={`${update.date}-${update.title}`}>
+              <time>{update.date}</time>
+              <strong>{update.title}</strong>
+              <p>{update.description}</p>
+            </div>
+          )) : (
+            <p className="task-empty-state">dashboard.json.recentUpdates 当前为空</p>
+          )}
+        </TaskContextBlock>
+      </div>
+    </aside>
+  );
+}
+
+function TaskFact({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="task-detail-fact">
+      <span>{label}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}
+
+function TaskWikiLink({
+  path,
+  onOpenWiki,
+  variant = 'default',
+}: {
+  path: string;
+  onOpenWiki: (path: string) => void;
+  variant?: 'default' | 'primary';
+}) {
+  if (!wikiModel.entryMap.has(path)) {
+    return <span className={`task-wiki-action ${variant} disabled`}>Wiki 未收录</span>;
+  }
+
+  return (
+    <a className={`task-wiki-action ${variant}`} href="#project-wiki" onClick={() => onOpenWiki(path)}>
+      <Icon name="wiki" />
+      <span>Project Wiki</span>
+    </a>
+  );
+}
+
+function TaskContextBlock({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
+  return (
+    <section className="task-context-block">
+      <div className="task-context-heading">
+        <strong>{title}</strong>
+        <span>{subtitle}</span>
+      </div>
+      <div className="task-context-list">
+        {children}
+      </div>
+    </section>
+  );
+}
+
 function WikiQuickLinks({ links }: { links: readonly WikiLink[] }) {
   return (
-    <section className="dashboard-card wiki-quick-card" id="task-board">
+    <section className="dashboard-card wiki-quick-card">
       <SectionTitle title="Wiki 快速入口" subtitle="只读 Project OS Markdown" />
       <div className="wiki-quick-grid">
         {links.slice(0, 6).map((link) => (
@@ -919,15 +1320,14 @@ function WikiQuickLinks({ links }: { links: readonly WikiLink[] }) {
   );
 }
 
-function ProjectWikiViewer({ updates }: { updates: RecentUpdate[] }) {
-  const [selectedPath, setSelectedPath] = React.useState(wikiModel.entries[0]?.path ?? '');
+function ProjectWikiViewer({ updates, selectedPath, onSelect }: { updates: RecentUpdate[]; selectedPath: string; onSelect: (path: string) => void }) {
   const selectedEntry = wikiModel.entryMap.get(selectedPath) ?? wikiModel.entries[0];
 
   const handleSelect = React.useCallback((path: string) => {
     if (wikiModel.entryMap.has(path)) {
-      setSelectedPath(path);
+      onSelect(path);
     }
-  }, []);
+  }, [onSelect]);
 
   return (
     <section className="dashboard-card wiki-viewer" id="project-wiki">

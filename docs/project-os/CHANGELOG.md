@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2026-05-05
+
+- 完成 T-007 Dev OS 任务看板详情页 + 进度汇总机制验收；`yuan-reviewer` 结论 PASS，Gemini CLI 二审因 429 模型容量不足无有效输出，已记录且不阻塞验收。
+- 完成 T-007 只读任务看板前端实现；`/dev-dashboard` sidebar “任务看板”进入真实 `#task-board`，任务数据与统计来自 dashboard JSON，任务详情可切换 Project Wiki Viewer。
+- 确认 T-007 前置架构说明覆盖页面 / 信息架构、数据来源、schema 结论、第一版任务看板功能、进度汇总机制、frontend 边界和 reviewer 验收标准；状态推进为“进行中”（内部枚举：`in_progress`），交给 `yuan-frontend` 实现。
+- 创建 T-007 Dev OS 任务看板详情页 + 进度汇总机制；状态为“准备中”（内部枚举：`ready`），当前阶段为 `yuan-architect` 前置架构说明，说明确认前 `yuan-frontend` 不得开工。
+- 同步 TASK_BOARD、summary 与两个 dashboard JSON，保持 T-007 初始事实源一致；本次尚未变更 dashboard schema，尚未新增校验脚本。
+
 ## 2026-05-03
 
 - 创建 `project-os-closeout-review` skill，并将任务完成后的事实源收口检查明确为 `yuan-reviewer` 职责；完成 T-006 closeout 事实源漂移修正。

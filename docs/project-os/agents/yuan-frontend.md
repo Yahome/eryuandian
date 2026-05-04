@@ -1,6 +1,6 @@
 # yuan-frontend
 
-状态：准备中（内部标识：`ready`）
+状态：活跃（内部标识：`active`）
 
 ## 角色
 
@@ -57,3 +57,16 @@
 - 保留 T-003 总览能力和 T-005 只读 Project Wiki Viewer；数据仍来自 `dashboard.json`，未新增 API、未变更 schema、未修改数据库 schema。
 - 已抽取独立 logo 静态资源，避免继续把 `brand-logo-identity.png` 整张设计总览图当页面 logo。
 - 验证通过：`npm run lint`、`npm run typecheck`、`npm run build`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check`。
+
+## T-007 等待架构门禁（2026-05-05）
+
+- T-007 Dev OS 任务看板详情页 + 进度汇总机制已创建，但当前阶段为 `yuan-architect` 前置架构说明。
+- `yuan-frontend` 在架构说明完成并由 `yuan-control` 确认前不得开工。
+- 确认后仅允许实现只读任务看板，不新增 API、不改数据库 schema、不进入登录 / 生图 / 试卷 / 支付业务功能。
+
+## T-007 实现阶段（2026-05-05）
+
+- T-007 已通过架构门禁，当前负责实现只读任务看板详情页。
+- 严格按 `docs/project-os/tasks/T-007-task-board-progress.md` 的前置架构说明执行：不新增 API、不改 schema、不改数据库、不进入登录 / 生图 / 试卷 / 支付业务。
+- 已完成 `/dev-dashboard` 只读任务看板前端实现：sidebar “任务看板”进入真实 `#task-board` 区域，任务与统计来自 `dashboard.json.tasks`，风险 / 待确认 / 最近更新来自 dashboard JSON 对应字段，任务详情可切换到 Project Wiki Viewer 对应 task markdown。
+- 当前状态：T-007 已通过 `yuan-reviewer` 验收；未新增 API、未新增脚本、未修改 dashboard schema 或数据库 schema。

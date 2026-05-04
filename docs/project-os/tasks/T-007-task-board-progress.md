@@ -1,0 +1,334 @@
+---
+id: T-007
+title: Dev OS 任务看板详情页 + 进度汇总机制
+owner: yuan-frontend
+status: done # 已完成
+priority: P1
+progress: 100
+created_at: 2026-05-05
+updated_at: 2026-05-05
+tags:
+  - frontend
+  - dashboard
+  - task-board
+  - progress-summary
+  - dev-os
+---
+
+# T-007 Dev OS 任务看板详情页 + 进度汇总机制
+
+## 当前阶段
+
+`yuan-architect` 前置架构说明已由 `yuan-control` 确认，`yuan-frontend` 已完成只读任务看板前端实现，`yuan-reviewer` 已完成验收并通过。
+
+> `yuan-control` 已确认前置架构说明覆盖页面 / 信息架构、数据来源、schema 结论、第一版任务看板功能、进度汇总机制、frontend 边界和 reviewer 验收标准；允许 `yuan-frontend` 按本说明开工。
+
+## yuan-frontend 实现结果
+
+- `/dev-dashboard` 内新增真实只读任务看板区域，`sidebar` “任务看板”入口进入 `#task-board`，不再落到 Wiki 快捷入口。
+- 任务列表来自 `dashboard.json.tasks`；风险、待确认、最近更新分别来自 `dashboard.json.risks`、`pendingApprovals`、`recentUpdates`。
+- 统计数据从 `dashboard.json.tasks` 派生，展示总任务数、已完成、准备中、进行中、审核中、已阻塞、平均进度。
+- 任务按中文状态分组展示，内部枚举值和 dashboard JSON 字段名保持英文。
+- 每个任务展示 ID、标题、owner、priority、中文 status、progress、summary、wiki 路径，并可选择任务查看详情。
+- 任务详情支持打开对应 task markdown，并切换到 Project Wiki Viewer 对应文档。
+- 未新增 API，未修改数据库 schema，未新增 dashboard schema 字段，未新增脚本，未进入登录 / 生图 / 试卷 / 支付业务。
+
+## 目标
+
+把 `/dev-dashboard` 左侧的“任务看板”从当前占位 / 锚点复用状态，升级为真实可用的 Dev OS 任务看板详情页或详情区域。
+
+同时建立第一版“进度汇总机制”，减少后续这些文件之间的状态漂移：
+
+- `docs/project-os/TASK_BOARD.md`
+- `docs/project-os/dashboard/dashboard.json`
+- `docs/project-os/dashboard.json`
+- `docs/project-os/dashboard/summary.md`
+- `docs/project-os/tasks/T-xxx-*.md`
+
+T-007 不要求一次性解决所有同步问题，但必须明确第一版的事实源、展示派生规则，以及后续校验机制边界。
+
+## Architect 前置门禁
+
+T-007 命中 Architect 前置门禁，原因包括：
+
+- 新页面 / 新模块。
+- 任务数据展示结构。
+- 进度汇总机制。
+- Dashboard 内部页面边界。
+- 可能涉及 `dashboard.json` 字段使用或校验规则。
+
+在 `yuan-architect` 完成说明并由 `yuan-control` 确认前：
+
+- 不得派 `yuan-frontend` 开工。
+- 不得新增 dashboard schema 字段。
+- 不得改前端组件结构。
+- 不得实现任务看板 UI。
+
+## 架构说明要求
+
+`yuan-architect` 必须在本文档追加“前置架构说明”，至少覆盖：
+
+1. 页面 / 信息架构：明确 `/dev-dashboard` 中“任务看板”的展示方式、入口目标区域、是否复用现有 dashboard shell、是否需要轻量组件拆分，以及如何避免破坏 T-003 / T-005 / T-006。
+2. 数据来源：默认继续使用 `docs/project-os/dashboard/dashboard.json`；任务来自 `dashboard.json.tasks`，风险来自 `dashboard.json.risks`，待确认项来自 `dashboard.json.pendingApprovals`，最近更新来自 `dashboard.json.recentUpdates`，每个任务详情入口使用 task 的 `wiki` 字段；不得硬编码 task、agent、risk、roadmap、wiki 数据。
+3. 是否变更 schema：优先不变更 dashboard schema。若判断确实需要新增字段，必须先说明原因，并同步规划 `docs/project-os/dashboard/SCHEMA.md`、`docs/project-os/dashboard/dashboard.json`、`docs/project-os/dashboard.json`。
+4. 任务看板第一版功能：只读展示；按状态分组；任务至少展示 ID、标题、owner、priority、状态中文、progress、summary、wiki 链接；支持点击任务查看详情卡片或右侧详情区；支持从任务详情跳转或切换到 Project Wiki Viewer 中对应 task markdown；统计数据从 `dashboard.json` 派生。
+5. 进度汇总机制第一版：明确 task markdown、`TASK_BOARD.md`、`dashboard/dashboard.json`、根部 `dashboard.json`、`dashboard/summary.md` 的角色；明确只做 UI 派生展示，或增加轻量只读校验脚本 `scripts/dev-os-validate.mjs`。
+6. Frontend 实现边界：不新增 API、不修改数据库 schema、不开发登录 / 生图 / 试卷 / 支付、不远程拉取 Markdown、不提供编辑/保存/删除/拖拽改状态、不硬编码数据、不引入重型 UI 依赖。
+7. Reviewer 验收标准：覆盖页面访问、任务看板入口、数据来源、统计派生、T-003/T-005/T-006 回归、无 API/schema/业务越界、状态中文展示、验证命令、Gemini 429 处理。
+
+## yuan-architect 前置架构说明
+
+### 结论
+
+- `/dev-dashboard` 继续复用 T-006 已完成的 Dashboard shell，不新增路由、不新增 API、不修改数据库 schema。
+- “任务看板”在 `/dev-dashboard` 内成为真实只读详情区域，sidebar 的“任务看板”入口指向该区域，不再复用 Project Wiki 快捷入口。
+- 第一版数据源继续使用 `docs/project-os/dashboard/dashboard.json`，不新增 dashboard schema 字段，不修改 `docs/project-os/dashboard/SCHEMA.md`，不修改两个 dashboard JSON。
+- 第一版进度汇总以 UI 派生展示为主；建议后续新增轻量只读校验脚本 `scripts/dev-os-validate.mjs` 检查事实源漂移，但本前置说明不实现脚本。
+
+### 页面 / 信息架构
+
+`/dev-dashboard` 的信息架构保持现有 Dashboard shell：
+
+- 左侧 sidebar：保留 T-006 的导航结构与视觉；“任务看板”入口锚点目标为真实任务看板区域，建议沿用 `#task-board`。
+- 总览区域：保留 T-003 的 KPI、项目状态、风险与最近更新等总览展示，不为了任务看板重写总览指标。
+- 任务看板区域：位于总览之后、Project Wiki Viewer 之前或附近，作为 Dev OS 内部只读模块，不新建业务页面。
+- Project Wiki Viewer：保留 T-005 的 `#project-wiki` 区域和只读 Markdown 浏览能力；任务详情中的 wiki 跳转只切换或跳转到对应 task markdown，不替代 Wiki Viewer。
+- 风险与待确认：第一版可在任务看板旁侧或详情区摘要展示 `risks` 与 `pendingApprovals`，但不改变其事实源或状态语义。
+
+允许轻量组件拆分，目的是降低 `src/main.tsx` 继续膨胀，并保护 T-003 / T-005 / T-006 的既有边界。建议拆分方向：
+
+- `TaskBoardSection`：负责任务分组、统计和选中态。
+- `TaskColumn` / `TaskCard`：负责各状态组内任务只读展示。
+- `TaskDetailPanel`：负责展示选中任务详情、风险/待确认提示和 wiki 跳转。
+- `statusLabel` / `statusTone` / `taskStats` 等纯前端派生工具：只做展示映射和统计派生，不写回 JSON。
+
+拆分必须保持 T-003 总览入口、T-005 Wiki Viewer、T-006 shell 视觉与响应式布局不退化。不得把 Project Wiki 快捷入口继续挂在 `#task-board` 上，也不得为了任务看板删除或弱化 `#project-wiki`。
+
+### 数据来源
+
+前端第一数据源继续是 `docs/project-os/dashboard/dashboard.json`。根部 `docs/project-os/dashboard.json` 是镜像文件，用于一致性校验，不作为新增 schema 的理由。
+
+字段使用边界：
+
+- 任务列表来自 `dashboard.json.tasks`。
+- 风险摘要来自 `dashboard.json.risks`。
+- 待确认项来自 `dashboard.json.pendingApprovals`。
+- 最近更新来自 `dashboard.json.recentUpdates`。
+- 每个任务详情和 Wiki 跳转入口使用 task 的 `wiki` 字段。
+- 项目标题、更新时间、agent、roadmap、wikiLinks 等信息如需展示，只能读取 dashboard JSON 既有字段。
+
+禁止事项：
+
+- 不得硬编码 task、agent、risk、roadmap、wiki 数据。
+- 不得从远程地址拉取 Markdown。
+- 不得把用户输入拼接成文件路径。
+- 不得在前端自造与 dashboard JSON 冲突的任务状态、进度、owner、priority 或 wiki 路径。
+
+允许的展示映射只有 UI 层映射，例如本文档定义的状态中文展示。内部枚举值和 JSON 字段名保持英文。
+
+### Dashboard Schema 结论
+
+本阶段不建议变更 dashboard schema。
+
+理由：
+
+- `dashboard.json.tasks` 已包含第一版任务看板所需字段：`id`、`title`、`owner`、`status`、`priority`、`progress`、`summary`、`wiki`。
+- `dashboard.json.risks`、`pendingApprovals`、`recentUpdates` 已覆盖第一版详情区辅助信息。
+- 统计数据可从现有 `tasks`、`risks` 派生，不需要新增汇总字段。
+- Wiki 跳转可复用 task 的 `wiki` 字段和 T-005 已建立的 Project Wiki Viewer。
+
+因此本任务不修改：
+
+- `docs/project-os/dashboard/SCHEMA.md`
+- `docs/project-os/dashboard/dashboard.json`
+- `docs/project-os/dashboard.json`
+
+若后续需要依赖关系、验收状态、时间线、阻塞原因、排序权重、任务类型、reviewer 结论等结构化字段，必须另走 `yuan-architect` 前置门禁，并同步规划 schema、两个 dashboard JSON、summary 与相关 task markdown 的更新。
+
+### 第一版任务看板功能
+
+第一版只做只读展示，功能范围如下：
+
+- 按状态分组展示任务，分组顺序可采用：`in_progress`、`review` / `reviewing`、`ready`、`pending` / `todo`、`blocked`、`done` / `completed` / `success` / `succeeded`、其他状态。
+- 每个任务卡片至少展示：ID、标题、owner、priority、状态中文、progress、summary、wiki 链接。
+- 支持点击任务卡片，在详情卡片或右侧详情区查看任务完整摘要、状态、进度、owner、priority、wiki 路径和关联最近更新。
+- 支持从任务详情跳转或切换到 Project Wiki Viewer 中对应 task markdown；目标路径来自 task 的 `wiki` 字段。
+- 展示统计数据，包括任务总数、各状态数量、完成率、平均进度、阻塞/风险提示等，全部从 `dashboard.json` 派生。
+- 空数据、未知状态、缺失 wiki 路径时必须有只读空状态或降级展示，不得写入 JSON 或调用新增 API 修复。
+
+第一版不提供：
+
+- 新建、编辑、保存、删除任务。
+- 拖拽改状态。
+- 在线修改 progress、owner、priority、summary。
+- 任务评论、通知、权限、审计日志。
+- 自动生成或自动同步 Markdown / JSON。
+
+### 进度汇总机制第一版
+
+第一版坚持 Markdown-first，但 `/dev-dashboard` UI 的直接输入仍是 dashboard JSON。
+
+各文件角色：
+
+- `docs/project-os/tasks/T-xxx-*.md`：单任务事实源，记录任务目标、边界、状态、进度、验收标准和进展记录。
+- `docs/project-os/TASK_BOARD.md`：人工可读任务索引，用于快速查看全量任务列表和下一步，不作为前端运行时数据源。
+- `docs/project-os/dashboard/dashboard.json`：Dashboard UI 第一数据源，由 Markdown 事实源汇总而来，前端统计和任务看板从这里派生。
+- `docs/project-os/dashboard.json`：根部镜像文件，语义上必须与 `docs/project-os/dashboard/dashboard.json` 保持一致。
+- `docs/project-os/dashboard/summary.md`：人工可读汇总报告，记录当前项目状态、检查结果、风险和最近执行结论。
+
+第一版机制：
+
+- 任务看板 UI 只读读取 dashboard JSON，并在前端派生分组、计数、平均进度和完成率。
+- T-007 实现阶段不要求自动写回 `TASK_BOARD.md`、task markdown、summary 或两个 dashboard JSON。
+- 为降低后续状态漂移，建议后续新增 `scripts/dev-os-validate.mjs`，但该脚本只做只读校验，不做自动修复。
+
+建议 `scripts/dev-os-validate.mjs` 第一版只检查：
+
+- 两个 dashboard JSON 均为合法 JSON，且内容一致。
+- `dashboard.json.tasks[*].wiki` 指向的 task markdown 存在。
+- task markdown front matter 的 `id`、`owner`、`status`、`priority`、`progress` 与 dashboard JSON 对应任务不冲突。
+- `TASK_BOARD.md` 至少包含 dashboard JSON 中每个任务的 ID 和 wiki 路径。
+- `dashboard/summary.md` 与 task 文档中的 Gemini 429 或 reviewer 备注不出现明显遗漏。
+
+该脚本不应生成 dashboard JSON、不应修改 Markdown、不应修改 schema、不应调用网络服务。
+
+### Frontend 实现边界
+
+`yuan-frontend` 只有在本说明完成并由 `yuan-control` 确认后才能开工。
+
+允许范围：
+
+- 修改 Dev OS Dashboard 相关前端文件。
+- 复用现有 dashboard JSON import、状态中文映射、统计 helper、Wiki Viewer 切换能力。
+- 在 Dev OS 范围内轻量拆分组件和工具函数。
+- 增加必要的只读空状态、焦点态、响应式布局和可访问性属性。
+
+禁止范围：
+
+- 不新增 API。
+- 不修改数据库 schema。
+- 不新增 dashboard schema 字段。
+- 不开发登录 / 生图 / 试卷 / 支付等业务功能。
+- 不远程拉取 Markdown。
+- 不提供编辑、保存、删除、拖拽改状态等写入能力。
+- 不硬编码 task、agent、risk、roadmap、wiki 数据。
+- 不引入重型 UI 依赖。
+- 不修改两个 dashboard JSON 来适配 UI；若发现数据问题，记录给 `yuan-control` 决策。
+
+### Reviewer 验收标准
+
+`yuan-reviewer` 验收 T-007 时至少检查：
+
+- `/dev-dashboard` 可访问，现有 Dashboard shell 未破坏。
+- sidebar “任务看板”进入真实任务看板区域，不再误落到 Project Wiki 快捷入口。
+- 任务数据来自 `dashboard.json.tasks`，不是前端硬编码数组。
+- 风险、待确认项、最近更新分别来自 `dashboard.json.risks`、`pendingApprovals`、`recentUpdates`。
+- 任务详情 wiki 入口使用 task 的 `wiki` 字段，并能跳转或切换到 Project Wiki Viewer 对应 task markdown。
+- 统计数据从 dashboard JSON 派生，不手写固定数字。
+- 状态中文展示符合本文档约定，内部枚举值和 JSON 字段名未被改成中文。
+- T-003 总览、T-005 Project Wiki Viewer、T-006 shell 视觉与响应式布局不回退。
+- 未新增 API，未修改数据库 schema，未新增 dashboard schema 字段。
+- 未进入登录 / 生图 / 试卷 / 支付等业务功能。
+- 未修改 `docs/project-os/dashboard/SCHEMA.md` 和两个 dashboard JSON，除非另有 `yuan-control` 明确批准。
+- `npm run lint`、`npm run typecheck`、`npm run build` 通过。
+- `jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json` 通过。
+- `cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json` 通过。
+- `git diff --check` 通过。
+
+如 Gemini 二审再次返回 429：必须在验收记录中写明调用时间、失败原因和“未获得有效 Gemini 二审输出”；该情况不阻塞 `yuan-reviewer` 自身验收，但必须同步记录到任务文档和 `docs/project-os/dashboard/summary.md`。
+
+## 状态中文展示约定
+
+内部枚举值保持英文，不修改 dashboard JSON 枚举语义。展示层中文映射如下：
+
+- `ready` -> 准备中
+- `in_progress` -> 进行中
+- `pending` -> 待处理
+- `todo` -> 待办
+- `blocked` -> 已阻塞
+- `review` / `reviewing` -> 审核中
+- `done` / `completed` / `success` / `succeeded` -> 已完成
+- `failed` -> 失败
+- `cancelled` / `canceled` -> 已取消
+- `archived` -> 已归档
+- `draft` -> 草稿
+
+## Frontend 实现边界
+
+`yuan-frontend` 只有在 Architect 前置说明完成并由 `yuan-control` 确认后才能开工。
+
+前端实现必须遵守：
+
+- 不新增 API。
+- 不修改数据库 schema。
+- 不开发登录 / 生图 / 试卷 / 支付等业务功能。
+- 不远程拉取 Markdown。
+- 不提供任务编辑、保存、删除、拖拽改状态等写入能力。
+- 本阶段只读展示任务看板。
+- 任务、风险、wiki、roadmap、agent 数据不得硬编码。
+- 可轻量拆分 `src/main.tsx` 中过大的组件和工具函数。
+- 可建立更清晰的 Dev OS 组件结构。
+- 不引入重型 UI 依赖。
+
+## Reviewer 验收标准
+
+- [x] `/dev-dashboard` 可访问。
+- [x] sidebar “任务看板”进入真实任务看板区域，不再误落到 Wiki 快捷入口。
+- [x] 任务数据来自 `dashboard.json.tasks`。
+- [x] 统计数据从 `dashboard.json` 派生，不手写。
+- [x] T-003 总览不被破坏。
+- [x] T-005 Project Wiki Viewer 不被破坏。
+- [x] T-006 Dashboard shell 视觉不被破坏。
+- [x] 不新增 API。
+- [x] 不修改数据库 schema。
+- [x] 不进入登录 / 生图 / 试卷 / 支付等业务功能。
+- [x] 状态中文展示与文档约定一致。
+- [x] 内部枚举值、字段名、JSON schema 不被误改。
+- [x] `npm run lint` 通过。
+- [x] `npm run typecheck` 通过。
+- [x] `npm run build` 通过。
+- [x] `jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json` 通过。
+- [x] `cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json` 通过。
+- [x] `git diff --check` 通过。
+
+如 Gemini 二审再次 429：记录原因，不阻塞 `yuan-reviewer` 自身验收，并在任务文档和 summary 中说明 Gemini 二审未完成的原因。
+
+## 验收记录（yuan-reviewer，2026-05-05）
+
+总体结论：**PASS / 无 Blocker**。
+
+- PASS：`/dev-dashboard` 可访问，`curl -I -s http://127.0.0.1:5173/dev-dashboard` 返回 `HTTP/1.1 200 OK`。
+- PASS：sidebar “任务看板”点击后进入 `#task-board`；真实任务看板区域位于 Wiki 快速入口之前，不再误落到 Wiki 快捷入口。
+- PASS：任务看板数据来自 `dashboard.json.tasks`，统计由 `taskStats(data.tasks)`、`averageProgress(data.tasks)`、`countByStatus` 等前端派生函数生成；风险、待确认、最近更新分别来自 `dashboard.json.risks`、`pendingApprovals`、`recentUpdates`。
+- PASS：任务详情使用 task 的 `wiki` 字段，浏览器脚本验证 T-007 详情可切换 Project Wiki Viewer 到 `docs/project-os/tasks/T-007-task-board-progress.md`。
+- PASS：T-003 总览、T-005 Project Wiki Viewer、T-006 dashboard shell 关键 DOM 与文案均仍可见；Wiki Viewer 保持只读，无编辑/保存/删除/上传入口。
+- PASS：未新增 API、未修改 `docs/project-os/dashboard/SCHEMA.md`、未修改数据库 schema，未进入登录 / 生图 / 试卷 / 支付业务。
+- PASS：状态中文展示符合本文件约定；两个 dashboard JSON 中任务内部枚举仍为英文，当前为 7 个 `done`、1 个 `review`（验收收口后同步为 T-007 `done`）。
+- PASS：两个 dashboard JSON 合法且内容一致；git diff 范围集中在 Dev OS Dashboard 前端实现与相关文档/JSON 状态记录。
+
+验证命令：
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json
+cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json
+git diff --check
+npm run dev -- --port 5173 --strictPort
+curl -I -s http://127.0.0.1:5173/dev-dashboard
+```
+
+以上命令均通过。补充浏览器验证使用本机 `google-chrome --headless=new` + DevTools Protocol 只读访问页面，确认 `#task-board` 锚点、T-007 任务详情、Project Wiki 切换和 T-003/T-005/T-006 回归 DOM。
+
+Gemini 二审：已按 `yuan-reviewer` 规则调用 Gemini CLI，但服务端连续返回 `429 RESOURCE_EXHAUSTED / MODEL_CAPACITY_EXHAUSTED`，提示 `No capacity available for model gemini-3.1-pro-preview on the server`；未获得有效 Gemini 二审输出。按流程记录原因，不阻塞 `yuan-reviewer` 自身验收结论。
+
+## 进展记录
+
+- 2026-05-05：由 `yuan-control` 创建任务，状态“准备中”（内部枚举：`ready`）；当前阶段为 `yuan-architect` 前置架构说明。`yuan-frontend` 在架构说明完成并确认前不得开工。
+- 2026-05-05：`yuan-architect` 已完成本文件内的前置架构说明；结论为复用现有 `/dev-dashboard` shell 与 `docs/project-os/dashboard/dashboard.json`，不新增 dashboard schema 字段，不新增 API，不修改数据库 schema，不实现任务看板 UI。下一步等待 `yuan-control` 确认后再派 `yuan-frontend`。
+
+- 2026-05-05：`yuan-control` 已检查并确认前置架构说明覆盖要求；T-007 状态推进为“进行中”（内部枚举：`in_progress`），当前阶段切换为 `yuan-frontend` 实现。
+- 2026-05-05：`yuan-frontend` 已完成只读任务看板前端实现：`#task-board` 进入真实任务看板，任务、风险、待确认、最近更新和统计均从 `dashboard.json` 派生，任务详情可切换到 Project Wiki Viewer 对应 task markdown。T-007 状态推进为“审核中”（内部枚举：`review`），当前待 `yuan-reviewer` 验收。
+- 2026-05-05：实现自检通过：`npm run lint`、`npm run typecheck`、`npm run build`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check`。未新增脚本，未修改 dashboard schema。
+- 2026-05-05：`yuan-reviewer` 已完成 T-007 验收，结论 PASS / 无 Blocker；指定验证命令与页面行为验证通过。Gemini CLI 二审因服务端 429 模型容量不足无有效输出，已记录且不阻塞自身验收。

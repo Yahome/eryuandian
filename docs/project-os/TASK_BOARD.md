@@ -1,7 +1,7 @@
 # TASK_BOARD
 
 状态：Phase 0 / Dev OS 闭环建立中
-更新时间：2026-05-03
+更新时间：2026-05-05
 
 | ID | 标题 | 负责人 | 状态 | 优先级 | 文档 |
 |---|---|---|---|---|---|
@@ -12,6 +12,7 @@
 | T-004 | Dashboard JSON Sync | yuan-architect | 已完成 | P0 | `tasks/T-004-dashboard-json-sync.md` |
 | T-005 | Project Wiki Viewer | yuan-frontend | 已完成 | P1 | `tasks/T-005-wiki-viewer.md` |
 | T-006 | Dev OS Dashboard Visual Alignment / Shell Refactor | yuan-frontend | 已完成 | P1 | `tasks/T-006-dashboard-visual-alignment.md` |
+| T-007 | Dev OS 任务看板详情页 + 进度汇总机制 | yuan-frontend | 已完成 | P1 | `tasks/T-007-task-board-progress.md` |
 
 ## 状态枚举
 
@@ -27,7 +28,8 @@
 
 1. Dev OS 流程纠偏已写入事实源：新页面 / 新模块 / 数据结构 / 接口协议 / Wiki 索引 / 系统边界 / 前后端协作边界，必须先由 `yuan-architect` 输出轻量架构说明。
 2. T-005 Project Wiki Viewer 已完成：`yuan-architect` 前置架构、`yuan-frontend` 实现、`yuan-reviewer` 验收均已通过。
-3. T-006 Dev OS Dashboard 视觉对齐 / Shell 重构已完成并验收通过；下一步继续 Dev OS 任务看板详情页与进度汇总机制。
+3. T-006 Dev OS Dashboard 视觉对齐 / Shell 重构已完成并验收通过。
+4. T-007 Dev OS 任务看板详情页 + 进度汇总机制已完成 `yuan-frontend` 实现并通过 `yuan-reviewer` 验收；Gemini 二审因服务端 429 无有效输出，已记录且不阻塞验收结论。
 
 ## Architect 前置门禁
 
