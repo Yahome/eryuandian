@@ -1,6 +1,6 @@
 # yuan-architect
 
-状态：active
+状态：活跃（内部标识：`active`）
 更新时间：2026-05-03
 
 ## 角色
@@ -57,7 +57,7 @@
 - 已生成 / 更新 Dashboard 汇总文件：
   - `docs/project-os/dashboard/summary.md`
   - `docs/project-os/dashboard/dashboard.json`
-- 已把 T-004 状态推进为 done，并记录本次验收结果。
+- 已把 T-004 状态推进为“已完成”（内部枚举：`done`），并记录本次验收结果。
 - Dev OS 流程已纠偏：后续新页面 / 新模块 / 数据结构 / 接口协议 / Wiki 索引 / 边界类任务，必须先由本 profile 输出轻量架构说明。
 - 已完成 T-005 Project Wiki Viewer 前置架构说明，明确复用 `dashboard.json.wikiLinks`、不变更 schema、不新增 API、不修改数据库 schema。
 

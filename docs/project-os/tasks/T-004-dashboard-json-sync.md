@@ -2,7 +2,7 @@
 id: T-004
 title: Dashboard JSON Sync
 owner: yuan-architect
-status: done
+status: done # 已完成
 priority: P0
 progress: 100
 created_at: 2026-05-02
@@ -79,7 +79,7 @@ tags:
 - `docs/project-os/dashboard/SCHEMA.md`：声明顶层字段为 `project`、`agents`、`tasks`、`risks`、`roadmap`、`pendingApprovals`、`recentUpdates`、`wikiLinks`。
 - `docs/project-os/dashboard/dashboard.json`：包含上述 8 个顶层字段，`agents` 数量为 5，`tasks` 包含 `T-001`、`T-002`、`T-003`、`T-004`、`T-005`（另含 `T-000` 作为 bootstrap 历史任务）。
 - `docs/project-os/dashboard.json`：根部 dashboard JSON 同样是合法 JSON，并包含用户要求的 8 个顶层字段。
-- `docs/project-os/tasks/T-003-dashboard-ui.md`：T-003 owner 为 `yuan-frontend`，status 为 `ready`，priority 为 `P0`，progress 为 `0`，数据源指定为 `docs/project-os/dashboard/dashboard.json` 与 `summary.md`。
+- `docs/project-os/tasks/T-003-dashboard-ui.md`：T-003 owner 为 `yuan-frontend`，`status: "ready"` 表示任务处于“准备中”状态，priority 为 `P0`，progress 为 `0`，数据源指定为 `docs/project-os/dashboard/dashboard.json` 与 `summary.md`。
 
 ### 校验范围说明
 
@@ -93,7 +93,7 @@ tags:
 
 ### 发现的问题
 
-- 已修复：`docs/project-os/TASK_BOARD.md` 中 T-004 已按本文件 frontmatter、`docs/project-os/dashboard/dashboard.json`、`docs/project-os/dashboard.json` 同步为 `done`。
+- 已修复：`docs/project-os/TASK_BOARD.md` 中 T-004 已按本文件 frontmatter、`docs/project-os/dashboard/dashboard.json`、`docs/project-os/dashboard.json` 同步为“已完成”（内部枚举：`done`）。
 - 已补充审计：5 个 profile 的 home directory 与 `SOUL.md` 存在性已记录到 `docs/project-os/agents/profile-audit.md`；记录只包含路径、角色摘要和最后修改时间，不包含敏感信息。
 
 ### T-003 交接判断
@@ -108,5 +108,5 @@ tags:
 ## 变更记录
 
 - 2026-05-02：创建任务文档。
-- 2026-05-03：读取 `docs/project-os` 事实源，生成 `summary.md` 与 `dashboard.json`，任务状态更新为 done。
+- 2026-05-03：读取 `docs/project-os` 事实源，生成 `summary.md` 与 `dashboard.json`，任务状态更新为“已完成”（内部枚举：`done`）。
 - 2026-05-03：`yuan-reviewer` 完成 Phase 0 启动验收，实际校验两个 dashboard JSON 与 `SCHEMA.md` 顶层字段；结论 WARN，但 T-003 可在前置条件下交给 `yuan-frontend`。

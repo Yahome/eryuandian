@@ -1,6 +1,6 @@
 # API_CONTRACT：前后端接口契约草案
 
-状态：draft
+状态：草稿（内部标识：`draft`）
 更新时间：2026-05-02
 
 ## 说明
@@ -11,7 +11,7 @@
 
 Base path 建议：`/api`
 
-通用响应：
+通用响应（`success` 为 API 布尔字段，`true` 表示请求成功，不是任务状态枚举）：
 
 ```json
 {
@@ -21,7 +21,7 @@ Base path 建议：`/api`
 }
 ```
 
-错误响应：
+错误响应（`success` 为 API 布尔字段，`false` 表示请求失败，不是任务状态枚举）：
 
 ```json
 {
@@ -146,6 +146,8 @@ Base path 建议：`/api`
 }
 ```
 
+说明：响应中的 `status: "queued"` 保留 API 枚举值，表示任务处于“排队中”状态。
+
 ### 查询生图任务
 
 `GET /api/generations/images/{job_id}`
@@ -166,6 +168,8 @@ Base path 建议：`/api`
   "error": null
 }
 ```
+
+说明：响应中的 `status: "succeeded"` 保留 API 枚举值，表示任务已完成。
 
 ## 智能生成试卷
 
@@ -201,6 +205,8 @@ Base path 建议：`/api`
 }
 ```
 
+说明：响应中的 `status: "queued"` 保留 API 枚举值，表示任务处于“排队中”状态。
+
 ### 查询试卷任务
 
 `GET /api/generations/papers/{job_id}`
@@ -223,6 +229,8 @@ Base path 建议：`/api`
   "error": null
 }
 ```
+
+说明：响应中的 `status: "succeeded"` 保留 API 枚举值，表示任务已完成。
 
 ## 生成记录
 

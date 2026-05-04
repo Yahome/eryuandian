@@ -1,6 +1,6 @@
 # INFORMATION_ARCHITECTURE：信息架构
 
-状态：draft
+状态：草稿（内部标识：`draft`）
 更新时间：2026-05-02
 
 ## 总体结构

@@ -5,23 +5,23 @@
 
 | ID | 标题 | 负责人 | 状态 | 优先级 | 文档 |
 |---|---|---|---|---|---|
-| T-000 | Bootstrap Dev OS | yuan-control | done | P0 | `tasks/T-000-bootstrap-dev-os.md` |
-| T-001 | 设置 Hermes Agent Profiles | yuan-control | done | P0 | `tasks/T-001-setup-agent-profiles.md` |
-| T-002 | 建立 Project OS 文档事实源 | yuan-architect | done | P0 | `tasks/T-002-project-os-docs.md` |
-| T-003 | Dev OS Dashboard UI | yuan-frontend | done | P0 | `tasks/T-003-dashboard-ui.md` |
-| T-004 | Dashboard JSON Sync | yuan-architect | done | P0 | `tasks/T-004-dashboard-json-sync.md` |
-| T-005 | Project Wiki Viewer | yuan-frontend | done | P1 | `tasks/T-005-wiki-viewer.md` |
-| T-006 | Dev OS Dashboard Visual Alignment / Shell Refactor | yuan-frontend | done | P1 | `tasks/T-006-dashboard-visual-alignment.md` |
+| T-000 | Bootstrap Dev OS | yuan-control | 已完成 | P0 | `tasks/T-000-bootstrap-dev-os.md` |
+| T-001 | 设置 Hermes Agent Profiles | yuan-control | 已完成 | P0 | `tasks/T-001-setup-agent-profiles.md` |
+| T-002 | 建立 Project OS 文档事实源 | yuan-architect | 已完成 | P0 | `tasks/T-002-project-os-docs.md` |
+| T-003 | Dev OS Dashboard UI | yuan-frontend | 已完成 | P0 | `tasks/T-003-dashboard-ui.md` |
+| T-004 | Dashboard JSON Sync | yuan-architect | 已完成 | P0 | `tasks/T-004-dashboard-json-sync.md` |
+| T-005 | Project Wiki Viewer | yuan-frontend | 已完成 | P1 | `tasks/T-005-wiki-viewer.md` |
+| T-006 | Dev OS Dashboard Visual Alignment / Shell Refactor | yuan-frontend | 已完成 | P1 | `tasks/T-006-dashboard-visual-alignment.md` |
 
 ## 状态枚举
 
-- pending
-- ready
-- in_progress
-- blocked
-- review
-- done
-- cancelled
+- `pending`：待处理
+- `ready`：准备中
+- `in_progress`：进行中
+- `blocked`：已阻塞
+- `review`：审核中
+- `done`：已完成
+- `cancelled`：已取消
 
 ## 当前执行顺序
 

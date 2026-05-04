@@ -1,6 +1,6 @@
 # T-000：Bootstrap Dev OS
 
-状态：done
+状态：已完成（内部枚举：`done`）
 优先级：P0
 负责人：yuan-control
 

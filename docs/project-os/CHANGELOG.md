@@ -5,7 +5,7 @@
 - 创建 `project-os-closeout-review` skill，并将任务完成后的事实源收口检查明确为 `yuan-reviewer` 职责；完成 T-006 closeout 事实源漂移修正。
 - 完成 T-006 Dev OS Dashboard 视觉对齐 / Shell 重构：重构 sidebar、top header、KPI、Agent grid、Roadmap、Wiki 快捷入口和只读 Viewer 视觉，`yuan-reviewer` 验收通过。
 - 创建 T-006 Dev OS Dashboard Visual Alignment / Shell Refactor，准备由 `yuan-frontend` 进行 Dashboard 视觉壳对齐。
-- 完成 T-005 closeout 事实源同步：summary、Roadmap、TASK_BOARD、dashboard JSON 中 T-005 统一为 done，owner 统一为 `yuan-frontend`，移除 PA-005。
+- 完成 T-005 closeout 事实源同步：summary、Roadmap、TASK_BOARD、dashboard JSON 中 T-005 统一为“已完成”（内部枚举：`done`），owner 统一为 `yuan-frontend`，移除 PA-005。
 - 完成 T-005 Project Wiki Viewer：`yuan-frontend` 在 `/dev-dashboard` 内实现只读 Wiki Viewer，`yuan-reviewer` 与 Gemini 双审查通过，验证 lint/typecheck/build/jq/diff-check 通过。
 - 修正 T-005 派发前事实源漂移：整理 `--yolo` 执行边界、同步 Roadmap 中 Dev Dashboard MVP 状态、更新 T-005 下一步为 frontend 实现。
 - 为 `yuan-reviewer` 接入 Gemini CLI 并行审查规则：profile HOME 的 `.gemini` 软链到 default/root `/root/.gemini`，最终验收需汇总 reviewer 自身结论、Gemini 结论和冲突裁决。

@@ -2,7 +2,7 @@
 id: T-006
 title: Dev OS Dashboard Visual Alignment / Shell Refactor
 owner: yuan-frontend
-status: done
+status: done # 已完成
 priority: P1
 progress: 100
 created_at: 2026-05-03
@@ -152,7 +152,7 @@ T-006 不涉及新数据结构、API、dashboard schema 或业务系统边界，
 
 ## 进展记录
 
-- 2026-05-03：由 `yuan-control` 创建任务，状态 ready；下一步派 `yuan-frontend` 实现。
+- 2026-05-03：由 `yuan-control` 创建任务，状态“准备中”（内部枚举：`ready`）；下一步派 `yuan-frontend` 实现。
 
 - 2026-05-03：`yuan-frontend` 已完成 T-006 实现，重构 Dashboard shell、sidebar、top header、KPI、Agent grid、Roadmap、风险/待确认、最近更新和 Wiki 快捷入口；抽取独立 logo 资源，验证 lint/typecheck/build/jq/diff-check 通过。
 - 2026-05-03：`yuan-reviewer` 已完成 T-006 验收，结论 PASS with notes；验证 lint/typecheck/build/jq/diff-check 与浏览器截图通过。Gemini CLI 已调用但服务端返回 429 模型容量不足，无有效二审输出，已按流程记录。

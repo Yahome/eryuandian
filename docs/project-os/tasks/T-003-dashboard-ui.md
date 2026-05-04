@@ -2,7 +2,7 @@
 id: T-003
 title: Dev OS Dashboard UI
 owner: yuan-frontend
-status: done
+status: done # 已完成
 priority: P0
 progress: 100
 created_at: 2026-05-02
@@ -60,7 +60,7 @@ tags:
 |---|---|---|
 | 页面能正常访问 `/dev-dashboard` | PASS | 启动 `npm run dev` 后执行 `curl -I -s http://127.0.0.1:5173/dev-dashboard`，返回 `HTTP/1.1 200 OK`。 |
 | 页面数据来自 `docs/project-os/dashboard/dashboard.json` | PASS | `src/main.tsx` 第 3 行 `import dashboardData from '../docs/project-os/dashboard/dashboard.json';`。 |
-| 没有硬编码 agent、task、risk、roadmap 业务数据 | PASS | Agent/Roadmap/Risk/Pending/Recent 均通过 `data.*.map` 渲染；KPI 由 `data.tasks`、`data.agents`、`data.risks`、`data.recentUpdates` 派生。 |
+| 没有硬编码 agent、task、risk、roadmap 业务数据 | PASS | Agent/Roadmap/Risk/Pending/Recent 为前端组件命名，均通过 `data.*.map` 渲染；KPI 由 `data.tasks`、`data.agents`、`data.risks`、`data.recentUpdates` 派生。 |
 | 5 个 agent 均正常展示 | PASS | `dashboard.json` 当前 `agents.length=5`，页面 `data.agents.map` 渲染；包含 `yuan-control`、`yuan-architect`、`yuan-frontend`、`yuan-backend`、`yuan-reviewer`。 |
 | KPI 与 `dashboard.json` 一致 | PASS | 当前计算结果：整体进度 `67%`、进行中任务 `2`、阻塞/开放风险计数 `2`、活跃 Agent `2/5`、最近更新 `2026-05-03`。 |
 | 风险、待确认、最近更新能展示 | PASS | `ListCard` 分别读取 `data.risks`、`data.pendingApprovals`、`data.recentUpdates`。 |

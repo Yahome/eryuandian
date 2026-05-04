@@ -1,6 +1,6 @@
 # yuan-frontend
 
-状态：ready
+状态：准备中（内部标识：`ready`）
 
 ## 角色
 

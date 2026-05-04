@@ -1,6 +1,6 @@
 # DATA_MODEL：数据模型草案
 
-状态：draft
+状态：草稿（内部标识：`draft`）
 更新时间：2026-05-02
 
 ## 说明
@@ -46,7 +46,7 @@
 | `user_id` | string | 用户 ID |
 | `type` | enum | `image`、`paper` |
 | `title` | string | 标题 |
-| `status` | enum | `queued`、`running`、`succeeded`、`failed` |
+| `status` | enum | `queued`（排队中）、`running`（运行中）、`succeeded`（已完成）、`failed`（失败） |
 | `input` | object | 生成输入 |
 | `output` | object | 生成输出 |
 | `credits_used` | number | 消耗额度 |

@@ -1,6 +1,6 @@
 # Dashboard JSON Schema
 
-状态：active
+状态：活跃（内部标识：`active`）
 更新时间：2026-05-03
 
 ## 文件
@@ -16,7 +16,7 @@
 - `tasks`：T-001 到 T-005 任务状态。
 - `risks`：当前风险。
 - `roadmap`：Phase 0 到 Phase 4 路线图。
-- `pendingApprovals`：待用户确认事项。
+- `pendingApprovals`：待用户确认事项（字段名保留英文，不属于任务状态枚举 `pending`）。
 - `recentUpdates`：最近更新。
 - `wikiLinks`：Dashboard 快速入口。
 

@@ -2,7 +2,7 @@
 id: T-002
 title: 建立 Project OS 文档事实源
 owner: yuan-architect
-status: done
+status: done # 已完成
 priority: P0
 progress: 100
 created_at: 2026-05-02

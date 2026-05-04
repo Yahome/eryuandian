@@ -2,7 +2,7 @@
 id: T-001
 title: 设置 Hermes Agent Profiles
 owner: yuan-control
-status: done
+status: done # 已完成
 priority: P0
 progress: 100
 created_at: 2026-05-02

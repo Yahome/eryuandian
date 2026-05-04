@@ -1,6 +1,6 @@
 # yuan-control
 
-状态：active
+状态：活跃（内部标识：`active`）
 更新时间：2026-05-03
 
 ## 角色

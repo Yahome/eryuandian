@@ -1,6 +1,6 @@
 # yuan-backend
 
-状态：ready
+状态：准备中（内部标识：`ready`）
 
 ## 角色
 
@@ -20,4 +20,4 @@
 
 - profile 已创建。
 - `SOUL.md` 已审计存在。
-- 当前未派业务任务；保持 ready/planned，不参与 T-003/T-005/T-006 Dev OS 前端任务。
+- 当前未派业务任务；保持“准备中 / 计划中”（内部标识：`ready` / `planned`），不参与 T-003/T-005/T-006 Dev OS 前端任务。

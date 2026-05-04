@@ -28,7 +28,7 @@
 - PASS：T-001 到 T-005 均有 `owner`、`status`、`priority`、`progress` 和 `## 验收标准`。证据：`docs/project-os/tasks/T-001-setup-agent-profiles.md` 至 `T-005-wiki-viewer.md`。
 - PASS：`docs/project-os/dashboard/dashboard.json` 已按 `docs/project-os/dashboard/SCHEMA.md` 做实际结构核对：合法 JSON，包含 `project`、`agents`、`tasks`、`risks`、`roadmap`、`pendingApprovals`、`recentUpdates`、`wikiLinks`，且 `agents=5`、tasks 含 `T-001` 到 `T-005`。
 - PASS：根部 `docs/project-os/dashboard.json` 合法且包含用户要求的 8 个顶层字段。
-- PASS：事实源不一致已修复。`docs/project-os/TASK_BOARD.md` 中 T-004 已按 `docs/project-os/tasks/T-004-dashboard-json-sync.md`、`docs/project-os/dashboard/dashboard.json`、`docs/project-os/dashboard.json` 同步为 `done`。
+- PASS：事实源不一致已修复。`docs/project-os/TASK_BOARD.md` 中 T-004 已按 `docs/project-os/tasks/T-004-dashboard-json-sync.md`、`docs/project-os/dashboard/dashboard.json`、`docs/project-os/dashboard.json` 同步为“已完成”（内部枚举：`done`）。
 
 T-003 已完成并验收通过；该历史放行项不再作为待确认事项保留。
 
