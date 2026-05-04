@@ -139,7 +139,7 @@ Markdown 内容边界：
 
 ### yuan-reviewer 验收点
 
-- T-005 文档存在本 `yuan-architect` 前置架构说明，且任务整体仍处于待实现状态而非误标为“已完成”（内部枚举：`done`）。
+- T-005 文档存在本 `yuan-architect` 前置架构说明，且当前任务状态、实现记录、验收记录保持一致。
 - `/dev-dashboard` 的 Wiki Viewer 使用 `dashboard.json.wikiLinks` 作为索引来源，未新增 dashboard schema 字段。
 - README、Roadmap、Task Board、Decisions、Risks 可见；Agent 进度文档入口和任务文档入口可见。
 - Markdown 预览为只读，不能编辑或写回 Markdown 事实源。
