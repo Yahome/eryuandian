@@ -8,8 +8,8 @@
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "T-007 Dev OS 任务看板详情页 + 进度汇总机制已完成 yuan-reviewer 验收并通过；当前待 yuan-control 决定下一步。",
-    "updatedAt": "2026-05-05"
+    "currentFocus": "T-008 只读事实源一致性校验脚本已通过 yuan-reviewer 验收；当前待 yuan-control 决定下一步。",
+    "updatedAt": "2026-05-06"
   },
   "agents": [
     {
@@ -31,7 +31,8 @@
         "Dev OS bootstrap 已完成",
         "已完成 Dev OS 流程纠偏：把 Architect 前置门禁写入事实源",
         "已完成 T-005 / T-006 closeout，当前下一步 T-007",
-        "已创建 T-007，当前按 Architect 前置门禁推进"
+        "已创建 T-007，当前按 Architect 前置门禁推进",
+        "已修复 T-007 closeout 小漂移，已创建 T-008；T-008 前置架构说明完成后待确认"
       ],
       "wiki": "docs/project-os/agents/yuan-control.md"
     },
@@ -52,9 +53,12 @@
         "SOUL.md 已写入角色规则",
         "已建立项目事实源 Markdown 文件集",
         "已完成 T-005 Project Wiki Viewer 前置架构说明",
-        "T-005 / T-006 已完成并验收通过，下一步为 T-007 前置架构说明",
-        "T-007 前置架构说明待执行；完成并经 yuan-control 确认后才能交给 yuan-frontend",
-        "T-007 前置架构说明已由 yuan-control 确认"
+        "T-005 / T-006 / T-007 已完成并验收通过",
+        "T-007 前置架构说明已完成并由 yuan-control 确认",
+        "T-007 已完成 yuan-frontend 实现并通过 yuan-reviewer 验收",
+        "T-008 前置架构说明已完成；结论为只读校验，不自动改文件，不新增 package script / API / dashboard schema",
+        "T-008 前置架构说明已确认，当前实现只读校验脚本",
+        "T-008 只读校验脚本 scripts/dev-os-validate.mjs 已实现，当前等待 yuan-reviewer 验收"
       ],
       "wiki": "docs/project-os/agents/yuan-architect.md"
     },
@@ -125,7 +129,8 @@
         "已完成 T-003 /dev-dashboard 第一版验收",
         "已完成 T-005 Project Wiki Viewer 验收",
         "已完成 T-006 Dashboard 视觉对齐 / Shell 重构验收；Gemini 二审 429 不阻塞自身验收",
-        "已完成 T-007 任务看板详情页 + 进度汇总机制验收；Gemini 二审 429 不阻塞自身验收"
+        "已完成 T-007 任务看板详情页 + 进度汇总机制验收；Gemini 二审 429 不阻塞自身验收",
+        "已完成 T-008 Dev OS 事实源一致性校验脚本验收；Gemini 二审 429 / 网络错误无有效输出，不阻塞自身验收"
       ],
       "wiki": "docs/project-os/agents/yuan-reviewer.md"
     }
@@ -210,6 +215,16 @@
       "progress": 100,
       "summary": "T-007 已通过 yuan-reviewer 验收：/dev-dashboard 只读任务看板、#task-board 入口、dashboard.json.tasks 数据来源、统计派生、T-003/T-005/T-006 回归和边界检查均通过；Gemini 二审 429 无有效输出，已记录。",
       "wiki": "docs/project-os/tasks/T-007-task-board-progress.md"
+    },
+    {
+      "id": "T-008",
+      "title": "Dev OS 事实源一致性校验脚本 / Closeout Gate",
+      "owner": "yuan-architect",
+      "status": "done",
+      "priority": "P1",
+      "progress": 100,
+      "summary": "T-008 已通过 yuan-reviewer 验收：scripts/dev-os-validate.mjs 只读校验 Project OS 事实源，未自动改写 Markdown / JSON，未新增 package script、API、dashboard schema 或数据库 schema，验证命令全部通过；Gemini 二审 429 / 网络错误无有效输出，已记录。",
+      "wiki": "docs/project-os/tasks/T-008-dev-os-consistency-validator.md"
     }
   ],
   "risks": [
@@ -261,12 +276,16 @@
           "done": true
         },
         {
+          "title": "T-005 Project Wiki Viewer",
+          "done": true
+        },
+        {
           "title": "T-006 Dev OS Dashboard 视觉对齐 / Shell 重构",
           "done": true
         },
         {
           "title": "T-007 Dev OS 任务看板详情页 + 进度汇总机制",
-          "done": false
+          "done": true
         }
       ],
       "wiki": "docs/project-os/ROADMAP.md"
@@ -276,6 +295,10 @@
       "title": "Phase 1：MVP 基础",
       "status": "pending",
       "items": [
+        {
+          "title": "T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate",
+          "done": true
+        },
         {
           "title": "手机号登录",
           "done": false
@@ -383,6 +406,75 @@
     }
   ],
   "recentUpdates": [
+    {
+      "date": "2026-05-06",
+      "title": "完成 T-008 yuan-reviewer 验收",
+      "description": "yuan-reviewer 验收通过：scripts/dev-os-validate.mjs 只读、不自动改写 Markdown / JSON，读取范围限于 Project OS 事实源文件；lint/typecheck/build、脚本 PASS、JSON 合法与一致性、diff whitespace 检查均通过；Gemini 二审因 429 / 网络错误无有效输出，已记录且不阻塞。",
+      "files": [
+        "scripts/dev-os-validate.mjs",
+        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md",
+        "docs/project-os/agents/yuan-reviewer.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/ROADMAP.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/CHANGELOG.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json"
+      ]
+    },
+    {
+      "date": "2026-05-06",
+      "title": "实现 T-008 只读一致性校验脚本",
+      "description": "新增 scripts/dev-os-validate.mjs，只读校验 TASK_BOARD、ROADMAP、summary、两个 dashboard JSON 与 tasks/T-*.md；首次运行发现并收口 T-005 Phase 0 roadmap 漂移，当前等待 yuan-reviewer 验收。",
+      "files": [
+        "scripts/dev-os-validate.mjs",
+        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/agents/yuan-architect.md",
+        "docs/project-os/CHANGELOG.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json"
+      ]
+    },
+    {
+      "date": "2026-05-06",
+      "title": "确认 T-008 前置架构说明",
+      "description": "T-008 前置架构说明已覆盖目标、范围、文件、规则、产物建议与 reviewer 命令；当前由 yuan-architect 实现只读校验脚本，frontend/backend 不开工。",
+      "files": [
+        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json"
+      ]
+    },
+    {
+      "date": "2026-05-06",
+      "title": "完成 T-008 yuan-architect 前置架构说明",
+      "description": "T-008 架构结论为第一版只读校验，不自动修改 Markdown / JSON；建议后续产物为 scripts/dev-os-validate.mjs；本阶段不新增 package.json script、不改 dashboard schema、不新增 API、不改数据库 schema、不进入登录 / 生图 / 试卷 / 支付。",
+      "files": [
+        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md",
+        "docs/project-os/agents/yuan-architect.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/CHANGELOG.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json"
+      ]
+    },
+    {
+      "date": "2026-05-06",
+      "title": "修复 T-007 closeout 漂移并创建 T-008",
+      "description": "ROADMAP 与两个 dashboard JSON 已同步 T-007 为已完成；profile-audit 追加 2026-05-06 SOUL.md 审计补记；T-008 已创建并进入 yuan-architect 前置架构阶段。",
+      "files": [
+        "docs/project-os/ROADMAP.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json",
+        "docs/project-os/agents/profile-audit.md",
+        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md"
+      ]
+    },
     {
       "date": "2026-05-05",
       "title": "完成 T-007 yuan-reviewer 验收",

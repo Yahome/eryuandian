@@ -1,7 +1,7 @@
 # yuan-architect
 
 状态：活跃（内部标识：`active`）
-更新时间：2026-05-05
+更新时间：2026-05-06
 
 ## 角色
 
@@ -61,6 +61,8 @@
 - Dev OS 流程已纠偏：后续新页面 / 新模块 / 数据结构 / 接口协议 / Wiki 索引 / 边界类任务，必须先由本 profile 输出轻量架构说明。
 - 已完成 T-005 Project Wiki Viewer 前置架构说明，明确复用 `dashboard.json.wikiLinks`、不变更 schema、不新增 API、不修改数据库 schema。
 - 已完成 T-007 任务看板详情页 + 进度汇总机制前置架构说明，结论为复用现有 dashboard JSON，不变更 schema、不新增 API、不修改数据库 schema；等待 `yuan-control` 确认后才能交给 `yuan-frontend`。
+- 已完成 T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate 前置架构说明；结论为第一版只读校验，不自动改文件，建议后续产物为 `scripts/dev-os-validate.mjs`，本阶段不新增 package script、不变更 dashboard schema、不新增 API、不修改数据库 schema。
+- 已实现 T-008 只读校验脚本 `scripts/dev-os-validate.mjs`，并补齐 dashboard roadmap Phase 0 中 T-005 已完成项的结构化记录；当前等待 `yuan-reviewer` 验收。
 
 ## 当前边界
 
@@ -74,7 +76,8 @@
 
 - T-005 Project Wiki Viewer 已完成并验收通过。
 - T-006 Dashboard 视觉对齐 / Shell 重构已完成并验收通过。
-- T-007 已完成前置架构说明，并已由 `yuan-control` 确认后交给 `yuan-frontend` 实现；当前 T-007 已通过 `yuan-reviewer` 验收。
+- T-007 已完成并验收通过。
+- 下一步 T-008：等待 `yuan-reviewer` 验收只读校验脚本；frontend/backend 不开工。
 
 ## 变更记录
 
@@ -84,3 +87,5 @@
 - 2026-05-03：记录 T-005、T-006 均已完成并验收通过；下一步为 T-007 前置架构说明。
 - 2026-05-05：完成 T-007 前置架构说明；结论为复用现有 `/dev-dashboard` shell 与 `docs/project-os/dashboard/dashboard.json`，不变更 dashboard schema，不新增 API，不修改数据库 schema，建议后续新增只读校验脚本 `scripts/dev-os-validate.mjs`。
 - 2026-05-05：T-007 已完成 `yuan-frontend` 实现并通过 `yuan-reviewer` 验收；架构边界未发现越界。
+- 2026-05-06：完成 T-008 前置架构说明；结论为 Dev OS 事实源一致性校验第一版只读执行，不自动修改 Markdown / JSON，建议后续实现 `scripts/dev-os-validate.mjs`，本阶段不新增 `package.json` script `dev-os:validate`。
+- 2026-05-06：实现 T-008 只读校验脚本 `scripts/dev-os-validate.mjs`；脚本不自动改写 Markdown / JSON，不新增 package script，不改 dashboard schema，不新增 API，不修改数据库 schema。

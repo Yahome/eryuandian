@@ -7,9 +7,10 @@
 - [x] Dev Dashboard MVP
 - [x] T-005 Project Wiki Viewer：已完成，`yuan-frontend` 实现，`yuan-reviewer` 与 Gemini 双审查通过
 - [x] T-006 Dev OS Dashboard 视觉对齐 / Shell 重构：已完成，`yuan-frontend` 实现，`yuan-reviewer` 验收通过
-- [ ] T-007 Dev OS 任务看板详情页 + 进度汇总机制
+- [x] T-007 Dev OS 任务看板详情页 + 进度汇总机制：已完成，`yuan-frontend` 实现，`yuan-reviewer` 验收通过；Gemini 二审因服务端 429 无有效输出，已记录且不阻塞验收
 
 ## Phase 1：MVP 基础
+- [x] T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate：已完成，`yuan-architect` 实现，`yuan-reviewer` 验收通过；Gemini 二审因 429 / 网络错误无有效输出，已记录且不阻塞验收
 - [ ] 手机号登录
 - [ ] 首页工作台
 - [ ] PC / 移动端基础布局

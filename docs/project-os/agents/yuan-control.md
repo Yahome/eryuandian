@@ -1,7 +1,7 @@
 # yuan-control
 
 状态：活跃（内部标识：`active`）
-更新时间：2026-05-03
+更新时间：2026-05-06
 
 ## 角色
 
@@ -59,7 +59,8 @@ yuan-control：同步状态和派发下一步
 - 已完成 Dev OS 流程纠偏：把 Architect 前置门禁写入事实源。
 - 已完成 T-005 Project Wiki Viewer：`yuan-architect` 前置架构、`yuan-frontend` 实现、`yuan-reviewer` 验收通过。
 - 已完成 T-006 Dashboard 视觉对齐 / Shell 重构并完成验收收口。
-- 当前下一步为 T-007：Dev OS 任务看板详情页 + 进度汇总机制。
+- 已完成 T-007 closeout 小漂移修复。
+- 已创建 T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate，当前等待 `yuan-architect` 前置架构说明。
 
 ## 当前边界
 

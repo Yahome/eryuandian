@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2026-05-06
+
+- 完成 T-008 yuan-reviewer 验收，结论 PASS：确认 `scripts/dev-os-validate.mjs` 只读、不自动改写 Markdown / JSON，读取范围限于 Project OS 事实源文件；未新增 package script、API、dashboard schema、数据库 schema，未修改前端 / 后端业务代码；验证 `npm run lint`、`npm run typecheck`、`npm run build`、`node scripts/dev-os-validate.mjs`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check` 均通过；Gemini 二审因 CLI 工具提示、429 / 网络错误无有效输出，已记录且不阻塞。
+- 实现 T-008 Dev OS 事实源一致性校验脚本 `scripts/dev-os-validate.mjs`；脚本只读检查 Project OS 事实源，输出 PASS/FAIL 与问题列表，失败 exit 1、通过 exit 0；未新增 package script，未修改 dashboard schema，未新增 API，未修改数据库 schema。
+- T-008 首次校验发现 `ROADMAP.md` Phase 0 已完成的 T-005 未出现在 dashboard `phase-0.items`；已在两个 dashboard JSON 中补齐 `T-005 Project Wiki Viewer` 的 `done: true` 记录并保持两个 JSON 完全一致。
+- T-008 指定本地验证通过：`node scripts/dev-os-validate.mjs`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check`。
+- T-008 状态推进为“审核中”（内部枚举：`review`），等待 `yuan-reviewer` 验收只读校验脚本。
+- 确认 T-008 前置架构说明覆盖校验目标、范围、文件、第一版规则、产物建议、package script 判断和 reviewer 命令；状态推进为“进行中”（内部枚举：`in_progress`），由 `yuan-architect` 实现只读校验脚本。
+- 修复 T-007 closeout 小漂移：`ROADMAP.md` 标记 T-007 已完成，两个 dashboard JSON 中 phase-0 roadmap item 的 T-007 改为 `done: true`，并保持两个 JSON 完全一致。
+- 追加 `profile-audit.md` 的 2026-05-06 SOUL.md 审计补记，只记录 5 个 profile 的存在性、角色边界与 Codex 执行规范，不复制全文、不记录敏感信息。
+- 创建 T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate，当前状态“准备中”（内部枚举：`ready`），等待 `yuan-architect` 前置架构说明。
+- 完成 T-008 `yuan-architect` 前置架构说明：第一版只读校验，不自动改文件；建议后续产物为 `scripts/dev-os-validate.mjs`；本阶段不新增 `package.json` script、不改 dashboard schema、不新增 API、不改数据库 schema、不进入登录 / 生图 / 试卷 / 支付。
+
 ## 2026-05-05
 
 - 完成 T-007 Dev OS 任务看板详情页 + 进度汇总机制验收；`yuan-reviewer` 结论 PASS，Gemini CLI 二审因 429 模型容量不足无有效输出，已记录且不阻塞验收。

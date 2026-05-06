@@ -1,6 +1,6 @@
 # Hermes Profile SOUL.md 审计记录
 
-更新时间：2026-05-03
+更新时间：2026-05-06
 执行角色：yuan-control
 
 ## 审计范围
@@ -58,3 +58,17 @@
 
 - 后续如新增 profile，需要同步补充本审计记录。
 - 如 `SOUL.md` 调整职责边界，应只更新本文件中的角色摘要与修改时间，不复制敏感或完整配置内容。
+
+## 2026-05-06 T-007 后续 SOUL.md 审计补记
+
+本次仅做 T-007 closeout 后的存在性与职责边界续记，不复制 `SOUL.md` 全文，不写入 `.env`、token、key、auth、password、secret、bearer token 或任何配置内容。
+
+| Profile | SOUL.md 存在性 | 角色边界 | Codex 执行规范 |
+|---|---|---|---|
+| `yuan-control` | PASS | 总控 / Orchestrator；负责需求拆解、门禁判断、派发与状态收口。 | 不长期亲自写业务代码；工程执行交给对应 worker profile。 |
+| `yuan-architect` | PASS | 架构 / 文档 / 事实源维护；命中门禁任务先输出轻量架构说明。 | 涉及脚本或工程代码修改时使用 `codex --yolo exec --cd /root/eryuandian ...`。 |
+| `yuan-frontend` | PASS | 前端 / Dashboard UI worker；按架构说明实现 Dev OS 前端能力。 | 编码或工程改文件必须使用 `codex --yolo exec --cd /root/eryuandian ...`。 |
+| `yuan-backend` | PASS | 后端与 AI 业务 worker；当前未派登录 / 生图 / 试卷 / 支付业务任务。 | 编码或工程改文件必须使用 `codex --yolo exec --cd /root/eryuandian ...`。 |
+| `yuan-reviewer` | PASS | Review / QA；执行只读验收、验证命令、事实源收口检查。 | 只读验收可直接执行；若需修复工程代码必须使用 Codex。Gemini 二审命令需显式 `cd /root/eryuandian` 并设置 reviewer HOME。 |
+
+结论：5 个 profile 的 `SOUL.md` 仍存在，角色边界与 Codex 执行规范仍有效；本次未记录任何敏感内容。

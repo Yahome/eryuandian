@@ -1,7 +1,7 @@
 # TASK_BOARD
 
 状态：Phase 0 / Dev OS 闭环建立中
-更新时间：2026-05-05
+更新时间：2026-05-06
 
 | ID | 标题 | 负责人 | 状态 | 优先级 | 文档 |
 |---|---|---|---|---|---|
@@ -13,6 +13,7 @@
 | T-005 | Project Wiki Viewer | yuan-frontend | 已完成 | P1 | `tasks/T-005-wiki-viewer.md` |
 | T-006 | Dev OS Dashboard Visual Alignment / Shell Refactor | yuan-frontend | 已完成 | P1 | `tasks/T-006-dashboard-visual-alignment.md` |
 | T-007 | Dev OS 任务看板详情页 + 进度汇总机制 | yuan-frontend | 已完成 | P1 | `tasks/T-007-task-board-progress.md` |
+| T-008 | Dev OS 事实源一致性校验脚本 / Closeout Gate | yuan-architect | 已完成 | P1 | `tasks/T-008-dev-os-consistency-validator.md` |
 
 ## 状态枚举
 
@@ -30,6 +31,7 @@
 2. T-005 Project Wiki Viewer 已完成：`yuan-architect` 前置架构、`yuan-frontend` 实现、`yuan-reviewer` 验收均已通过。
 3. T-006 Dev OS Dashboard 视觉对齐 / Shell 重构已完成并验收通过。
 4. T-007 Dev OS 任务看板详情页 + 进度汇总机制已完成 `yuan-frontend` 实现并通过 `yuan-reviewer` 验收；Gemini 二审因服务端 429 无有效输出，已记录且不阻塞验收结论。
+5. T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate 已完成 `yuan-architect` 实现并通过 `yuan-reviewer` 验收，新增只读脚本 `scripts/dev-os-validate.mjs`；Gemini 二审因 429 / 网络错误无有效输出，已记录且不阻塞验收结论。
 
 ## Architect 前置门禁
 
