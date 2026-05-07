@@ -130,7 +130,7 @@ docs/project-os/images/redesign/taskboard-list-detail-v1.png — 任务列表 + 
 - ID、标题、状态、进度、owner、优先级。
 - 摘要 `summary`。
 - Task Markdown 路径与 Project Wiki 跳转。
-- 验收标准：优先从对应 `tasks/T-*.md` Markdown 中解析“验收标准”段落；解析不到时显示“任务文档未提供验收标准”，不新增 JSON 字段。
+- 验收标准：优先从对应 `tasks/**/*.md` Markdown 中解析“验收标准”段落；解析不到时显示“任务文档未提供验收标准”，不新增 JSON 字段。
 - 关联风险、待确认、最近更新：继续从 `risks`、`pendingApprovals`、`recentUpdates` 派生，并优先按任务 ID / wiki path 关联。
 
 列表密度与空白处理：
@@ -227,7 +227,7 @@ docs/project-os/images/redesign/taskboard-list-detail-v1.png — 任务列表 + 
 ## Closeout（yuan-control，2026-05-07）
 
 - 状态：已完成（内部枚举：`done`），progress `100`。
-- 修改文件：`src/main.tsx`、`src/styles.css`、`docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md`、`TASK_BOARD.md`、`ROADMAP.md`、`RISKS.md`、`dashboard/summary.md`、两个 dashboard JSON、`CHANGELOG.md`、相关 agent 状态文档。
+- 修改文件：`src/main.tsx`、`src/styles.css`、`docs/project-os/tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md`、`TASK_BOARD.md`、`ROADMAP.md`、`RISKS.md`、`dashboard/summary.md`、两个 dashboard JSON、`CHANGELOG.md`、相关 agent 状态文档。
 - dashboard schema：未变更；未修改 `docs/project-os/dashboard/SCHEMA.md`。
 - 新增脚本：无；继续复用 `scripts/dev-os-validate.mjs`。
 - 两个 dashboard JSON：`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json` exit 0。

@@ -1,14 +1,15 @@
 # Roadmap
 
 ## Phase 0：Dev OS 与项目准备
-- [x] Hermes profiles 建立
-- [x] Agent 分工规则建立
-- [x] docs/project-os 文档体系建立
-- [x] Dev Dashboard MVP
+- [x] T-000 Hermes profiles 建立
+- [x] T-001 Agent 分工规则建立
+- [x] T-002 docs/project-os 文档体系建立
+- [x] T-003 Dev Dashboard MVP
 - [x] T-005 Project Wiki Viewer：已完成，`yuan-frontend` 实现，`yuan-reviewer` 与 Gemini 双审查通过
 - [x] T-006 Dev OS Dashboard 视觉对齐 / Shell 重构：已完成，`yuan-frontend` 实现，`yuan-reviewer` 验收通过
 - [x] T-007 Dev OS 任务看板详情页 + 进度汇总机制：已完成，`yuan-frontend` 实现，`yuan-reviewer` 验收通过；Gemini 二审因服务端 429 无有效输出，已记录且不阻塞验收
-- [x] T-010 Dev OS Dashboard 信息架构与交互收尾整改：`yuan-architect` 前置架构说明已完成，等待 `yuan-control` 确认后续是否放行前端实现
+- [x] T-010 Dev OS Dashboard 信息架构与交互收尾整改：已完成并通过 `yuan-reviewer` 与 `gpt-5.3-codex` 二审
+- [x] T-011 Project OS 文档体系中文化与任务线分离：已完成，T-000 至 T-010 已迁移到 `tasks/dev-os/` 中文文件名，`tasks/web-app/README.md` 仅作为任务线说明
 
 ## Phase 1：MVP 基础
 - [x] T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate：已完成，`yuan-architect` 实现，`yuan-reviewer` 验收通过；Gemini 二审因 429 / 网络错误无有效输出，已记录且不阻塞验收

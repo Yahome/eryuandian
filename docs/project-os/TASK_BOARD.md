@@ -1,21 +1,22 @@
 # TASK_BOARD
 
-状态：Phase 0 / Dev OS 闭环建立中
-更新时间：2026-05-07
+状态：Phase 0 / Dev OS 文档治理完成
+更新时间：2026-05-08
 
 | ID | 标题 | 负责人 | 状态 | 优先级 | 文档 |
 |---|---|---|---|---|---|
-| T-000 | Bootstrap Dev OS | yuan-control | 已完成 | P0 | `tasks/T-000-bootstrap-dev-os.md` |
-| T-001 | 设置 Hermes Agent Profiles | yuan-control | 已完成 | P0 | `tasks/T-001-setup-agent-profiles.md` |
-| T-002 | 建立 Project OS 文档事实源 | yuan-architect | 已完成 | P0 | `tasks/T-002-project-os-docs.md` |
-| T-003 | Dev OS Dashboard UI | yuan-frontend | 已完成 | P0 | `tasks/T-003-dashboard-ui.md` |
-| T-004 | Dashboard JSON Sync | yuan-architect | 已完成 | P0 | `tasks/T-004-dashboard-json-sync.md` |
-| T-005 | Project Wiki Viewer | yuan-frontend | 已完成 | P1 | `tasks/T-005-wiki-viewer.md` |
-| T-006 | Dev OS Dashboard Visual Alignment / Shell Refactor | yuan-frontend | 已完成 | P1 | `tasks/T-006-dashboard-visual-alignment.md` |
-| T-007 | Dev OS 任务看板详情页 + 进度汇总机制 | yuan-frontend | 已完成 | P1 | `tasks/T-007-task-board-progress.md` |
-| T-008 | Dev OS 事实源一致性校验脚本 / Closeout Gate | yuan-architect | 已完成 | P1 | `tasks/T-008-dev-os-consistency-validator.md` |
-| T-009 | reviewer 二审方式调整与复核（gpt-5.3-codex） | yuan-architect | 已完成 | P1 | `tasks/T-009-gemini-prompt-file-review.md` |
-| T-010 | Dev OS Dashboard 信息架构与交互收尾整改 | yuan-architect | 已完成 | P0 | `tasks/T-010-dev-os-dashboard-refactor.md` |
+| T-000 | Bootstrap Dev OS | yuan-control | 已完成 | P0 | `tasks/dev-os/T-000-初始化-Dev-OS.md` |
+| T-001 | 设置 Hermes Agent Profiles | yuan-control | 已完成 | P0 | `tasks/dev-os/T-001-设置-Hermes-Agent-Profiles.md` |
+| T-002 | 建立 Project OS 文档事实源 | yuan-architect | 已完成 | P0 | `tasks/dev-os/T-002-建立-Project-OS-文档事实源.md` |
+| T-003 | Dev OS Dashboard UI | yuan-frontend | 已完成 | P0 | `tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md` |
+| T-004 | Dashboard JSON Sync | yuan-architect | 已完成 | P0 | `tasks/dev-os/T-004-Dashboard-JSON-同步.md` |
+| T-005 | Project Wiki Viewer | yuan-frontend | 已完成 | P1 | `tasks/dev-os/T-005-Project-Wiki-查看器.md` |
+| T-006 | Dev OS Dashboard Visual Alignment / Shell Refactor | yuan-frontend | 已完成 | P1 | `tasks/dev-os/T-006-Dashboard-视觉对齐与-Shell-重构.md` |
+| T-007 | Dev OS 任务看板详情页 + 进度汇总机制 | yuan-frontend | 已完成 | P1 | `tasks/dev-os/T-007-任务看板详情页与进度汇总机制.md` |
+| T-008 | Dev OS 事实源一致性校验脚本 / Closeout Gate | yuan-architect | 已完成 | P1 | `tasks/dev-os/T-008-Dev-OS-事实源一致性校验脚本.md` |
+| T-009 | reviewer 二审方式调整与复核（gpt-5.3-codex） | yuan-architect | 已完成 | P1 | `tasks/dev-os/T-009-reviewer-二审方式调整与复核.md` |
+| T-010 | Dev OS Dashboard 信息架构与交互收尾整改 | yuan-architect | 已完成 | P0 | `tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md` |
+| T-011 | Project OS 文档体系中文化与任务线分离 | yuan-architect | 已完成 | P0 | `tasks/dev-os/T-011-Project-OS-文档体系中文化与任务线分离.md` |
 
 ## 状态枚举
 
@@ -36,6 +37,7 @@
 5. T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate 已完成 `yuan-architect` 实现并通过 `yuan-reviewer` 验收，新增只读脚本 `scripts/dev-os-validate.mjs`；Gemini 二审因 429 / 网络错误无有效输出，已记录且不阻塞验收结论。
 6. T-009 reviewer 二审方式调整与复核（`gpt-5.3-codex`）已完成：后续 reviewer 第二审查统一使用 Codex CLI `gpt-5.3-codex`，不再使用 Gemini CLI；不派 `yuan-frontend` / `yuan-backend`，不进入业务功能。
 7. T-010 Dev OS Dashboard 信息架构与交互收尾整改已完成，并通过 `yuan-reviewer` 与 `gpt-5.3-codex` 二审；Dev OS Dashboard v1.0 收尾完成，后续 Web App 正式开发需新任务承接。
+8. T-011 Project OS 文档体系中文化与任务线分离已完成：T-000 至 T-010 已使用 `git mv` 迁移到 `tasks/dev-os/` 中文文件名，`tasks/web-app/README.md` 仅作为任务线说明创建；未修改 dashboard schema 或业务代码。
 
 ## Architect 前置门禁
 

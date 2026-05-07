@@ -27,8 +27,8 @@ tags:
 - `docs/project-os/SOURCE_OF_TRUTH.md`
 - `docs/project-os/AGENT_WORKFLOW.md`
 - `docs/project-os/DESIGN_SYSTEM.md`
-- `docs/project-os/tasks/T-003-dashboard-ui.md`
-- `docs/project-os/tasks/T-005-wiki-viewer.md`
+- `docs/project-os/tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md`
+- `docs/project-os/tasks/dev-os/T-005-Project-Wiki-查看器.md`
 - `docs/project-os/dashboard/dashboard.json`
 - `pic/dev-os-dashboard.png`
 - `pic/brand-logo-identity.png`
@@ -115,7 +115,7 @@ T-006 不涉及新数据结构、API、dashboard schema 或业务系统边界，
 - `src/styles.css`
 - 必要的轻量前端静态资源或组件文件
 - `docs/project-os/agents/yuan-frontend.md`
-- `docs/project-os/tasks/T-006-dashboard-visual-alignment.md`
+- `docs/project-os/tasks/dev-os/T-006-Dashboard-视觉对齐与-Shell-重构.md`
 - `docs/project-os/dashboard/summary.md`
 - `docs/project-os/dashboard/dashboard.json`
 - `docs/project-os/dashboard.json`

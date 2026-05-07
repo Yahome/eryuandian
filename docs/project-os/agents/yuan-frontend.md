@@ -67,7 +67,7 @@
 ## T-007 实现阶段（2026-05-05）
 
 - T-007 已通过架构门禁，当前负责实现只读任务看板详情页。
-- 严格按 `docs/project-os/tasks/T-007-task-board-progress.md` 的前置架构说明执行：不新增 API、不改 schema、不改数据库、不进入登录 / 生图 / 试卷 / 支付业务。
+- 严格按 `docs/project-os/tasks/dev-os/T-007-任务看板详情页与进度汇总机制.md` 的前置架构说明执行：不新增 API、不改 schema、不改数据库、不进入登录 / 生图 / 试卷 / 支付业务。
 - 已完成 `/dev-dashboard` 只读任务看板前端实现：sidebar “任务看板”进入真实 `#task-board` 区域，任务与统计来自 `dashboard.json.tasks`，风险 / 待确认 / 最近更新来自 dashboard JSON 对应字段，任务详情可切换到 Project Wiki Viewer 对应 task markdown。
 - 当前状态：T-007 已通过 `yuan-reviewer` 验收；未新增 API、未新增脚本、未修改 dashboard schema 或数据库 schema。
 

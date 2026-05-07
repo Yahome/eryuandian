@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2026-05-08
+
+- 完成 T-011 Project OS 文档体系中文化与任务线分离：T-000 至 T-010 已使用 `git mv` 迁移到 `docs/project-os/tasks/dev-os/` 中文文件名；T-011 保持在 `docs/project-os/tasks/dev-os/T-011-Project-OS-文档体系中文化与任务线分离.md`。
+- 创建 `docs/project-os/tasks/web-app/README.md` 作为 Web App 任务线说明；未创建任何真实 Web App 功能任务，未进入登录 / 生图 / 试卷 / 支付业务。
+- 更新 `scripts/dev-os-validate.mjs` 要求：递归读取 `docs/project-os/tasks/**/*.md`，忽略非 T-xxx 的 `web-app/README.md`，校验 dashboard task wiki 与 TASK_BOARD 文档路径存在，并保持两个 dashboard JSON 完全一致。
+- 同步 TASK_BOARD、summary、两个 dashboard JSON、ROADMAP、RISKS、README、agents 与任务内部引用到新任务路径；未修改 dashboard schema，未修改业务代码。
+- 完成 T-011 `yuan-architect` 前置架构说明：覆盖当前文件结构盘点、`dev-os` / `web-app` 目录方案、完整旧到新任务文档映射、根文档暂不汉化决策、引用更新范围、validator 更新要求、`web-app/README.md` 说明、`git mv` 执行顺序、实现边界、验证命令和 reviewer 验收要求。
+
 ## 2026-05-07
 
 - 完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改并通过验收：`/dev-dashboard` 完成顶部、总览双轨进度、Roadmap + Agent、任务列表 + 详情筛选、Project Wiki 沉浸式阅读和风险展示整改；`yuan-reviewer` 与 `gpt-5.3-codex` 二审 PASS；未改 dashboard schema、未新增脚本、未新增业务 API、未修改数据库 schema、未进入登录 / 生图 / 试卷 / 支付。

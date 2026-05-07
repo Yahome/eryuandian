@@ -99,7 +99,7 @@ HOME=/root/.hermes/profiles/yuan-reviewer/home gemini --prompt '@.tmp/gemini-rev
 
 - PASS：T-008 已有 `yuan-architect` 前置架构说明，并记录 `yuan-control` 已确认。
 - PASS：`scripts/dev-os-validate.mjs` 只 import `readFile` / `readdir`，未发现写文件、执行子进程、网络请求或自动改写 Markdown / JSON 的逻辑。
-- PASS：脚本读取范围限于 `TASK_BOARD.md`、`ROADMAP.md`、`dashboard/summary.md`、`dashboard/dashboard.json`、根部 `dashboard.json` 与 `tasks/T-*.md`。
+- PASS：脚本读取范围限于 `TASK_BOARD.md`、`ROADMAP.md`、`dashboard/summary.md`、`dashboard/dashboard.json`、根部 `dashboard.json` 与 `tasks/**/*.md`。
 - PASS：校验规则只覆盖 Dev OS 事实源一致性；未检查业务 API / 数据库 / 登录 / 生图 / 试卷 / 支付。
 - PASS：未新增 `package.json` script `dev-os:validate`，未修改 dashboard schema，未新增 API，未修改数据库 schema，未修改前端 / 后端业务代码。
 - PASS：两个 dashboard JSON 合法且内容完全一致；`node scripts/dev-os-validate.mjs` 对当前事实源输出 `PASS`。
@@ -144,7 +144,7 @@ Gemini CLI 未返回有效二审结论：启动后提示 `run_shell_command` 工
 - PASS：页面通过 `src/main.tsx` 静态导入 `../docs/project-os/dashboard/dashboard.json`，Agent、Roadmap、风险、待确认、最近更新、Wiki 入口均由 JSON map/派生渲染。
 - PASS：未发现复制硬编码的 agent、task、risk、roadmap 业务数据；仅有导航标签、页面标题、状态中文映射、Coming soon 等 UI 文案。
 - PASS：5 个 Agent 均来自 `dashboard.json` 并展示：`yuan-control`、`yuan-architect`、`yuan-frontend`、`yuan-backend`、`yuan-reviewer`。
-- PASS：KPI 与 `dashboard.json` 当前数据一致：任务平均进度 `67%`、进行中任务 `2`、阻塞任务/开放风险计数 `2`、活跃 Agent `2/5`、最近更新 `2026-05-03`。
+- PASS：KPI 与 `dashboard.json` 当前数据一致：任务平均进度 `67%`、已完成任务 `2`、阻塞任务/开放风险计数 `2`、活跃 Agent `2/5`、最近更新 `2026-05-03`。
 - PASS：风险、待确认、最近更新均使用 `data.risks`、`data.pendingApprovals`、`data.recentUpdates` 展示。
 - PASS：UI 使用 `pic/brand-logo-identity.png` 新版两元店 Logo。
 - PASS：未发现登录、生图、试卷、支付业务功能代码；未修改数据库 schema。
@@ -179,7 +179,7 @@ curl -I -s http://127.0.0.1:5173/dev-dashboard
 **PASS with notes**：Phase 0 可进入 T-003 前端开发交接。此前发现的 T-004 状态不一致已修复；5 个 profile 的 `SOUL.md` 已通过 `hermes profile show` 和 profile home 检查补充审计。
 
 1. 5 个 Hermes profiles 均已通过 `hermes -p <profile>` 实际调用并能返回职责说明，说明 profile 规则已生效。
-2. `docs/project-os/TASK_BOARD.md` 中 T-004 已按 `docs/project-os/tasks/T-004-dashboard-json-sync.md`、`docs/project-os/dashboard/dashboard.json`、`docs/project-os/dashboard.json` 同步为“已完成”（内部枚举：`done`）。
+2. `docs/project-os/TASK_BOARD.md` 中 T-004 已按 `docs/project-os/tasks/dev-os/T-004-Dashboard-JSON-同步.md`、`docs/project-os/dashboard/dashboard.json`、`docs/project-os/dashboard.json` 同步为“已完成”（内部枚举：`done`）。
 
 ### 检查项与证据
 
@@ -188,10 +188,10 @@ curl -I -s http://127.0.0.1:5173/dev-dashboard
 | 5 个 profiles 职责是否清晰 | PASS | `docs/project-os/agents/yuan-control.md`、`yuan-architect.md`、`yuan-frontend.md`、`yuan-backend.md`、`yuan-reviewer.md` 均有 `## 角色` 与 `## 职责`；实际执行 `hermes -p yuan-control/yuan-architect/yuan-frontend/yuan-backend/yuan-reviewer chat -Q -q ...` 均返回对应职责说明。 |
 | 5 个 SOUL.md 是否存在并符合分工 | PASS | 已执行 `hermes profile show yuan-control/yuan-architect/yuan-frontend/yuan-backend/yuan-reviewer` 确认 home directory；5 个 profile home 下均存在 `SOUL.md`。审计摘要见 `docs/project-os/agents/profile-audit.md`，未复制敏感信息。 |
 | `docs/project-os` 目录完整性 | PASS | 已存在 `README.md`、`PROJECT_BRIEF.md`、`ROADMAP.md`、`TASK_BOARD.md`、`DECISIONS.md`、`RISKS.md`、`CHANGELOG.md`、`SOURCE_OF_TRUTH.md`、产品/架构草案、`agents/`、`tasks/`、`dashboard/`、根部 `dashboard.json` 等 22 个预期入口。 |
-| T-001 到 T-005 必填字段与验收标准 | PASS | `docs/project-os/tasks/T-001-setup-agent-profiles.md` 到 `T-005-wiki-viewer.md` 均包含 frontmatter `owner`、`status`、`priority`、`progress`，且均有 `## 验收标准`。 |
+| T-001 到 T-005 必填字段与验收标准 | PASS | `docs/project-os/tasks/dev-os/T-001-设置-Hermes-Agent-Profiles.md` 到 `T-005-Project-Wiki-查看器.md` 均包含 frontmatter `owner`、`status`、`priority`、`progress`，且均有 `## 验收标准`。 |
 | `dashboard/dashboard.json` 是否符合 `SCHEMA.md` | PASS | Python 实际读取 `docs/project-os/dashboard/SCHEMA.md` 抽取顶层字段，并解析 `docs/project-os/dashboard/dashboard.json`：JSON 合法，包含 `project`、`agents`、`tasks`、`risks`、`roadmap`、`pendingApprovals`、`recentUpdates`、`wikiLinks`；`agents=5`；tasks 含 `T-001` 至 `T-005`。校验范围：合法 JSON、SCHEMA.md 声明的顶层字段、关键数组数量/ID，不包含深层 JSON Schema 类型约束（当前 SCHEMA.md 未定义深层类型）。 |
 | 根部 `dashboard.json` 顶层字段 | PASS | `docs/project-os/dashboard.json` 为合法 JSON，包含用户要求的 8 个顶层字段：`project`、`agents`、`tasks`、`risks`、`roadmap`、`pendingApprovals`、`recentUpdates`、`wikiLinks`。 |
-| T-003 是否可交给 `yuan-frontend` | PASS with prerequisites | `docs/project-os/tasks/T-003-dashboard-ui.md` `status: "ready"` 表示任务处于“准备中”状态，owner `yuan-frontend`、数据源为 `docs/project-os/dashboard/dashboard.json` 与 `summary.md`；`dashboard/dashboard.json` 校验通过。前置条件见下。 |
+| T-003 是否可交给 `yuan-frontend` | PASS with prerequisites | `docs/project-os/tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md` `status: "ready"` 表示任务处于“准备中”状态，owner `yuan-frontend`、数据源为 `docs/project-os/dashboard/dashboard.json` 与 `summary.md`；`dashboard/dashboard.json` 校验通过。前置条件见下。 |
 
 ### T-003 放行建议
 
@@ -199,7 +199,7 @@ curl -I -s http://127.0.0.1:5173/dev-dashboard
 
 - 仅开发 Dev OS Dashboard，不进入登录、生图、试卷、支付等业务功能。
 - 前端必须读取 `docs/project-os/dashboard/dashboard.json`，不得硬编码任务数量、Agent 状态、风险、路线图等展示数据。
-- 以 `docs/project-os/tasks/T-003-dashboard-ui.md` 的验收标准为 UI 验收依据。
+- 以 `docs/project-os/tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md` 的验收标准为 UI 验收依据。
 - `TASK_BOARD.md` 中 T-004 状态已同步为“已完成”（内部枚举：`done`），当前不再阻塞看板事实源。
 - `SOUL.md` 实体文件位置已审计到 `docs/project-os/agents/profile-audit.md`；该审计只记录路径、角色摘要和最后修改时间。
 
@@ -237,16 +237,16 @@ PY
 
 **PASS with notes / 可交给 `yuan-control` 做后续状态同步与提交前确认**。
 
-- PASS：已先读取 `SOURCE_OF_TRUTH.md`、`AGENT_WORKFLOW.md`、`TASK_BOARD.md`、`tasks/T-005-wiki-viewer.md`、本文件、两个 dashboard JSON、`src/main.tsx`、`src/styles.css`。
+- PASS：已先读取 `SOURCE_OF_TRUTH.md`、`AGENT_WORKFLOW.md`、`TASK_BOARD.md`、`tasks/dev-os/T-005-Project-Wiki-查看器.md`、本文件、两个 dashboard JSON、`src/main.tsx`、`src/styles.css`。
 - PASS：T-005 已有 `yuan-architect` 前置架构说明，明确复用 `dashboard.json.wikiLinks`、不新增 API、不修改 schema、不修改数据库、不开发登录/生图/试卷/支付业务。
-- PASS：`/dev-dashboard` 中 Project Wiki Viewer 可用；浏览器脚本验证可见 `Project Wiki`、`只读预览`、README、Roadmap、Task Board、Decisions、Risks、Agent 进度目录、任务文档目录，并可切换到 `docs/project-os/tasks/T-005-wiki-viewer.md` 与 `docs/project-os/agents/yuan-reviewer.md`。
+- PASS：`/dev-dashboard` 中 Project Wiki Viewer 可用；浏览器脚本验证可见 `Project Wiki`、`只读预览`、README、Roadmap、Task Board、Decisions、Risks、Agent 进度目录、任务文档目录，并可切换到 `docs/project-os/tasks/dev-os/T-005-Project-Wiki-查看器.md` 与 `docs/project-os/agents/yuan-reviewer.md`。
 - PASS：Wiki 索引来自 `dashboardData.wikiLinks`；Markdown 正文通过 Vite raw glob 固定映射到 `docs/project-os/**/*.md`，并通过 `wikiLinks` 文件路径或目录前缀生成可选入口。
 - PASS：路径边界符合要求：只接受 `docs/project-os/` 下的 `.md` 文件或目录，拒绝 `..`，内部 Markdown 链接也必须落在 `wikiModel.allowedPaths` 后才允许切换。
 - PASS：Markdown 只读渲染，未使用 `dangerouslySetInnerHTML`；浏览器检查 `#project-wiki` 内 `input`、`textarea`、`contenteditable`、保存/编辑/上传/删除/重命名按钮数量均为 0。
 - PASS：外链只允许 `http:` / `https:`，并使用 `target="_blank"` 与 `rel="noreferrer noopener"`；`javascript:`、`data:`、`file:` 等协议不会打开。
 - PASS：未新增依赖、未新增后端 API、未修改 `docs/project-os/dashboard/SCHEMA.md`、未修改数据库 schema，未开发登录/生图/试卷/支付业务功能。
 - PASS：未发现前端硬编码 Agent / Task / Risk / Roadmap / Wiki 业务数据；状态中文映射、类型标签和导航文案属于 UI 展示文案。
-- NOTE：`docs/project-os/TASK_BOARD.md` 仍显示 T-005 为“进行中”（内部枚举：`in_progress`）且“等待按架构实现”，与 T-005 任务文档和两个 dashboard JSON 的“审核中”（内部枚举：`review`）状态不一致。该问题不阻断 Wiki Viewer 功能验收，但建议 `yuan-control` 后续做事实源状态同步。
+- NOTE：`docs/project-os/TASK_BOARD.md` 仍显示 T-005 为“已完成”（内部枚举：`in_progress`）且“等待按架构实现”，与 T-005 任务文档和两个 dashboard JSON 的“审核中”（内部枚举：`review`）状态不一致。该问题不阻断 Wiki Viewer 功能验收，但建议 `yuan-control` 后续做事实源状态同步。
 
 ### 验证命令与结果
 
@@ -301,7 +301,7 @@ Gemini 结论：**Review Pass**。
 
 **PASS with notes / 无 Blocker**。
 
-- PASS：已先读取 `SOURCE_OF_TRUTH.md`、`AGENT_WORKFLOW.md`、`tasks/T-006-dashboard-visual-alignment.md`、`tasks/T-003-dashboard-ui.md`、`tasks/T-005-wiki-viewer.md`、本文件、`dashboard/dashboard.json`、`pic/dev-os-dashboard.png`、`src/main.tsx`、`src/styles.css`；补充读取 `DESIGN_SYSTEM.md` 并查看 `brand-logo-identity.png`。
+- PASS：已先读取 `SOURCE_OF_TRUTH.md`、`AGENT_WORKFLOW.md`、`tasks/dev-os/T-006-Dashboard-视觉对齐与-Shell-重构.md`、`tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md`、`tasks/dev-os/T-005-Project-Wiki-查看器.md`、本文件、`dashboard/dashboard.json`、`pic/dev-os-dashboard.png`、`src/main.tsx`、`src/styles.css`；补充读取 `DESIGN_SYSTEM.md` 并查看 `brand-logo-identity.png`。
 - PASS：当前 `/dev-dashboard` 比 T-003 第一版更接近 `pic/dev-os-dashboard.png`：紧凑 sidebar、顶部搜索/通知/用户占位、五张 KPI 卡、项目总览、Agent 卡片网格、Roadmap 时间线、风险/待确认、最近更新与 Wiki 快捷入口均已形成参考图式的 SaaS dashboard 壳。
 - PASS：保留 T-003 总览能力；KPI、项目总览、Agent 状态、Roadmap、风险/待确认、最近更新和 Wiki 入口仍可见。
 - PASS：保留 T-005 Project Wiki Viewer；浏览器 DOM 可见 `Project Wiki`、`只读预览`、`Agent 进度目录`、`任务文档目录` 与 T-006 任务文档入口；Markdown 仍通过 `import.meta.glob('../docs/project-os/**/*.md', { query: '?raw' })` 只读映射。
@@ -379,7 +379,7 @@ Gemini 结论：**无有效二审输出**。
 - PASS：`/dev-dashboard` 可访问，`curl -I -s http://127.0.0.1:5173/dev-dashboard` 返回 `HTTP/1.1 200 OK`。
 - PASS：sidebar “任务看板”入口指向并进入真实 `#task-board`；浏览器验证点击后 `window.location.hash` 为 `#task-board`，任务看板位于 Wiki 快捷入口之前。
 - PASS：任务看板数据来自 `dashboard.json.tasks`；风险、待确认、最近更新来自 `dashboard.json.risks`、`pendingApprovals`、`recentUpdates`；统计由 `taskStats`、`averageProgress`、`countByStatus` 从 dashboard JSON 派生。
-- PASS：任务详情使用 task 的 `wiki` 字段；浏览器脚本验证 T-007 详情可切换 Project Wiki Viewer 到 `docs/project-os/tasks/T-007-task-board-progress.md`。
+- PASS：任务详情使用 task 的 `wiki` 字段；浏览器脚本验证 T-007 详情可切换 Project Wiki Viewer 到 `docs/project-os/tasks/dev-os/T-007-任务看板详情页与进度汇总机制.md`。
 - PASS：T-003 总览、T-005 Project Wiki Viewer、T-006 dashboard shell 关键 DOM 与文案仍可见；Wiki Viewer 保持只读，无编辑/保存/删除/上传入口。
 - PASS：未新增 API、未改 `docs/project-os/dashboard/SCHEMA.md`、未改数据库 schema，未开发登录、生图、试卷、支付等业务功能。
 - PASS：状态中文展示符合约定；内部枚举值和 JSON 字段名仍为英文；两个 dashboard JSON 合法且一致。

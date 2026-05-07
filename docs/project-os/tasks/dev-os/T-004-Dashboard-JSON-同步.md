@@ -79,7 +79,7 @@ tags:
 - `docs/project-os/dashboard/SCHEMA.md`：声明顶层字段为 `project`、`agents`、`tasks`、`risks`、`roadmap`、`pendingApprovals`、`recentUpdates`、`wikiLinks`。
 - `docs/project-os/dashboard/dashboard.json`：包含上述 8 个顶层字段，`agents` 数量为 5，`tasks` 包含 `T-001`、`T-002`、`T-003`、`T-004`、`T-005`（另含 `T-000` 作为 bootstrap 历史任务）。
 - `docs/project-os/dashboard.json`：根部 dashboard JSON 同样是合法 JSON，并包含用户要求的 8 个顶层字段。
-- `docs/project-os/tasks/T-003-dashboard-ui.md`：T-003 owner 为 `yuan-frontend`，`status: "ready"` 表示任务处于“准备中”状态，priority 为 `P0`，progress 为 `0`，数据源指定为 `docs/project-os/dashboard/dashboard.json` 与 `summary.md`。
+- `docs/project-os/tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md`：T-003 owner 为 `yuan-frontend`，`status: "ready"` 表示任务处于“准备中”状态，priority 为 `P0`，progress 为 `0`，数据源指定为 `docs/project-os/dashboard/dashboard.json` 与 `summary.md`。
 
 ### 校验范围说明
 
@@ -102,7 +102,7 @@ tags:
 
 - 只开发 `/dev-dashboard`，不开发业务功能。
 - 必须读取 `docs/project-os/dashboard/dashboard.json`，不得硬编码 Agent、任务、风险、路线图等数据。
-- UI 验收以 `docs/project-os/tasks/T-003-dashboard-ui.md` 的验收标准为准。
+- UI 验收以 `docs/project-os/tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md` 的验收标准为准。
 - 开工前建议同步 `TASK_BOARD.md` 的 T-004 状态。
 
 ## 变更记录

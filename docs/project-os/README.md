@@ -1,6 +1,6 @@
 # 两元店 Dev OS
 
-状态：事实源建立中
+状态：事实源建立完成 / Dev OS 文档治理完成
 
 ## 定位
 
@@ -32,7 +32,8 @@
 - `CHANGELOG.md`：变更日志
 - `dashboard.json`：Dashboard 初始数据接口
 - `agents/`：各 Agent 进度记录
-- `tasks/`：单任务文档
+- `tasks/dev-os/`：Dev OS / Project OS 治理任务文档
+- `tasks/web-app/README.md`：Web App 任务线说明；当前不包含真实功能任务
 
 ## 核心链路
 

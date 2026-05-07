@@ -32,7 +32,7 @@ tags:
 - `docs/project-os/dashboard/summary.md`
 - `docs/project-os/dashboard/dashboard.json`
 - `docs/project-os/dashboard.json`
-- `docs/project-os/tasks/T-*.md`
+- `docs/project-os/tasks/**/*.md`
 
 ## 初始边界
 
@@ -48,7 +48,7 @@ tags:
 
 1. 校验目标：防止 `TASK_BOARD.md`、task markdown、`ROADMAP.md`、summary、两个 dashboard JSON 漂移。
 2. 校验范围：只读校验，不自动改文件。
-3. 校验文件：`TASK_BOARD.md`、`ROADMAP.md`、`dashboard/summary.md`、两个 dashboard JSON、`tasks/T-*.md`。
+3. 校验文件：`TASK_BOARD.md`、`ROADMAP.md`、`dashboard/summary.md`、两个 dashboard JSON、`tasks/**/*.md`。
 4. 第一版校验规则：JSON 合法且一致、dashboard tasks 能找到 task markdown、`TASK_BOARD.md` 已完成任务与 dashboard status/progress 一致、roadmap Phase 0 已完成任务不能仍为 `done: false`、不检查业务 API / 数据库 / 登录 / 生图 / 试卷 / 支付。
 5. 产物建议：`scripts/dev-os-validate.mjs`；是否新增 `package.json` script `dev-os:validate` 由 architect 判断。
 6. reviewer 验收命令：`npm run lint`、`npm run typecheck`、`npm run build`、`node scripts/dev-os-validate.mjs`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check`。
@@ -89,7 +89,7 @@ tags:
 - `docs/project-os/dashboard/summary.md`
 - `docs/project-os/dashboard/dashboard.json`
 - `docs/project-os/dashboard.json`
-- `docs/project-os/tasks/T-*.md`
+- `docs/project-os/tasks/**/*.md`
 
 脚本不得读取登录、生图、试卷、支付、数据库 schema 或业务 API 文件作为规则输入。
 
@@ -138,7 +138,7 @@ tags:
 ## yuan-architect 实现记录
 
 - 新增 `scripts/dev-os-validate.mjs`，作为第一版只读 Dev OS 事实源一致性校验脚本。
-- 脚本只读取 `TASK_BOARD.md`、`ROADMAP.md`、`dashboard/summary.md`、两个 dashboard JSON 和 `tasks/T-*.md`，不读取登录 / 生图 / 试卷 / 支付业务文件，不调用网络服务。
+- 脚本只读取 `TASK_BOARD.md`、`ROADMAP.md`、`dashboard/summary.md`、两个 dashboard JSON 和 `tasks/**/*.md`，不读取登录 / 生图 / 试卷 / 支付业务文件，不调用网络服务。
 - 脚本校验两个 dashboard JSON 合法且内容完全一致、dashboard tasks 的 `T-xxx` 能找到对应 task markdown、`TASK_BOARD.md` 已完成任务与 dashboard `status/progress` 一致、`ROADMAP.md` Phase 0 已完成 T-xxx 不在 dashboard `phase-0.items` 中漂移为未完成、summary 能读到当前 T-008 阶段说明。
 - 首次运行脚本发现 `ROADMAP.md` Phase 0 已完成的 T-005 未出现在 dashboard `phase-0.items`；已在两个 dashboard JSON 中补齐 `T-005 Project Wiki Viewer` 的 `done: true` 记录，并保持两个 JSON 完全一致。
 - 本地验证已通过：`node scripts/dev-os-validate.mjs`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check`。
@@ -168,4 +168,4 @@ tags:
 - 2026-05-06：`yuan-control` 已确认 T-008 前置架构说明覆盖校验目标、范围、文件、第一版规则、产物建议、package script 判断和 reviewer 命令；T-008 推进为“进行中”（内部枚举：`in_progress`），仅允许 `yuan-architect` 实现只读校验脚本。
 - 2026-05-06：`yuan-architect` 已实现 `scripts/dev-os-validate.mjs` 只读校验脚本；首次校验发现并收口 dashboard roadmap Phase 0 的 T-005 漂移记录，当前推进为“审核中”（内部枚举：`review`），等待 `yuan-reviewer` 验收。
 - 2026-05-06：指定本地验证通过：`node scripts/dev-os-validate.mjs`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check`。
-- 2026-05-06：`yuan-reviewer` 验收通过，结论 PASS。已核对脚本只读、不自动改写 Markdown / JSON，只读取 `TASK_BOARD.md`、`ROADMAP.md`、`dashboard/summary.md`、两个 dashboard JSON 与 `tasks/T-*.md`；未新增 package script、API、数据库 schema、dashboard schema，未修改前端 / 后端业务代码，未进入登录 / 生图 / 试卷 / 支付。完整验证通过：`npm run lint`、`npm run typecheck`、`npm run build`、`node scripts/dev-os-validate.mjs`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check`。Gemini CLI 二审已按 reviewer 规则调用，但遇到 CLI 工具不可用提示、一次 `429 RESOURCE_EXHAUSTED / MODEL_CAPACITY_EXHAUSTED` 以及网络断连，无有效二审结论，已记录且不阻塞自身验收。
+- 2026-05-06：`yuan-reviewer` 验收通过，结论 PASS。已核对脚本只读、不自动改写 Markdown / JSON，只读取 `TASK_BOARD.md`、`ROADMAP.md`、`dashboard/summary.md`、两个 dashboard JSON 与 `tasks/**/*.md`；未新增 package script、API、数据库 schema、dashboard schema，未修改前端 / 后端业务代码，未进入登录 / 生图 / 试卷 / 支付。完整验证通过：`npm run lint`、`npm run typecheck`、`npm run build`、`node scripts/dev-os-validate.mjs`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check`。Gemini CLI 二审已按 reviewer 规则调用，但遇到 CLI 工具不可用提示、一次 `429 RESOURCE_EXHAUSTED / MODEL_CAPACITY_EXHAUSTED` 以及网络断连，无有效二审结论，已记录且不阻塞自身验收。

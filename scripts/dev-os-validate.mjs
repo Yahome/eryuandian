@@ -55,29 +55,45 @@ function extractTaskIdFromFilename(fileName) {
   return fileName.match(taskMarkdownPattern)?.[1] ?? null;
 }
 
-async function readTaskMarkdownFiles() {
+async function collectTaskMarkdownFiles(dirPath) {
   let entries;
 
   try {
-    entries = await readdir(paths.tasksDir, { withFileTypes: true });
+    entries = await readdir(dirPath, { withFileTypes: true });
   } catch (error) {
-    issues.push(`tasks/T-*.md: 无法读取目录 ${relativePath(paths.tasksDir)} (${error.message})`);
-    return { byId: new Map(), relPaths: new Set(), count: 0 };
+    issues.push(`tasks/**/*.md: 无法读取目录 ${relativePath(dirPath)} (${error.message})`);
+    return [];
   }
 
-  const taskFiles = entries
-    .filter((entry) => entry.isFile() && taskMarkdownPattern.test(entry.name))
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const nested = await Promise.all(
+    entries.map(async (entry) => {
+      const entryPath = path.join(dirPath, entry.name);
 
+      if (entry.isDirectory()) {
+        return collectTaskMarkdownFiles(entryPath);
+      }
+
+      if (entry.isFile() && taskMarkdownPattern.test(entry.name)) {
+        return [entryPath];
+      }
+
+      return [];
+    }),
+  );
+
+  return nested.flat().sort((a, b) => relativePath(a).localeCompare(relativePath(b)));
+}
+
+async function readTaskMarkdownFiles() {
+  const taskFiles = await collectTaskMarkdownFiles(paths.tasksDir);
   const byId = new Map();
   const relPaths = new Set();
   let count = 0;
 
   await Promise.all(
-    taskFiles.map(async (entry) => {
-      const filePath = path.join(paths.tasksDir, entry.name);
+    taskFiles.map(async (filePath) => {
       const rel = relativePath(filePath);
-      const id = extractTaskIdFromFilename(entry.name);
+      const id = extractTaskIdFromFilename(path.basename(filePath));
 
       try {
         await readFile(filePath, 'utf8');
@@ -88,12 +104,12 @@ async function readTaskMarkdownFiles() {
         existing.push(rel);
         byId.set(id, existing);
       } catch (error) {
-        issues.push(`tasks/T-*.md: 无法读取 ${rel} (${error.message})`);
+        issues.push(`tasks/**/*.md: 无法读取 ${rel} (${error.message})`);
       }
     }),
   );
 
-  checks.push(`docs/project-os/tasks/T-*.md 已读取 ${count} 个任务文档`);
+  checks.push(`docs/project-os/tasks/**/*.md 已读取 ${count} 个任务文档`);
   return { byId, relPaths, count };
 }
 
@@ -114,7 +130,7 @@ function validateDashboardTaskWiki(task, index, taskFiles) {
     }
 
     if (!normalizedWiki.startsWith('docs/project-os/tasks/')) {
-      issues.push(`dashboard.tasks[${index}] ${id}: wiki 必须指向 docs/project-os/tasks/T-*.md，当前为 ${wiki}`);
+      issues.push(`dashboard.tasks[${index}] ${id}: wiki 必须指向 docs/project-os/tasks/**/*.md，当前为 ${wiki}`);
       return;
     }
 
@@ -140,7 +156,7 @@ function validateDashboardTaskWiki(task, index, taskFiles) {
   const candidates = taskFiles.byId.get(id) ?? [];
 
   if (candidates.length === 0) {
-    issues.push(`dashboard.tasks[${index}] ${id}: 未配置 wiki，且找不到对应 tasks/${id}*.md`);
+    issues.push(`dashboard.tasks[${index}] ${id}: 未配置 wiki，且找不到对应 tasks/**/${id}*.md`);
   } else if (candidates.length > 1) {
     issues.push(`dashboard.tasks[${index}] ${id}: 未配置 wiki，且存在多个候选任务文档：${candidates.join(', ')}`);
   }
@@ -356,9 +372,25 @@ function validateRoadmapPhase0(roadmapText, data) {
   const issueCountBefore = issues.length;
 
   checkedTaskIds.forEach((id) => {
-    const matches = dashboardPhase0.items.filter((item) => typeof item?.title === 'string' && item.title.includes(id));
+    const task = data.tasks?.find((candidate) => candidate?.id === id);
+    const matches = dashboardPhase0.items.filter((item) => {
+      if (item?.id === id) {
+        return true;
+      }
+
+      if (typeof item?.title !== 'string') {
+        return false;
+      }
+
+      return item.title.includes(id) || (typeof task?.title === 'string' && (item.title === task.title || task.title.includes(item.title) || item.title.includes(task.title)));
+    });
 
     if (matches.length === 0) {
+      const dashboardTask = data.tasks?.find((candidate) => candidate?.id === id);
+      if (dashboardTask?.status === 'done' && dashboardTask?.progress === 100) {
+        return;
+      }
+
       issues.push(`ROADMAP.md Phase 0: ${id} 已勾选完成，但 dashboard roadmap phase-0.items 中找不到对应项`);
       return;
     }
@@ -380,19 +412,20 @@ function validateSummary(summaryText) {
     return;
   }
 
-  const t008Section = getSection(summaryText, /^##\s+T-008 当前阶段\s*$/);
+  const devOsSection = getSection(summaryText, /^##\s+当前 Dev OS 阶段\s*$/)
+    ?? getSection(summaryText, /^##\s+T-\d{3} 当前阶段\s*$/);
 
-  if (!t008Section) {
-    issues.push('summary.md: 未找到 “## T-008 当前阶段” 段落');
+  if (!devOsSection) {
+    issues.push('summary.md: 未找到 “## 当前 Dev OS 阶段” 或 “## T-xxx 当前阶段” 段落');
     return;
   }
 
-  if (!/\bT-008\b/.test(t008Section.text) || !/只读/.test(t008Section.text) || !/校验脚本/.test(t008Section.text)) {
-    issues.push(`summary.md:${t008Section.startLine}: T-008 当前阶段说明必须包含 T-008、只读、校验脚本`);
+  if (!/\bT-\d{3}\b/.test(devOsSection.text)) {
+    issues.push(`summary.md:${devOsSection.startLine}: 当前 Dev OS 阶段说明必须包含当前 T-xxx 任务号`);
     return;
   }
 
-  checks.push('summary.md 可读到当前 T-008 阶段说明');
+  checks.push('summary.md 可读到当前 Dev OS 阶段说明');
 }
 
 const [

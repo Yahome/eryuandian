@@ -3,13 +3,13 @@
     "name": "两元店",
     "slug": "eryuandian",
     "rootPath": "/root/eryuandian",
-    "status": "Phase 0 / Dev OS 闭环建立中",
+    "status": "Phase 0 / Dev OS 文档治理完成",
     "phase": "Phase 0",
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "T-010 Dev OS Dashboard 信息架构与交互收尾整改已完成；Dev OS Dashboard v1.0 收尾完成，后续 Web App 正式开发需新任务承接。",
-    "updatedAt": "2026-05-07"
+    "currentFocus": "T-011 Project OS 文档体系中文化与任务线分离已完成；下一步保持不直接进入 Web App 功能开发，等待用户确认后续任务。",
+    "updatedAt": "2026-05-08"
   },
   "agents": [
     {
@@ -33,7 +33,8 @@
         "已完成 T-005 / T-006 closeout，当前下一步 T-007",
         "已创建 T-007，当前按 Architect 前置门禁推进",
         "已完成 T-008 Dev OS 事实源一致性校验脚本验收收口",
-        "已完成 T-009 reviewer 二审方式调整与复核（gpt-5.3-codex）验收收口"
+        "已完成 T-009 reviewer 二审方式调整与复核（gpt-5.3-codex）验收收口",
+        "已完成 T-011 Project OS 文档体系中文化与任务线分离：放行后完成 git mv 迁移、路径同步与 validator 收口"
       ],
       "wiki": "docs/project-os/agents/yuan-control.md"
     },
@@ -60,7 +61,8 @@
         "T-008 前置架构说明已完成；结论为只读校验，不自动改文件，不新增 package script / API / dashboard schema",
         "T-008 只读校验脚本 scripts/dev-os-validate.mjs 已实现并通过 yuan-reviewer 验收",
         "T-009 前置架构说明已完成：后续 reviewer 二审改用 Codex CLI gpt-5.3-codex，不再使用 Gemini CLI",
-        "T-010 前置架构说明已完成：复用现有 dashboard JSON 字段，不变更 dashboard schema，不修改前端源码"
+        "T-010 前置架构说明已完成：复用现有 dashboard JSON 字段，不变更 dashboard schema，不修改前端源码",
+        "T-011 已完成：任务文档已分 dev-os / web-app 任务线，T-000 至 T-010 已迁移为中文文件名，validator 支持嵌套任务目录"
       ],
       "wiki": "docs/project-os/agents/yuan-architect.md"
     },
@@ -147,7 +149,7 @@
       "priority": "P0",
       "progress": 100,
       "summary": "搭建两元店 AI 开发团队的 Hermes profiles，并建立 docs/project-os 事实源目录。",
-      "wiki": "docs/project-os/tasks/T-000-bootstrap-dev-os.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-000-初始化-Dev-OS.md"
     },
     {
       "id": "T-001",
@@ -157,7 +159,7 @@
       "priority": "P0",
       "progress": 100,
       "summary": "创建 5 个 Hermes profiles，并为每个 profile 设置角色规则。",
-      "wiki": "docs/project-os/tasks/T-001-setup-agent-profiles.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-001-设置-Hermes-Agent-Profiles.md"
     },
     {
       "id": "T-002",
@@ -167,7 +169,7 @@
       "priority": "P0",
       "progress": 100,
       "summary": "建立 docs/project-os Markdown-first 项目事实源，支撑多 Agent 协作。",
-      "wiki": "docs/project-os/tasks/T-002-project-os-docs.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-002-建立-Project-OS-文档事实源.md"
     },
     {
       "id": "T-003",
@@ -177,7 +179,7 @@
       "priority": "P0",
       "progress": 100,
       "summary": "完成 /dev-dashboard 第一版总览页，读取 dashboard.json 展示 KPI、Agent、Roadmap、风险、待确认、最近更新和 Wiki 快速入口。",
-      "wiki": "docs/project-os/tasks/T-003-dashboard-ui.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md"
     },
     {
       "id": "T-004",
@@ -187,7 +189,7 @@
       "priority": "P0",
       "progress": 100,
       "summary": "从 docs/project-os Markdown 事实源生成第一版 Dashboard 汇总数据。",
-      "wiki": "docs/project-os/tasks/T-004-dashboard-json-sync.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-004-Dashboard-JSON-同步.md"
     },
     {
       "id": "T-005",
@@ -197,7 +199,7 @@
       "priority": "P1",
       "progress": 100,
       "summary": "Project Wiki Viewer 已完成：yuan-frontend 实现，yuan-reviewer 与 Gemini 双审查通过。",
-      "wiki": "docs/project-os/tasks/T-005-wiki-viewer.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-005-Project-Wiki-查看器.md"
     },
     {
       "id": "T-006",
@@ -207,7 +209,7 @@
       "priority": "P1",
       "progress": 100,
       "summary": "Dashboard 视觉壳已重构并验收通过：紧凑 sidebar、top header、KPI、Agent grid、Roadmap、风险/待确认、最近更新与 Wiki 快捷入口；未新增 API、未改 schema、未改数据库。",
-      "wiki": "docs/project-os/tasks/T-006-dashboard-visual-alignment.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-006-Dashboard-视觉对齐与-Shell-重构.md"
     },
     {
       "id": "T-007",
@@ -217,7 +219,7 @@
       "priority": "P1",
       "progress": 100,
       "summary": "T-007 已通过 yuan-reviewer 验收：/dev-dashboard 只读任务看板、#task-board 入口、dashboard.json.tasks 数据来源、统计派生、T-003/T-005/T-006 回归和边界检查均通过；Gemini 二审 429 无有效输出，已记录。",
-      "wiki": "docs/project-os/tasks/T-007-task-board-progress.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-007-任务看板详情页与进度汇总机制.md"
     },
     {
       "id": "T-008",
@@ -227,7 +229,7 @@
       "priority": "P1",
       "progress": 100,
       "summary": "T-008 已通过 yuan-reviewer 验收：scripts/dev-os-validate.mjs 只读校验 Project OS 事实源，未自动改写 Markdown / JSON，未新增 package script、API、dashboard schema 或数据库 schema，验证命令全部通过；Gemini 二审 429 / 网络错误无有效输出，已记录。",
-      "wiki": "docs/project-os/tasks/T-008-dev-os-consistency-validator.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-008-Dev-OS-事实源一致性校验脚本.md"
     },
     {
       "id": "T-009",
@@ -237,7 +239,7 @@
       "priority": "P1",
       "progress": 100,
       "summary": "T-009 已通过 yuan-reviewer 复核：后续 reviewer 二审统一改为 Codex CLI gpt-5.3-codex；边界保持不变（不进业务、不新增 API、不改数据库 schema、不改 dashboard schema、不保存敏感信息），且 lint/typecheck/build、Dev OS validator、JSON 一致性、临时文件清理检查与 diff-check 均 exit 0。",
-      "wiki": "docs/project-os/tasks/T-009-gemini-prompt-file-review.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-009-reviewer-二审方式调整与复核.md"
     },
     {
       "id": "T-010",
@@ -247,7 +249,17 @@
       "priority": "P0",
       "progress": 100,
       "summary": "T-010 已完成并通过 yuan-reviewer 与 gpt-5.3-codex 二审：Dev OS Dashboard v1.0 收尾完成，覆盖顶部、总览双轨进度、Roadmap + Agent、任务列表详情、Project Wiki 沉浸式阅读和风险清理；未改 schema/API/数据库/业务功能。",
-      "wiki": "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md"
+      "wiki": "docs/project-os/tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md"
+    },
+    {
+      "id": "T-011",
+      "title": "Project OS 文档体系中文化与任务线分离",
+      "owner": "yuan-architect",
+      "status": "done",
+      "priority": "P0",
+      "progress": 100,
+      "summary": "完成 Project OS 文档体系中文化与任务线分离：Dev OS 任务迁入 tasks/dev-os/，Web App 任务线建立 README，占位不进入业务功能。",
+      "wiki": "docs/project-os/tasks/dev-os/T-011-Project-OS-文档体系中文化与任务线分离.md"
     }
   ],
   "risks": [
@@ -263,8 +275,8 @@
       "id": "R-004",
       "title": "Dev OS / Web App 任务线混用",
       "impact": "总览进度误导、任务筛选失真",
-      "status": "open",
-      "mitigation": "T-010 总览拆分 Dev OS 完成度与 Web App MVP 完成度，任务列表提供项目线筛选。",
+      "status": "monitoring",
+      "mitigation": "T-011 已将 Dev OS 任务迁移到 tasks/dev-os/，并创建 tasks/web-app/README.md 作为 Web App 任务线说明；后续新增业务任务须进入 web-app 任务线。",
       "wiki": "docs/project-os/RISKS.md"
     },
     {
@@ -280,7 +292,7 @@
     {
       "id": "phase-0",
       "title": "Phase 0：Dev OS 与项目准备",
-      "status": "in_progress",
+      "status": "done",
       "items": [
         {
           "title": "Hermes profiles 建立",
@@ -312,6 +324,10 @@
         },
         {
           "title": "T-010 Dev OS Dashboard 信息架构与交互收尾整改",
+          "done": true
+        },
+        {
+          "title": "T-011 Project OS 文档体系中文化与任务线分离",
           "done": true
         }
       ],
@@ -423,7 +439,7 @@
       "id": "PA-003",
       "title": "确认 Dashboard JSON 后续同步方式：手动编译或自动脚本",
       "owner": "user",
-      "source": "T-004-dashboard-json-sync.md"
+      "source": "T-004-Dashboard-JSON-同步.md"
     },
     {
       "id": "PA-004",
@@ -434,13 +450,44 @@
   ],
   "recentUpdates": [
     {
+      "date": "2026-05-08",
+      "title": "完成 T-011 Project OS 文档体系中文化与任务线分离",
+      "description": "T-011 已完成执行迁移：T-000 至 T-010 使用 git mv 移动到 tasks/dev-os/ 中文文件名，web-app/README.md 仅作为任务线说明创建，所有旧任务路径引用已同步，validator 已支持嵌套任务目录并保持只读。",
+      "files": [
+        "docs/project-os/tasks/dev-os/T-000-初始化-Dev-OS.md",
+        "docs/project-os/tasks/dev-os/T-001-设置-Hermes-Agent-Profiles.md",
+        "docs/project-os/tasks/dev-os/T-002-建立-Project-OS-文档事实源.md",
+        "docs/project-os/tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md",
+        "docs/project-os/tasks/dev-os/T-004-Dashboard-JSON-同步.md",
+        "docs/project-os/tasks/dev-os/T-005-Project-Wiki-查看器.md",
+        "docs/project-os/tasks/dev-os/T-006-Dashboard-视觉对齐与-Shell-重构.md",
+        "docs/project-os/tasks/dev-os/T-007-任务看板详情页与进度汇总机制.md",
+        "docs/project-os/tasks/dev-os/T-008-Dev-OS-事实源一致性校验脚本.md",
+        "docs/project-os/tasks/dev-os/T-009-reviewer-二审方式调整与复核.md",
+        "docs/project-os/tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md",
+        "docs/project-os/tasks/dev-os/T-011-Project-OS-文档体系中文化与任务线分离.md",
+        "docs/project-os/tasks/web-app/README.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json",
+        "docs/project-os/CHANGELOG.md",
+        "docs/project-os/ROADMAP.md",
+        "docs/project-os/RISKS.md",
+        "docs/project-os/README.md",
+        "docs/project-os/agents/yuan-control.md",
+        "docs/project-os/agents/yuan-architect.md",
+        "scripts/dev-os-validate.mjs"
+      ]
+    },
+    {
       "date": "2026-05-07",
       "title": "T-010 验收通过",
       "description": "Dev OS Dashboard v1.0 收尾整改通过 yuan-reviewer 与 gpt-5.3-codex 二审，当前不直接进入 Web App 开发。",
       "files": [
         "src/main.tsx",
         "src/styles.css",
-        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md"
+        "docs/project-os/tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md"
       ]
     },
     {
@@ -450,7 +497,7 @@
       "files": [
         "src/main.tsx",
         "src/styles.css",
-        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md"
+        "docs/project-os/tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md"
       ]
     },
     {
@@ -458,7 +505,7 @@
       "title": "T-010 前置架构说明通过",
       "description": "yuan-control 已确认架构说明覆盖总览页、任务看板、Project Wiki、导航调整、风险清理和 schema 边界，放行 yuan-frontend 实施。",
       "files": [
-        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md",
+        "docs/project-os/tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md",
         "src/main.tsx",
         "src/styles.css"
       ]
@@ -468,7 +515,7 @@
       "title": "完成 T-010 前置架构说明",
       "description": "yuan-architect 已完成 T-010 前置架构说明并同步必要事实源；结论为复用现有 dashboard JSON 字段，不变更 dashboard schema，不更新 SCHEMA.md，不改 scripts/dev-os-validate.mjs，不修改 src/main.tsx 或 src/styles.css。",
       "files": [
-        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md",
+        "docs/project-os/tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md",
         "docs/project-os/dashboard/summary.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/ROADMAP.md",
@@ -485,7 +532,7 @@
       "title": "T-010 进入执行状态",
       "description": "Dev OS Dashboard 信息架构与交互收尾整改进入 yuan-architect 前置架构说明阶段；frontend 暂不改前端文件。",
       "files": [
-        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md",
+        "docs/project-os/tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md",
         "docs/project-os/dashboard/summary.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/dashboard/dashboard.json",
@@ -497,7 +544,7 @@
       "title": "完成 T-009 reviewer 二审规则调整复核",
       "description": "yuan-reviewer 复核通过：T-009 已将后续二审规则切换为 Codex CLI gpt-5.3-codex；边界检查与验证命令通过（lint/typecheck/build、Dev OS validator、JSON 合法与一致、临时文件清理检查、diff-check）。",
       "files": [
-        "docs/project-os/tasks/T-009-gemini-prompt-file-review.md",
+        "docs/project-os/tasks/dev-os/T-009-reviewer-二审方式调整与复核.md",
         "docs/project-os/agents/yuan-reviewer.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/dashboard/summary.md",
@@ -511,7 +558,7 @@
       "title": "创建 T-009 reviewer 二审方式调整任务",
       "description": "yuan-architect 已完成 T-009 前置架构说明与事实源同步；后续 reviewer 二审从 Gemini CLI 调整为 Codex CLI gpt-5.3-codex，且保持不新增 API、不改数据库 schema、不改 dashboard schema。",
       "files": [
-        "docs/project-os/tasks/T-009-gemini-prompt-file-review.md",
+        "docs/project-os/tasks/dev-os/T-009-reviewer-二审方式调整与复核.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/dashboard/summary.md",
         "docs/project-os/agents/yuan-architect.md",
@@ -528,7 +575,7 @@
       "description": "yuan-reviewer 验收通过：scripts/dev-os-validate.mjs 只读、不自动改写 Markdown / JSON，读取范围限于 Project OS 事实源文件；lint/typecheck/build、脚本 PASS、JSON 合法与一致性、diff whitespace 检查均通过；Gemini 二审因 429 / 网络错误无有效输出，已记录且不阻塞。",
       "files": [
         "scripts/dev-os-validate.mjs",
-        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md",
+        "docs/project-os/tasks/dev-os/T-008-Dev-OS-事实源一致性校验脚本.md",
         "docs/project-os/agents/yuan-reviewer.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/ROADMAP.md",
@@ -541,10 +588,10 @@
     {
       "date": "2026-05-06",
       "title": "实现 T-008 只读一致性校验脚本",
-      "description": "新增 scripts/dev-os-validate.mjs，只读校验 TASK_BOARD、ROADMAP、summary、两个 dashboard JSON 与 tasks/T-*.md；首次运行发现并收口 T-005 Phase 0 roadmap 漂移，当前等待 yuan-reviewer 验收。",
+      "description": "新增 scripts/dev-os-validate.mjs，只读校验 TASK_BOARD、ROADMAP、summary、两个 dashboard JSON 与 tasks/**/*.md；首次运行发现并收口 T-005 Phase 0 roadmap 漂移，当前等待 yuan-reviewer 验收。",
       "files": [
         "scripts/dev-os-validate.mjs",
-        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md",
+        "docs/project-os/tasks/dev-os/T-008-Dev-OS-事实源一致性校验脚本.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/dashboard/summary.md",
         "docs/project-os/agents/yuan-architect.md",
@@ -558,7 +605,7 @@
       "title": "确认 T-008 前置架构说明",
       "description": "T-008 前置架构说明已覆盖目标、范围、文件、规则、产物建议与 reviewer 命令；当前由 yuan-architect 实现只读校验脚本，frontend/backend 不开工。",
       "files": [
-        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md",
+        "docs/project-os/tasks/dev-os/T-008-Dev-OS-事实源一致性校验脚本.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/dashboard/summary.md",
         "docs/project-os/dashboard/dashboard.json",
@@ -570,7 +617,7 @@
       "title": "完成 T-008 yuan-architect 前置架构说明",
       "description": "T-008 架构结论为第一版只读校验，不自动修改 Markdown / JSON；建议后续产物为 scripts/dev-os-validate.mjs；本阶段不新增 package.json script、不改 dashboard schema、不新增 API、不改数据库 schema、不进入登录 / 生图 / 试卷 / 支付。",
       "files": [
-        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md",
+        "docs/project-os/tasks/dev-os/T-008-Dev-OS-事实源一致性校验脚本.md",
         "docs/project-os/agents/yuan-architect.md",
         "docs/project-os/dashboard/summary.md",
         "docs/project-os/TASK_BOARD.md",
@@ -588,7 +635,7 @@
         "docs/project-os/dashboard/dashboard.json",
         "docs/project-os/dashboard.json",
         "docs/project-os/agents/profile-audit.md",
-        "docs/project-os/tasks/T-008-dev-os-consistency-validator.md"
+        "docs/project-os/tasks/dev-os/T-008-Dev-OS-事实源一致性校验脚本.md"
       ]
     },
     {
@@ -596,7 +643,7 @@
       "title": "完成 T-007 yuan-reviewer 验收",
       "description": "yuan-reviewer 验收通过：/dev-dashboard、#task-board、dashboard.json.tasks 数据来源、统计派生、T-003/T-005/T-006 回归、边界与验证命令均通过；Gemini CLI 二审因 429 MODEL_CAPACITY_EXHAUSTED 无有效输出，不阻塞。",
       "files": [
-        "docs/project-os/tasks/T-007-task-board-progress.md",
+        "docs/project-os/tasks/dev-os/T-007-任务看板详情页与进度汇总机制.md",
         "docs/project-os/agents/yuan-reviewer.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/dashboard/summary.md",
@@ -611,7 +658,7 @@
       "files": [
         "src/main.tsx",
         "src/styles.css",
-        "docs/project-os/tasks/T-007-task-board-progress.md",
+        "docs/project-os/tasks/dev-os/T-007-任务看板详情页与进度汇总机制.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/agents/yuan-frontend.md",
         "docs/project-os/dashboard/summary.md",
@@ -624,7 +671,7 @@
       "title": "确认 T-007 前置架构说明并交给 yuan-frontend",
       "description": "yuan-control 确认架构说明覆盖页面/信息架构、数据来源、schema 结论、任务看板功能、进度汇总机制、frontend 边界和 reviewer 验收标准；T-007 进入进行中。",
       "files": [
-        "docs/project-os/tasks/T-007-task-board-progress.md",
+        "docs/project-os/tasks/dev-os/T-007-任务看板详情页与进度汇总机制.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/dashboard/summary.md",
         "docs/project-os/dashboard/dashboard.json",
@@ -636,7 +683,7 @@
       "title": "创建 T-007 Dev OS 任务看板详情页 + 进度汇总机制",
       "description": "T-007 已进入准备中，当前阶段为 yuan-architect 前置架构说明；说明确认前不允许 yuan-frontend 开工，不变更 dashboard schema，不进入业务功能。",
       "files": [
-        "docs/project-os/tasks/T-007-task-board-progress.md",
+        "docs/project-os/tasks/dev-os/T-007-任务看板详情页与进度汇总机制.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/dashboard/summary.md",
         "docs/project-os/dashboard/dashboard.json",
@@ -663,7 +710,7 @@
         "src/main.tsx",
         "src/styles.css",
         "src/assets/brand-app-icon.png",
-        "docs/project-os/tasks/T-006-dashboard-visual-alignment.md"
+        "docs/project-os/tasks/dev-os/T-006-Dashboard-视觉对齐与-Shell-重构.md"
       ]
     },
     {
@@ -671,7 +718,7 @@
       "title": "创建 T-006 Dashboard 视觉对齐任务",
       "description": "T-006 将重构 /dev-dashboard 的视觉壳、sidebar、top header、KPI、Roadmap、Agent grid 与 Wiki 快捷入口，不改变 schema，不新增 API。",
       "files": [
-        "docs/project-os/tasks/T-006-dashboard-visual-alignment.md",
+        "docs/project-os/tasks/dev-os/T-006-Dashboard-视觉对齐与-Shell-重构.md",
         "docs/project-os/TASK_BOARD.md"
       ]
     },
@@ -682,7 +729,7 @@
       "files": [
         "src/main.tsx",
         "src/styles.css",
-        "docs/project-os/tasks/T-005-wiki-viewer.md",
+        "docs/project-os/tasks/dev-os/T-005-Project-Wiki-查看器.md",
         "docs/project-os/agents/yuan-reviewer.md"
       ]
     },
@@ -693,7 +740,7 @@
       "files": [
         "src/main.tsx",
         "src/styles.css",
-        "docs/project-os/tasks/T-005-wiki-viewer.md",
+        "docs/project-os/tasks/dev-os/T-005-Project-Wiki-查看器.md",
         "docs/project-os/dashboard/dashboard.json"
       ]
     },
@@ -702,7 +749,7 @@
       "title": "完成 T-005 Project Wiki Viewer 前置架构说明",
       "description": "yuan-architect 已在 T-005 任务文档中明确 Wiki Viewer 的目标与非目标、信息结构、数据来源、wikiLinks 复用结论、Markdown 预览与外链边界、frontend 文件范围和 reviewer 验收点；本阶段不变更 dashboard schema。",
       "files": [
-        "docs/project-os/tasks/T-005-wiki-viewer.md",
+        "docs/project-os/tasks/dev-os/T-005-Project-Wiki-查看器.md",
         "docs/project-os/TASK_BOARD.md",
         "docs/project-os/dashboard/dashboard.json"
       ]
@@ -715,7 +762,7 @@
         "docs/project-os/AGENT_WORKFLOW.md",
         "docs/project-os/SOURCE_OF_TRUTH.md",
         "docs/project-os/TASK_BOARD.md",
-        "docs/project-os/tasks/T-005-wiki-viewer.md"
+        "docs/project-os/tasks/dev-os/T-005-Project-Wiki-查看器.md"
       ]
     },
     {
@@ -725,7 +772,7 @@
       "files": [
         "src/main.tsx",
         "src/styles.css",
-        "docs/project-os/tasks/T-003-dashboard-ui.md"
+        "docs/project-os/tasks/dev-os/T-003-Dev-OS-Dashboard-界面.md"
       ]
     },
     {
@@ -742,7 +789,7 @@
       "title": "验证 5 个 Hermes profiles",
       "description": "T-001 记录 5 个 profile 均能通过 hermes -p 返回职责说明。",
       "files": [
-        "docs/project-os/tasks/T-001-setup-agent-profiles.md"
+        "docs/project-os/tasks/dev-os/T-001-设置-Hermes-Agent-Profiles.md"
       ]
     },
     {
@@ -750,7 +797,7 @@
       "title": "建立 Project OS 文档事实源",
       "description": "T-002 完成 docs/project-os Markdown-first 文档体系。",
       "files": [
-        "docs/project-os/tasks/T-002-project-os-docs.md"
+        "docs/project-os/tasks/dev-os/T-002-建立-Project-OS-文档事实源.md"
       ]
     }
   ],
@@ -796,8 +843,13 @@
       "type": "agents"
     },
     {
-      "title": "任务文档目录",
-      "path": "docs/project-os/tasks/",
+      "title": "Dev OS 任务文档目录",
+      "path": "docs/project-os/tasks/dev-os/",
+      "type": "tasks"
+    },
+    {
+      "title": "Web App 任务线说明",
+      "path": "docs/project-os/tasks/web-app/README.md",
       "type": "tasks"
     }
   ]
