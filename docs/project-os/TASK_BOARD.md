@@ -35,7 +35,7 @@
 4. T-007 Dev OS 任务看板详情页 + 进度汇总机制已完成 `yuan-frontend` 实现并通过 `yuan-reviewer` 验收；Gemini 二审因服务端 429 无有效输出，已记录且不阻塞验收结论。
 5. T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate 已完成 `yuan-architect` 实现并通过 `yuan-reviewer` 验收，新增只读脚本 `scripts/dev-os-validate.mjs`；Gemini 二审因 429 / 网络错误无有效输出，已记录且不阻塞验收结论。
 6. T-009 reviewer 二审方式调整与复核（`gpt-5.3-codex`）已完成：后续 reviewer 第二审查统一使用 Codex CLI `gpt-5.3-codex`，不再使用 Gemini CLI；不派 `yuan-frontend` / `yuan-backend`，不进入业务功能。
-7. T-010 Dev OS Dashboard 信息架构与交互收尾整改已进入执行状态：`yuan-architect` 已完成前置架构说明并同步必要事实源；当前等待 `yuan-control` 确认是否放行后续前端实现，确认前 `yuan-frontend` 不得修改 `src/main.tsx` 或 `src/styles.css`。
+7. T-010 Dev OS Dashboard 信息架构与交互收尾整改已完成，并通过 `yuan-reviewer` 与 `gpt-5.3-codex` 二审；Dev OS Dashboard v1.0 收尾完成，后续 Web App 正式开发需新任务承接。
 
 ## Architect 前置门禁
 
