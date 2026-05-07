@@ -2,6 +2,8 @@
 
 ## 2026-05-06
 
+- 完成 T-009 二审规则调整复核：后续 reviewer 第二审查统一改为 Codex CLI `gpt-5.3-codex`，不再使用 Gemini CLI；相关规则已同步 `yuan-reviewer`、T-009 任务文档、summary、TASK_BOARD、CHANGELOG 与两个 dashboard JSON 描述。
+- 完成 T-009 yuan-reviewer 复核，结论 PASS：确认边界保持不变（不进入登录/生图/试卷/支付、不新增 API、不改数据库 schema、不改 dashboard schema、不保存敏感信息）；验证 `npm run lint`、`npm run typecheck`、`npm run build`、`node scripts/dev-os-validate.mjs`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`test ! -e .tmp/gemini-review/T-009-review-prompt.md`、`git diff --check` 均 exit 0。
 - 完成 T-008 yuan-reviewer 验收，结论 PASS：确认 `scripts/dev-os-validate.mjs` 只读、不自动改写 Markdown / JSON，读取范围限于 Project OS 事实源文件；未新增 package script、API、dashboard schema、数据库 schema，未修改前端 / 后端业务代码；验证 `npm run lint`、`npm run typecheck`、`npm run build`、`node scripts/dev-os-validate.mjs`、`jq empty docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`cmp -s docs/project-os/dashboard/dashboard.json docs/project-os/dashboard.json`、`git diff --check` 均通过；Gemini 二审因 CLI 工具提示、429 / 网络错误无有效输出，已记录且不阻塞。
 - 实现 T-008 Dev OS 事实源一致性校验脚本 `scripts/dev-os-validate.mjs`；脚本只读检查 Project OS 事实源，输出 PASS/FAIL 与问题列表，失败 exit 1、通过 exit 0；未新增 package script，未修改 dashboard schema，未新增 API，未修改数据库 schema。
 - T-008 首次校验发现 `ROADMAP.md` Phase 0 已完成的 T-005 未出现在 dashboard `phase-0.items`；已在两个 dashboard JSON 中补齐 `T-005 Project Wiki Viewer` 的 `done: true` 记录并保持两个 JSON 完全一致。

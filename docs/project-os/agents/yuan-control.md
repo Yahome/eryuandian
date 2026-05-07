@@ -60,10 +60,12 @@ yuan-control：同步状态和派发下一步
 - 已完成 T-005 Project Wiki Viewer：`yuan-architect` 前置架构、`yuan-frontend` 实现、`yuan-reviewer` 验收通过。
 - 已完成 T-006 Dashboard 视觉对齐 / Shell 重构并完成验收收口。
 - 已完成 T-007 closeout 小漂移修复。
-- 已创建 T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate，当前等待 `yuan-architect` 前置架构说明。
+- 已完成 T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate 并通过 `yuan-reviewer` 验收。
+- 已创建 T-009 Gemini CLI Prompt File 二审通道 / Reviewer Smoke Test，当前由 `yuan-architect` 完成前置架构说明与事实源同步；确认前不得派 `yuan-frontend` / `yuan-backend`。
 
 ## 当前边界
 
 - 不开发登录、生图、试卷、支付等业务功能。
 - 不修改数据库 schema。
 - 不让 `yuan-architect` 写前端代码。
+- 不保存 token/key/auth/secret/bearer token，不保留完整敏感环境信息。
