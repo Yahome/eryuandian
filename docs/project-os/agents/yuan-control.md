@@ -1,7 +1,7 @@
 # yuan-control
 
 状态：活跃（内部标识：`active`）
-更新时间：2026-05-06
+更新时间：2026-05-07
 
 ## 角色
 
@@ -61,7 +61,8 @@ yuan-control：同步状态和派发下一步
 - 已完成 T-006 Dashboard 视觉对齐 / Shell 重构并完成验收收口。
 - 已完成 T-007 closeout 小漂移修复。
 - 已完成 T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate 并通过 `yuan-reviewer` 验收。
-- 已创建 T-009 Gemini CLI Prompt File 二审通道 / Reviewer Smoke Test，当前由 `yuan-architect` 完成前置架构说明与事实源同步；确认前不得派 `yuan-frontend` / `yuan-backend`。
+- 已完成 T-009 reviewer 二审方式调整与复核；后续 reviewer 第二审查统一使用 Codex CLI `gpt-5.3-codex`。
+- 已同步 T-010 Dev OS Dashboard 信息架构与交互收尾整改进入执行状态；`yuan-architect` 已完成前置架构说明，当前等待 `yuan-control` 确认是否放行后续前端实现。
 
 ## 当前边界
 
@@ -69,3 +70,12 @@ yuan-control：同步状态和派发下一步
 - 不修改数据库 schema。
 - 不让 `yuan-architect` 写前端代码。
 - 不保存 token/key/auth/secret/bearer token，不保留完整敏感环境信息。
+
+## 变更记录
+
+- 2026-05-07：已同步 T-010 进入执行状态（进行中 / `in_progress`，progress 10%），当前等待 `yuan-architect` 前置架构说明；说明确认前不放行 `yuan-frontend` 修改 Dashboard 前端文件。
+- 2026-05-07：`yuan-architect` 已完成 T-010 前置架构说明并同步必要事实源；确认是否放行前，仍不派 `yuan-frontend` 修改 `src/main.tsx` 或 `src/styles.css`。
+
+- 2026-05-07：已确认 T-010 前置架构说明通过，放行 `yuan-frontend` 实施 Dev OS Dashboard v1.0 收尾整改；继续禁止业务功能、API、数据库 schema 和 dashboard schema 越界。
+
+- 2026-05-07：完成 T-010 closeout，Dev OS Dashboard v1.0 收尾完成；不直接进入 Web App 开发。

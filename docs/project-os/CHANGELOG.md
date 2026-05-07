@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2026-05-07
+
+- 完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改并通过验收：`/dev-dashboard` 完成顶部、总览双轨进度、Roadmap + Agent、任务列表 + 详情筛选、Project Wiki 沉浸式阅读和风险展示整改；`yuan-reviewer` 与 `gpt-5.3-codex` 二审 PASS；未改 dashboard schema、未新增脚本、未新增业务 API、未修改数据库 schema、未进入登录 / 生图 / 试卷 / 支付。
+- 完成 T-010 `yuan-frontend` 实现：`/dev-dashboard` 顶部用户信息移除，总览拆分 Dev OS / Web App MVP 进度，Roadmap 与 Agent 状态合并，任务看板改为列表 + 详情 + 筛选，Project Wiki 改为沉浸式阅读并修复快捷入口联动；验证 lint/typecheck/build/Dev OS validator/JSON 一致性/diff-check 与 `/dev-dashboard` HTTP 访问通过。
+- 确认 T-010 `yuan-architect` 前置架构说明通过：已覆盖总览页、任务看板、Project Wiki、导航调整、风险清理、数据来源与 schema 边界；未修改 dashboard schema、未新增业务 API、未修改数据库 schema、未进入登录 / 生图 / 试卷 / 支付。现放行 `yuan-frontend` 按说明修改 `src/main.tsx` 与 `src/styles.css`。
+- 完成 T-010 `yuan-architect` 前置架构说明：已识别当前 `/dev-dashboard` 总览页、任务看板、Project Wiki、Wiki 快捷入口、Agent 状态、Roadmap、风险与待确认的数据来源；整改架构覆盖总览双轨进度、Roadmap 与 Agent 合并、任务列表 + 详情面板、Project Wiki 沉浸式阅读、风险降级和 schema 边界。当前仍不派 `yuan-frontend`，不修改 `src/main.tsx` / `src/styles.css`。
+- 同步 Roadmap Phase 0 与两个 dashboard JSON：补入 T-010 未完成项，避免 Dev OS 收尾阶段被误读为 Phase 0 已 100% 完成。
+- 同步 T-010 Dev OS Dashboard 信息架构与交互收尾整改进入执行状态：`status: in_progress`（进行中）、`progress: 10`；当前阶段为 `yuan-architect` 前置架构说明。架构说明经 `yuan-control` 确认前，`yuan-frontend` 不得修改 `src/main.tsx` 或 `src/styles.css`。本阶段不新增业务 API、不修改数据库 schema、不修改 dashboard schema、不进入登录 / 生图 / 试卷 / 支付真实业务功能。
+
 ## 2026-05-06
 
 - 完成 T-009 二审规则调整复核：后续 reviewer 第二审查统一改为 Codex CLI `gpt-5.3-codex`，不再使用 Gemini CLI；相关规则已同步 `yuan-reviewer`、T-009 任务文档、summary、TASK_BOARD、CHANGELOG 与两个 dashboard JSON 描述。

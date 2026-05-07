@@ -8,8 +8,8 @@
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "T-009 reviewer 二审方式调整与复核（gpt-5.3-codex）已通过 yuan-reviewer 复核；当前 T-000 至 T-009 均已完成，等待确认下一步。",
-    "updatedAt": "2026-05-06"
+    "currentFocus": "T-010 Dev OS Dashboard 信息架构与交互收尾整改已完成；Dev OS Dashboard v1.0 收尾完成，后续 Web App 正式开发需新任务承接。",
+    "updatedAt": "2026-05-07"
   },
   "agents": [
     {
@@ -59,7 +59,8 @@
         "T-007 已完成 yuan-frontend 实现并通过 yuan-reviewer 验收",
         "T-008 前置架构说明已完成；结论为只读校验，不自动改文件，不新增 package script / API / dashboard schema",
         "T-008 只读校验脚本 scripts/dev-os-validate.mjs 已实现并通过 yuan-reviewer 验收",
-        "T-009 前置架构说明已完成：后续 reviewer 二审改用 Codex CLI gpt-5.3-codex，不再使用 Gemini CLI"
+        "T-009 前置架构说明已完成：后续 reviewer 二审改用 Codex CLI gpt-5.3-codex，不再使用 Gemini CLI",
+        "T-010 前置架构说明已完成：复用现有 dashboard JSON 字段，不变更 dashboard schema，不修改前端源码"
       ],
       "wiki": "docs/project-os/agents/yuan-architect.md"
     },
@@ -237,17 +238,19 @@
       "progress": 100,
       "summary": "T-009 已通过 yuan-reviewer 复核：后续 reviewer 二审统一改为 Codex CLI gpt-5.3-codex；边界保持不变（不进业务、不新增 API、不改数据库 schema、不改 dashboard schema、不保存敏感信息），且 lint/typecheck/build、Dev OS validator、JSON 一致性、临时文件清理检查与 diff-check 均 exit 0。",
       "wiki": "docs/project-os/tasks/T-009-gemini-prompt-file-review.md"
+    },
+    {
+      "id": "T-010",
+      "title": "Dev OS Dashboard 信息架构与交互收尾整改",
+      "owner": "yuan-architect",
+      "status": "done",
+      "priority": "P0",
+      "progress": 100,
+      "summary": "T-010 已完成并通过 yuan-reviewer 与 gpt-5.3-codex 二审：Dev OS Dashboard v1.0 收尾完成，覆盖顶部、总览双轨进度、Roadmap + Agent、任务列表详情、Project Wiki 沉浸式阅读和风险清理；未改 schema/API/数据库/业务功能。",
+      "wiki": "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md"
     }
   ],
   "risks": [
-    {
-      "id": "R-001",
-      "title": "Codex CLI 与 Hermes OAuth 状态分离",
-      "impact": "worker 无法直接开发",
-      "status": "monitoring",
-      "mitigation": "使用 codex login status 和一次真实 repo 内执行验证。",
-      "wiki": "docs/project-os/RISKS.md"
-    },
     {
       "id": "R-002",
       "title": "多 Agent 并行修改冲突",
@@ -257,11 +260,19 @@
       "wiki": "docs/project-os/RISKS.md"
     },
     {
-      "id": "R-003",
-      "title": "Dashboard 数据硬编码",
-      "impact": "看板失真",
+      "id": "R-004",
+      "title": "Dev OS / Web App 任务线混用",
+      "impact": "总览进度误导、任务筛选失真",
       "status": "open",
-      "mitigation": "Dashboard 必须读取 docs/project-os 事实源。",
+      "mitigation": "T-010 总览拆分 Dev OS 完成度与 Web App MVP 完成度，任务列表提供项目线筛选。",
+      "wiki": "docs/project-os/RISKS.md"
+    },
+    {
+      "id": "R-005",
+      "title": "Phase 1 技术栈 / API / 数据模型未冻结",
+      "impact": "Web App 开工后返工",
+      "status": "open",
+      "mitigation": "保留 PA-004；确认前不进入登录 / 生图 / 试卷 / 支付业务实现。",
       "wiki": "docs/project-os/RISKS.md"
     }
   ],
@@ -297,6 +308,10 @@
         },
         {
           "title": "T-007 Dev OS 任务看板详情页 + 进度汇总机制",
+          "done": true
+        },
+        {
+          "title": "T-010 Dev OS Dashboard 信息架构与交互收尾整改",
           "done": true
         }
       ],
@@ -418,6 +433,65 @@
     }
   ],
   "recentUpdates": [
+    {
+      "date": "2026-05-07",
+      "title": "T-010 验收通过",
+      "description": "Dev OS Dashboard v1.0 收尾整改通过 yuan-reviewer 与 gpt-5.3-codex 二审，当前不直接进入 Web App 开发。",
+      "files": [
+        "src/main.tsx",
+        "src/styles.css",
+        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md"
+      ]
+    },
+    {
+      "date": "2026-05-07",
+      "title": "T-010 前端实现完成",
+      "description": "完成 Dev OS Dashboard v1.0 收尾整改前端实现，等待 reviewer 验收。",
+      "files": [
+        "src/main.tsx",
+        "src/styles.css",
+        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md"
+      ]
+    },
+    {
+      "date": "2026-05-07",
+      "title": "T-010 前置架构说明通过",
+      "description": "yuan-control 已确认架构说明覆盖总览页、任务看板、Project Wiki、导航调整、风险清理和 schema 边界，放行 yuan-frontend 实施。",
+      "files": [
+        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md",
+        "src/main.tsx",
+        "src/styles.css"
+      ]
+    },
+    {
+      "date": "2026-05-07",
+      "title": "完成 T-010 前置架构说明",
+      "description": "yuan-architect 已完成 T-010 前置架构说明并同步必要事实源；结论为复用现有 dashboard JSON 字段，不变更 dashboard schema，不更新 SCHEMA.md，不改 scripts/dev-os-validate.mjs，不修改 src/main.tsx 或 src/styles.css。",
+      "files": [
+        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/ROADMAP.md",
+        "docs/project-os/RISKS.md",
+        "docs/project-os/CHANGELOG.md",
+        "docs/project-os/agents/yuan-architect.md",
+        "docs/project-os/agents/yuan-control.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json"
+      ]
+    },
+    {
+      "date": "2026-05-07",
+      "title": "T-010 进入执行状态",
+      "description": "Dev OS Dashboard 信息架构与交互收尾整改进入 yuan-architect 前置架构说明阶段；frontend 暂不改前端文件。",
+      "files": [
+        "docs/project-os/tasks/T-010-dev-os-dashboard-refactor.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json"
+      ]
+    },
     {
       "date": "2026-05-06",
       "title": "完成 T-009 reviewer 二审规则调整复核",

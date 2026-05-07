@@ -70,3 +70,7 @@
 - 严格按 `docs/project-os/tasks/T-007-task-board-progress.md` 的前置架构说明执行：不新增 API、不改 schema、不改数据库、不进入登录 / 生图 / 试卷 / 支付业务。
 - 已完成 `/dev-dashboard` 只读任务看板前端实现：sidebar “任务看板”进入真实 `#task-board` 区域，任务与统计来自 `dashboard.json.tasks`，风险 / 待确认 / 最近更新来自 dashboard JSON 对应字段，任务详情可切换到 Project Wiki Viewer 对应 task markdown。
 - 当前状态：T-007 已通过 `yuan-reviewer` 验收；未新增 API、未新增脚本、未修改 dashboard schema 或数据库 schema。
+
+- 2026-05-07：已完成 T-010 Dev OS Dashboard v1.0 收尾整改实现：总览双轨进度、Roadmap + Agent 合并、任务列表 + 详情筛选、Project Wiki 沉浸式阅读与快捷入口联动；未新增 API、未改数据库 schema、未改 dashboard schema、未进入业务功能。
+
+- 2026-05-07：T-010 已通过 `yuan-reviewer` 与 `gpt-5.3-codex` 二审验收，Dev OS Dashboard v1.0 收尾完成。

@@ -1,7 +1,7 @@
 # yuan-architect
 
 状态：活跃（内部标识：`active`）
-更新时间：2026-05-06
+更新时间：2026-05-07
 
 ## 角色
 
@@ -63,7 +63,8 @@
 - 已完成 T-007 任务看板详情页 + 进度汇总机制前置架构说明，结论为复用现有 dashboard JSON，不变更 schema、不新增 API、不修改数据库 schema；等待 `yuan-control` 确认后才能交给 `yuan-frontend`。
 - 已完成 T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate 前置架构说明；结论为第一版只读校验，不自动改文件，建议后续产物为 `scripts/dev-os-validate.mjs`，本阶段不新增 package script、不变更 dashboard schema、不新增 API、不修改数据库 schema。
 - 已实现 T-008 只读校验脚本 `scripts/dev-os-validate.mjs`，并补齐 dashboard roadmap Phase 0 中 T-005 已完成项的结构化记录；当前等待 `yuan-reviewer` 验收。
-- 已完成 T-009 Gemini CLI Prompt File 二审通道 / Reviewer Smoke Test 前置架构说明；结论为改用 `.tmp/gemini-review/T-009-review-prompt.md` 临时 Markdown 文件和 `HOME=/root/.hermes/profiles/yuan-reviewer/home gemini --prompt '@.tmp/gemini-review/T-009-review-prompt.md'`，正常 / 失败均删除临时文件，`.tmp/` 加入 `.gitignore`，smoke test 不依赖业务代码、不要求 PASS。
+- 已完成 T-009 reviewer 二审方式调整与复核前置架构说明；后续 reviewer 二审统一改用 Codex CLI `gpt-5.3-codex`，不再使用 Gemini CLI。
+- 已完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改前置架构说明；结论为复用现有 dashboard JSON 字段，不变更 dashboard schema，不更新 `SCHEMA.md`，不改 `scripts/dev-os-validate.mjs`，不修改 `src/main.tsx` 或 `src/styles.css`。
 
 ## 当前边界
 
@@ -79,9 +80,12 @@
 - T-006 Dashboard 视觉对齐 / Shell 重构已完成并验收通过。
 - T-007 已完成并验收通过。
 - T-008 已完成并验收通过。
-- 下一步 T-009：等待 `yuan-control` 确认是否交给 `yuan-reviewer` 执行 prompt-file smoke test；`yuan-frontend` / `yuan-backend` 不开工。
+- T-009 已完成并通过 `yuan-reviewer` 复核。
+- T-010 前置架构说明已完成，下一步等待 `yuan-control` 确认是否放行后续前端实现；确认前 `yuan-frontend` / `yuan-backend` 不开工。
 
 ## 变更记录
+
+- 2026-05-07：完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改前置架构说明；已覆盖现有结构识别、总览双轨进度、Roadmap 与 Agent 合并、任务看板列表 + 详情、Project Wiki 沉浸式阅读、风险降级、待确认事项和 schema 边界。当前不派 `yuan-frontend`，不修改 `src/main.tsx` / `src/styles.css`。
 
 - 2026-05-03：完成 Dashboard Markdown 事实源编译，生成 `summary.md` 与 `dashboard.json`，并更新 T-004 状态。
 - 2026-05-03：记录 Architect 前置门禁；T-005 Project Wiki Viewer 开工前必须先输出轻量架构说明。
@@ -92,3 +96,7 @@
 - 2026-05-06：完成 T-008 前置架构说明；结论为 Dev OS 事实源一致性校验第一版只读执行，不自动修改 Markdown / JSON，建议后续实现 `scripts/dev-os-validate.mjs`，本阶段不新增 `package.json` script `dev-os:validate`。
 - 2026-05-06：实现 T-008 只读校验脚本 `scripts/dev-os-validate.mjs`；脚本不自动改写 Markdown / JSON，不新增 package script，不改 dashboard schema，不新增 API，不修改数据库 schema。
 - 2026-05-06：完成 T-009 Gemini CLI Prompt File 二审通道 / Reviewer Smoke Test 前置架构说明；直接长 prompt 改为临时 Markdown prompt file，推荐 `.tmp/gemini-review/T-009-review-prompt.md` 和 reviewer HOME 下的 Gemini `@file` 命令；正常 / 失败均清理临时文件，`.tmp/` 加入 `.gitignore`，不新增 API、不改数据库 schema、不改 dashboard schema。
+
+- 2026-05-07：T-010 前置架构说明已由 `yuan-control` 确认通过；当前交接给 `yuan-frontend` 实施。
+
+- 2026-05-07：T-010 已完成并通过验收；前置架构边界在实现和验收中保持。
