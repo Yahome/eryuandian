@@ -20,8 +20,8 @@ const paths = {
 const issues = [];
 const checks = [];
 
-const taskIdPattern = /^T-\d{3}$/;
-const taskMarkdownPattern = /^(T-\d{3})(?:[-_].*)?\.md$/;
+const taskIdPattern = /^(?:T|TWA)-\d{3}$/;
+const taskMarkdownPattern = /^((?:T|TWA)-\d{3})(?:[-_].*)?\.md$/;
 
 function relativePath(filePath) {
   return path.relative(repoRoot, filePath).split(path.sep).join('/');
@@ -138,7 +138,7 @@ function validateDashboardTaskWiki(task, index, taskFiles) {
     const wikiId = extractTaskIdFromFilename(wikiFileName);
 
     if (!wikiId) {
-      issues.push(`dashboard.tasks[${index}] ${id}: wiki 文件名必须匹配 T-xxx*.md，当前为 ${wikiFileName}`);
+      issues.push(`dashboard.tasks[${index}] ${id}: wiki 文件名必须匹配 T-xxx*.md 或 TWA-xxx*.md，当前为 ${wikiFileName}`);
       return;
     }
 
@@ -183,7 +183,7 @@ function validateDashboardTasks(data, taskFiles) {
     }
 
     if (!taskIdPattern.test(task.id ?? '')) {
-      issues.push(`dashboard.tasks[${index}]: id 必须匹配 T-xxx，当前为 ${String(task.id)}`);
+      issues.push(`dashboard.tasks[${index}]: id 必须匹配 T-xxx 或 TWA-xxx，当前为 ${String(task.id)}`);
       return;
     }
 
@@ -196,7 +196,7 @@ function validateDashboardTasks(data, taskFiles) {
   });
 
   if (issues.length === issueCountBefore) {
-    checks.push('dashboard.tasks 中每个 T-xxx 都能找到对应 task markdown');
+    checks.push('dashboard.tasks 中每个 T-xxx / TWA-xxx 都能找到对应 task markdown');
   }
 
   return taskById;
@@ -271,7 +271,7 @@ function validateCompletedTaskBoardRows(taskBoardText, dashboardTaskById) {
   const rows = parseTaskBoardRows(taskBoardText);
 
   if (rows.length === 0) {
-    issues.push('TASK_BOARD.md: 未能解析到任务表格中的 T-xxx 行');
+    issues.push('TASK_BOARD.md: 未能解析到任务表格中的 T-xxx / TWA-xxx 行');
     return;
   }
 
@@ -330,7 +330,7 @@ function extractCheckedPhaseTaskIds(sectionText) {
       return;
     }
 
-    for (const match of line.matchAll(/\bT-\d{3}\b/g)) {
+    for (const match of line.matchAll(/\b(?:T|TWA)-\d{3}\b/g)) {
       ids.add(match[0]);
     }
   });
@@ -413,15 +413,15 @@ function validateSummary(summaryText) {
   }
 
   const devOsSection = getSection(summaryText, /^##\s+当前 Dev OS 阶段\s*$/)
-    ?? getSection(summaryText, /^##\s+T-\d{3} 当前阶段\s*$/);
+    ?? getSection(summaryText, /^##\s+(?:T|TWA)-\d{3} 当前阶段\s*$/);
 
   if (!devOsSection) {
-    issues.push('summary.md: 未找到 “## 当前 Dev OS 阶段” 或 “## T-xxx 当前阶段” 段落');
+    issues.push('summary.md: 未找到 “## 当前 Dev OS 阶段” 或 “## T-xxx / TWA-xxx 当前阶段” 段落');
     return;
   }
 
-  if (!/\bT-\d{3}\b/.test(devOsSection.text)) {
-    issues.push(`summary.md:${devOsSection.startLine}: 当前 Dev OS 阶段说明必须包含当前 T-xxx 任务号`);
+  if (!/\b(?:T|TWA)-\d{3}\b/.test(devOsSection.text)) {
+    issues.push(`summary.md:${devOsSection.startLine}: 当前 Dev OS 阶段说明必须包含当前 T-xxx / TWA-xxx 任务号`);
     return;
   }
 

@@ -1,7 +1,11 @@
 # TASK_BOARD
 
-状态：Phase 0 / Dev OS 文档治理完成
+状态：Phase 1 / Web App MVP 架构基线已冻结
 更新时间：2026-05-08
+
+## Dev OS / Project OS 治理任务
+
+Dev OS / Project OS 治理任务继续使用 `T-xxx`，任务文档统一放在 `docs/project-os/tasks/dev-os/`。
 
 | ID | 标题 | 负责人 | 状态 | 优先级 | 文档 |
 |---|---|---|---|---|---|
@@ -17,6 +21,14 @@
 | T-009 | reviewer 二审方式调整与复核（gpt-5.3-codex） | yuan-architect | 已完成 | P1 | `tasks/dev-os/T-009-reviewer-二审方式调整与复核.md` |
 | T-010 | Dev OS Dashboard 信息架构与交互收尾整改 | yuan-architect | 已完成 | P0 | `tasks/dev-os/T-010-Dev-OS-Dashboard-信息架构与交互收尾整改.md` |
 | T-011 | Project OS 文档体系中文化与任务线分离 | yuan-architect | 已完成 | P0 | `tasks/dev-os/T-011-Project-OS-文档体系中文化与任务线分离.md` |
+
+## Web App 业务任务
+
+Web App 业务任务统一使用 `TWA-xxx`，任务文档统一放在 `docs/project-os/tasks/web-app/`。`TWA-000` 是 Web App 任务线启动任务，用于冻结 MVP 架构与开发基线。
+
+| ID | 标题 | 负责人 | 状态 | 优先级 | 文档 |
+|---|---|---|---|---|---|
+| TWA-000 | Web App MVP 架构冻结与开发基线 | yuan-architect | 已完成 | P0 | `tasks/web-app/TWA-000-Web-App-MVP-架构冻结与开发基线.md` |
 
 ## 状态枚举
 
@@ -38,6 +50,7 @@
 6. T-009 reviewer 二审方式调整与复核（`gpt-5.3-codex`）已完成：后续 reviewer 第二审查统一使用 Codex CLI `gpt-5.3-codex`，不再使用 Gemini CLI；不派 `yuan-frontend` / `yuan-backend`，不进入业务功能。
 7. T-010 Dev OS Dashboard 信息架构与交互收尾整改已完成，并通过 `yuan-reviewer` 与 `gpt-5.3-codex` 二审；Dev OS Dashboard v1.0 收尾完成，后续 Web App 正式开发需新任务承接。
 8. T-011 Project OS 文档体系中文化与任务线分离已完成：T-000 至 T-010 已使用 `git mv` 迁移到 `tasks/dev-os/` 中文文件名，`tasks/web-app/README.md` 仅作为任务线说明创建；未修改 dashboard schema 或业务代码。
+9. TWA-000 Web App MVP 架构冻结与开发基线已完成：Web App 任务线命名规则、MVP 范围、路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界、Agent 分工和 TWA-001 至 TWA-007 拆分已冻结；未新增真实 API 文件、未修改数据库 schema、未进入真实业务功能。
 
 ## Architect 前置门禁
 
@@ -69,3 +82,4 @@
 - 不开发登录、生图、试卷、支付等业务功能。
 - 不修改数据库 schema。
 - 不保存 token/key/auth/secret/bearer token。
+- Web App 业务任务不再使用 `T-xxx`，统一使用 `TWA-xxx`。

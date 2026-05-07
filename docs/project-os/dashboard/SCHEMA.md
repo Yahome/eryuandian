@@ -13,7 +13,7 @@
 
 - `project`：项目概要。
 - `agents`：5 个 Hermes profiles 状态。
-- `tasks`：T-001 到 T-005 任务状态。
+- `tasks`：Dev OS 的 `T-xxx` 与 Web App 的 `TWA-xxx` 任务状态。
 - `risks`：当前风险。
 - `roadmap`：Phase 0 到 Phase 4 路线图。
 - `pendingApprovals`：待用户确认事项（字段名保留英文，不属于任务状态枚举 `pending`）。

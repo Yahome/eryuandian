@@ -2,9 +2,14 @@
 
 ## 2026-05-08
 
+- 完成 TWA-000 Web App MVP 架构冻结与开发基线：创建 `docs/project-os/tasks/web-app/TWA-000-Web-App-MVP-架构冻结与开发基线.md`，冻结 MVP 范围、暂不做范围、路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界、Agent 分工与 TWA-001 至 TWA-007 后续拆分。
+- 更新 Web App 任务线命名规则：Dev OS / Project OS 治理任务继续使用 `T-xxx` 并放在 `docs/project-os/tasks/dev-os/`；Web App 业务任务统一使用 `TWA-xxx` 并放在 `docs/project-os/tasks/web-app/`；`TWA-000` 为 Web App 任务线启动任务。
+- 同步 TWA-000 事实源：更新 TASK_BOARD、summary、两个 dashboard JSON、ROADMAP、RISKS、`yuan-control` 与 `yuan-architect`；两个 dashboard JSON 保持完全一致。
+- 更新 `scripts/dev-os-validate.mjs`：任务 ID 同时支持 Dev OS 的 `T-xxx` 与 Web App 的 `TWA-xxx`，支持 `tasks/dev-os/T-xxx*.md` 与 `tasks/web-app/TWA-xxx*.md`，校验 dashboard task wiki 路径和 TASK_BOARD 文档路径存在；脚本保持只读，不自动改文件。
+- TWA-000 closeout 边界：未修改 dashboard schema，未新增脚本，未新增真实 API 文件，未修改数据库 schema，未进入真实登录 / 生图 / 试卷 / 支付业务，未实现 UI shell。
 - 完成 T-011 Project OS 文档体系中文化与任务线分离：T-000 至 T-010 已使用 `git mv` 迁移到 `docs/project-os/tasks/dev-os/` 中文文件名；T-011 保持在 `docs/project-os/tasks/dev-os/T-011-Project-OS-文档体系中文化与任务线分离.md`。
 - 创建 `docs/project-os/tasks/web-app/README.md` 作为 Web App 任务线说明；未创建任何真实 Web App 功能任务，未进入登录 / 生图 / 试卷 / 支付业务。
-- 更新 `scripts/dev-os-validate.mjs` 要求：递归读取 `docs/project-os/tasks/**/*.md`，忽略非 T-xxx 的 `web-app/README.md`，校验 dashboard task wiki 与 TASK_BOARD 文档路径存在，并保持两个 dashboard JSON 完全一致。
+- 更新 `scripts/dev-os-validate.mjs` 要求：递归读取 `docs/project-os/tasks/**/*.md`，忽略非任务文档的 `web-app/README.md`，校验 dashboard task wiki 与 TASK_BOARD 文档路径存在，并保持两个 dashboard JSON 完全一致。
 - 同步 TASK_BOARD、summary、两个 dashboard JSON、ROADMAP、RISKS、README、agents 与任务内部引用到新任务路径；未修改 dashboard schema，未修改业务代码。
 - 完成 T-011 `yuan-architect` 前置架构说明：覆盖当前文件结构盘点、`dev-os` / `web-app` 目录方案、完整旧到新任务文档映射、根文档暂不汉化决策、引用更新范围、validator 更新要求、`web-app/README.md` 说明、`git mv` 执行顺序、实现边界、验证命令和 reviewer 验收要求。
 

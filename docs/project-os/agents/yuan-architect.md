@@ -65,7 +65,8 @@
 - 已实现 T-008 只读校验脚本 `scripts/dev-os-validate.mjs`，并补齐 dashboard roadmap Phase 0 中 T-005 已完成项的结构化记录；当前等待 `yuan-reviewer` 验收。
 - 已完成 T-009 reviewer 二审方式调整与复核前置架构说明；后续 reviewer 二审统一改用 Codex CLI `gpt-5.3-codex`，不再使用 Gemini CLI。
 - 已完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改前置架构说明；结论为复用现有 dashboard JSON 字段，不变更 dashboard schema，不更新 `SCHEMA.md`，不改 `scripts/dev-os-validate.mjs`，不修改 `src/main.tsx` 或 `src/styles.css`。
-- 已创建 T-011 Project OS 文档体系中文化与任务线分离前置架构说明；结论为第一版只重命名任务文档并分 `dev-os` / `web-app`，不重命名根文档、dashboard 文档或 `agents/*.md`，不修改 dashboard schema；当前禁止执行 `git mv` 和业务代码修改。
+- 已完成 T-011 Project OS 文档体系中文化与任务线分离；Dev OS 治理任务使用 `T-xxx` 并放在 `tasks/dev-os/`，Web App 任务线已建立。
+- 已完成 TWA-000 Web App MVP 架构冻结与开发基线；冻结 MVP 范围、暂不做范围、前端路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界、Agent 分工和 TWA-001 至 TWA-007 拆分。
 
 ## 当前边界
 
@@ -83,7 +84,8 @@
 - T-008 已完成并验收通过。
 - T-009 已完成并通过 `yuan-reviewer` 复核。
 - T-010 已完成并通过验收。
-- T-011 已进入前置建档与架构说明阶段；后续若进入实现，需先更新 validator 支持 `docs/project-os/tasks/**/*.md` 嵌套任务目录，再执行任务文档迁移。
+- T-011 已完成并通过事实源收口。
+- TWA-000 已完成；下一步建议由 `yuan-control` 创建 TWA-001 Web App App Shell + 首页 / 工作台 UI。
 
 ## 变更记录
 
@@ -103,3 +105,4 @@
 
 - 2026-05-07：T-010 已完成并通过验收；前置架构边界在实现和验收中保持。
 - 2026-05-08：完成 T-011 Project OS 文档体系中文化与任务线分离前置架构说明；已覆盖当前结构盘点、目录方案、完整旧到新映射、根文档暂不汉化、引用更新范围、validator 更新要求、`web-app/README.md` 说明、未来 `git mv` 顺序、实现边界与 reviewer 验收要求。当前不执行 `git mv`，不移动 / 重命名既有任务文档，不修改业务代码。
+- 2026-05-08：完成 TWA-000 Web App MVP 架构冻结与开发基线；已创建 `docs/project-os/tasks/web-app/TWA-000-Web-App-MVP-架构冻结与开发基线.md`，同步 README 命名规则和事实源，并更新 validator 支持 `T-xxx` / `TWA-xxx`。

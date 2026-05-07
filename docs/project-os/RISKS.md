@@ -5,8 +5,8 @@
 | ID | 风险 | 影响 | 状态 | 应对 |
 |---|---|---|---|---|
 | R-002 | 多 Agent 并行修改冲突 | 代码冲突、上下文错乱 | 未关闭（内部枚举：`open`） | 使用 git worktree 和总控派活 |
-| R-004 | Dev OS / Web App 任务线混用 | 总览进度误导、任务筛选失真 | 监控中（内部枚举：`monitoring`） | T-011 已将 Dev OS 任务迁移到 `tasks/dev-os/`，并创建 `tasks/web-app/README.md` 作为 Web App 任务线说明 |
-| R-005 | Phase 1 技术栈 / API / 数据模型未冻结 | Web App 开工后返工 | 未关闭（内部枚举：`open`） | 保留 PA-004；确认前不进入登录 / 生图 / 试卷 / 支付业务实现 |
+| R-004 | Dev OS / Web App 任务线混用 | 总览进度误导、任务筛选失真 | 监控中（内部枚举：`monitoring`） | T-011 已拆分 `tasks/dev-os/` 与 `tasks/web-app/`；TWA-000 已冻结 `T-xxx` / `TWA-xxx` 命名规则 |
+| R-005 | Phase 1 技术栈 / API / 数据模型未冻结 | Web App 开工后返工 | 监控中（内部枚举：`monitoring`） | TWA-000 已冻结 MVP API contract 草案、概念数据模型和 Mock/Adapter 边界；真实 schema 与 provider 接入仍需后续任务明确放行 |
 
 ## 已降级 / 历史记录
 
