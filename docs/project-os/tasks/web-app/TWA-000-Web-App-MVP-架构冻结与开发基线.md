@@ -274,4 +274,4 @@ T-011 已完成 Project OS 文档体系中文化与任务线分离：Dev OS / Pr
 - 业务功能：未进入真实登录 / 生图 / 试卷 / 支付；未新增真实 API 文件；未修改数据库 schema；未做 UI shell 实现。
 - 验证命令：`npm run lint`、`npm run typecheck`、`npm run build`、`node scripts/dev-os-validate.mjs`、`jq empty`、`cmp -s`、`git diff --check` 已由 yuan-control 执行通过。
 - reviewer / gpt-5.3-codex 二审结果：只读二审发现 dashboard roadmap / risk / SCHEMA 文案漂移与后续任务命名不一致；yuan-control 已修复并重跑验证。
-- commit / push 结果：待 yuan-control 提交后记录。
+- commit / push 结果：7ed43d6 创建 TWA-000 Web App MVP 架构冻结与开发基线，已 push 到 origin/main。
