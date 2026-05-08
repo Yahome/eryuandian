@@ -3,12 +3,12 @@
     "name": "两元店",
     "slug": "eryuandian",
     "rootPath": "/root/eryuandian",
-    "status": "Phase 0 / Dev OS 文档治理完成",
-    "phase": "Web App MVP 基线冻结完成",
+    "status": "Phase 1 / TWA-001 技术栈冻结与移动优先基线进行中",
+    "phase": "TWA-001 前置架构说明已完成，等待用户确认",
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "TWA-000 Web App MVP 架构冻结与开发基线已完成；下一步创建 TWA-001 Web App App Shell + 首页 / 工作台 UI，继续仅接 mock 数据。",
+    "currentFocus": "TWA-001 已完成 yuan-architect 前置架构说明；当前等待用户确认技术栈、数据库、移动端优先原则、App Shell 边界和后续任务顺序，frontend 暂不允许开工。",
     "updatedAt": "2026-05-08"
   },
   "agents": [
@@ -34,7 +34,8 @@
         "已创建 T-007，当前按 Architect 前置门禁推进",
         "已完成 T-008 Dev OS 事实源一致性校验脚本验收收口",
         "已完成 T-009 reviewer 二审方式调整与复核（gpt-5.3-codex）验收收口",
-        "已完成 T-011 Project OS 文档体系中文化与任务线分离：放行后完成 git mv 迁移、路径同步与 validator 收口"
+        "已完成 T-011 Project OS 文档体系中文化与任务线分离：放行后完成 git mv 迁移、路径同步与 validator 收口",
+        "已创建 TWA-001，当前派发 yuan-architect 前置架构说明；yuan-control 不参与技术判断，只调度和收口"
       ],
       "wiki": "docs/project-os/agents/yuan-control.md"
     },
@@ -62,7 +63,8 @@
         "T-008 只读校验脚本 scripts/dev-os-validate.mjs 已实现并通过 yuan-reviewer 验收",
         "T-009 前置架构说明已完成：后续 reviewer 二审改用 Codex CLI gpt-5.3-codex，不再使用 Gemini CLI",
         "T-010 前置架构说明已完成：复用现有 dashboard JSON 字段，不变更 dashboard schema，不修改前端源码",
-        "T-011 已完成：任务文档已分 dev-os / web-app 任务线，T-000 至 T-010 已迁移为中文文件名，validator 支持嵌套任务目录"
+        "T-011 已完成：任务文档已分 dev-os / web-app 任务线，T-000 至 T-010 已迁移为中文文件名，validator 支持嵌套任务目录",
+        "当前负责 TWA-001 前置架构说明：技术栈、数据库、部署、100 并发、移动端优先和 App Shell 边界"
       ],
       "wiki": "docs/project-os/agents/yuan-architect.md"
     },
@@ -270,6 +272,16 @@
       "progress": 100,
       "summary": "冻结 Web App MVP 范围、路由、API contract 草案、概念数据模型、Mock/Adapter 边界和后续 TWA 任务拆分；不实现真实业务功能。",
       "wiki": "docs/project-os/tasks/web-app/TWA-000-Web-App-MVP-架构冻结与开发基线.md"
+    },
+    {
+      "id": "TWA-001",
+      "title": "Web App 技术栈冻结与移动优先 App Shell 基础",
+      "owner": "yuan-architect",
+      "status": "in_progress",
+      "priority": "P0",
+      "progress": 40,
+      "summary": "先冻结 Web App 技术栈、数据库、部署基准、100 用户同时在线目标和移动端优先 App Shell 边界；用户确认前不进入 UI 实现。",
+      "wiki": "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md"
     }
   ],
   "risks": [
@@ -353,7 +365,7 @@
           "done": true
         },
         {
-          "title": "TWA-001 Web App App Shell + 首页 / 工作台 UI",
+          "title": "TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础",
           "done": false
         },
         {
@@ -461,12 +473,28 @@
     },
     {
       "id": "PA-004",
-      "title": "确认 Phase 1 开工前技术栈、API 契约、数据模型是否以现有草案为准",
+      "title": "确认 TWA-001 技术栈、数据库、部署基准、移动端优先原则、App Shell 边界和 B+ 后续任务顺序",
       "owner": "user",
-      "source": "README.md / ROADMAP.md"
+      "source": "TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md"
     }
   ],
   "recentUpdates": [
+    {
+      "id": "twa-001-created",
+      "date": "2026-05-08",
+      "title": "创建 TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础",
+      "files": [
+        "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json",
+        "docs/project-os/CHANGELOG.md",
+        "docs/project-os/agents/yuan-control.md",
+        "docs/project-os/agents/yuan-architect.md"
+      ],
+      "description": "TWA-001 已完成 yuan-architect 前置架构说明；当前冻结技术栈、数据库、部署基准、100 用户同时在线目标、移动端优先设计基线和 App Shell 边界，frontend 暂不允许开工。"
+    },
     {
       "id": "twa-000-closeout",
       "date": "2026-05-08",

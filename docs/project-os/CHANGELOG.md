@@ -2,6 +2,8 @@
 
 ## 2026-05-08
 
+- 创建 TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础：先由 `yuan-architect` 冻结技术栈、数据库、部署基准、100 用户同时在线目标和移动端优先设计基线；未进入 UI 实现或真实业务功能。
+- TWA-001 yuan-architect 前置架构说明已完成：确认前不放行 `yuan-frontend`，只保留概念模型与边界建议，不创建真实 schema / API / 业务能力。
 - 完成 TWA-000 Web App MVP 架构冻结与开发基线：创建 `docs/project-os/tasks/web-app/TWA-000-Web-App-MVP-架构冻结与开发基线.md`，冻结 MVP 范围、暂不做范围、路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界、Agent 分工与 TWA-001 至 TWA-007 后续拆分。
 - 更新 Web App 任务线命名规则：Dev OS / Project OS 治理任务继续使用 `T-xxx` 并放在 `docs/project-os/tasks/dev-os/`；Web App 业务任务统一使用 `TWA-xxx` 并放在 `docs/project-os/tasks/web-app/`；`TWA-000` 为 Web App 任务线启动任务。
 - 同步 TWA-000 事实源：更新 TASK_BOARD、summary、两个 dashboard JSON、ROADMAP、RISKS、`yuan-control` 与 `yuan-architect`；两个 dashboard JSON 保持完全一致。
