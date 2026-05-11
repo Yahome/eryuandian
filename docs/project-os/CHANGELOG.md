@@ -2,6 +2,7 @@
 
 ## 2026-05-08
 
+- 采纳用户 deep research 技术路线：TWA-001 冻结为 Next.js 16 + React 19、Node.js 24 LTS + NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo、Biome、Zod、Storybook、MSW、Playwright；移动端后续走 Expo / React Native 独立 app 线。本轮仅同步事实源，不安装依赖、不实现 UI、不创建 API 或数据库 schema。
 - 创建 TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础：先由 `yuan-architect` 冻结技术栈、数据库、部署基准、100 用户同时在线目标和移动端优先设计基线；未进入 UI 实现或真实业务功能。
 - TWA-001 yuan-architect 前置架构说明已完成：确认前不放行 `yuan-frontend`，只保留概念模型与边界建议，不创建真实 schema / API / 业务能力。
 - 完成 TWA-000 Web App MVP 架构冻结与开发基线：创建 `docs/project-os/tasks/web-app/TWA-000-Web-App-MVP-架构冻结与开发基线.md`，冻结 MVP 范围、暂不做范围、路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界、Agent 分工与 TWA-001 至 TWA-007 后续拆分。

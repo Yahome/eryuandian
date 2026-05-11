@@ -14,13 +14,13 @@
 ## Phase 1：MVP 基础
 - [x] T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate：已完成，`yuan-architect` 实现，`yuan-reviewer` 验收通过；Gemini 二审因 429 / 网络错误无有效输出，已记录且不阻塞验收
 - [x] TWA-000 Web App MVP 架构冻结与开发基线：已完成，冻结 MVP 范围、路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界和后续 TWA-001 至 TWA-007 拆分
-- [ ] TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础
-- [ ] TWA-002 手机号登录 Mock / Auth Contract
-- [ ] TWA-003 营销生图工作台 Mock 流程
-- [ ] TWA-004 试卷生成工作台 Mock 流程
-- [ ] TWA-005 我的作品 / 生成记录
-- [ ] TWA-006 额度 / 次数展示与消费 Mock
-- [ ] TWA-007 Web App 响应式移动端适配第一轮
+- [ ] TWA-001 技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础（已确认 deep research 技术路线）
+- [ ] TWA-002 登录与会话 Mock / Adapter
+- [ ] TWA-003 额度账本 Mock / Adapter
+- [ ] TWA-004 营销生图工作台 Mock 流程
+- [ ] TWA-005 试卷生成工作台 Mock 流程
+- [ ] TWA-006 我的作品 / 生成记录
+- [ ] TWA-007 账户 / 商业化占位 + 移动端体验回归
 
 ## Phase 2：核心功能
 - [ ] 真实生图模型接入（需后续任务明确放行）

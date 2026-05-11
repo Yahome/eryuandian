@@ -1,6 +1,6 @@
 # TASK_BOARD
 
-状态：Phase 1 / TWA-001 技术栈冻结与移动优先基线进行中
+状态：Phase 1 / TWA-001 deep research 技术路线已采纳
 更新时间：2026-05-08
 
 ## Dev OS / Project OS 治理任务
@@ -52,7 +52,7 @@ Web App 业务任务统一使用 `TWA-xxx`，任务文档统一放在 `docs/proj
 7. T-010 Dev OS Dashboard 信息架构与交互收尾整改已完成，并通过 `yuan-reviewer` 与 `gpt-5.3-codex` 二审；Dev OS Dashboard v1.0 收尾完成，后续 Web App 正式开发需新任务承接。
 8. T-011 Project OS 文档体系中文化与任务线分离已完成：T-000 至 T-010 已使用 `git mv` 迁移到 `tasks/dev-os/` 中文文件名，`tasks/web-app/README.md` 仅作为任务线说明创建；未修改 dashboard schema 或业务代码。
 9. TWA-000 Web App MVP 架构冻结与开发基线已完成：Web App 任务线命名规则、MVP 范围、路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界、Agent 分工和 TWA-001 至 TWA-007 拆分已冻结；未新增真实 API 文件、未修改数据库 schema、未进入真实业务功能。
-10. TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础已创建并进入 `yuan-architect` 前置架构说明阶段；确认前不放行 `yuan-frontend`，不实现 UI，不新增真实 API 或数据库 schema。
+10. TWA-001 已采纳 deep research 技术路线：Next.js 16 + React 19、Node.js 24 LTS + NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo、Biome、Zod、Storybook、MSW、Playwright；本轮仍不实现 UI、不安装依赖、不新增真实 API 或数据库 schema。
 
 ## Architect 前置门禁
 

@@ -109,3 +109,5 @@
 - 2026-05-08：完成 TWA-000 Web App MVP 架构冻结与开发基线；已创建 `docs/project-os/tasks/web-app/TWA-000-Web-App-MVP-架构冻结与开发基线.md`，同步 README 命名规则和事实源，并更新 validator 支持 `T-xxx` / `TWA-xxx`。
 
 - 2026-05-08：TWA-001 前置架构说明已完成；结论为先冻结技术栈、数据库方向、部署基准、100 用户同时在线基准和移动端优先基线，再放行 frontend。
+
+- 2026-05-08：用户已确认采纳 TWA-001 deep research 技术路线；当前事实源需按 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo 等目标栈同步，仍不安装依赖、不实现 UI、不创建 API / DB schema。
