@@ -2,6 +2,7 @@
 
 ## 2026-05-08
 
+- 完成 TWA-001 最终用户确认收口：正式采用 deep research 技术栈、正式生效 B+ 任务顺序，并放行 `yuan-frontend` 进入 App Shell / 首页 / 工作台基础静态实现阶段；当前仍未进入真实登录 / 生图 / 试卷 / 支付 / schema / API 实现。
 - 采纳用户 deep research 技术路线：TWA-001 冻结为 Next.js 16 + React 19、Node.js 24 LTS + NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo、Biome、Zod、Storybook、MSW、Playwright；移动端后续走 Expo / React Native 独立 app 线。本轮仅同步事实源，不安装依赖、不实现 UI、不创建 API 或数据库 schema。
 - 创建 TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础：先由 `yuan-architect` 冻结技术栈、数据库、部署基准、100 用户同时在线目标和移动端优先设计基线；未进入 UI 实现或真实业务功能。
 - TWA-001 yuan-architect 前置架构说明已完成：确认前不放行 `yuan-frontend`，只保留概念模型与边界建议，不创建真实 schema / API / 业务能力。

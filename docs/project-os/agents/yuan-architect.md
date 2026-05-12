@@ -60,14 +60,14 @@
 - 已把 T-004 状态推进为“已完成”（内部枚举：`done`），并记录本次验收结果。
 - Dev OS 流程已纠偏：后续新页面 / 新模块 / 数据结构 / 接口协议 / Wiki 索引 / 边界类任务，必须先由本 profile 输出轻量架构说明。
 - 已完成 T-005 Project Wiki Viewer 前置架构说明，明确复用 `dashboard.json.wikiLinks`、不变更 schema、不新增 API、不修改数据库 schema。
-- 已完成 T-007 任务看板详情页 + 进度汇总机制前置架构说明，结论为复用现有 dashboard JSON，不变更 schema、不新增 API、不修改数据库 schema；等待 `yuan-control` 确认后才能交给 `yuan-frontend`。
+- 已完成 T-007 任务看板详情页 + 进度汇总机制前置架构说明，结论为复用现有 dashboard JSON，不变更 schema、不新增 API、不修改数据库 schema；该历史阶段后续已由 `yuan-control` 确认并交付前端实施。
 - 已完成 T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate 前置架构说明；结论为第一版只读校验，不自动改文件，建议后续产物为 `scripts/dev-os-validate.mjs`，本阶段不新增 package script、不变更 dashboard schema、不新增 API、不修改数据库 schema。
 - 已实现 T-008 只读校验脚本 `scripts/dev-os-validate.mjs`，并补齐 dashboard roadmap Phase 0 中 T-005 已完成项的结构化记录；当前等待 `yuan-reviewer` 验收。
 - 已完成 T-009 reviewer 二审方式调整与复核前置架构说明；后续 reviewer 二审统一改用 Codex CLI `gpt-5.3-codex`，不再使用 Gemini CLI。
 - 已完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改前置架构说明；结论为复用现有 dashboard JSON 字段，不变更 dashboard schema，不更新 `SCHEMA.md`，不改 `scripts/dev-os-validate.mjs`，不修改 `src/main.tsx` 或 `src/styles.css`。
 - 已完成 T-011 Project OS 文档体系中文化与任务线分离；Dev OS 治理任务使用 `T-xxx` 并放在 `tasks/dev-os/`，Web App 任务线已建立。
 - 已完成 TWA-000 Web App MVP 架构冻结与开发基线；冻结 MVP 范围、暂不做范围、前端路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界、Agent 分工和 TWA-001 至 TWA-007 拆分。
-- 当前负责 TWA-001 前置架构说明，重点覆盖技术栈、数据库、部署、100 用户同时在线基准、移动端优先和 App Shell 边界。
+- TWA-001 前置架构冻结已完成并收口，当前转入实现支持 / 约束监督；重点防止 frontend 越界接真实 API、schema、provider 或偏离移动端优先。
 
 ## 当前边界
 
@@ -86,11 +86,11 @@
 - T-009 已完成并通过 `yuan-reviewer` 复核。
 - T-010 已完成并通过验收。
 - T-011 已完成并通过事实源收口。
-- TWA-001 已创建并进入前置架构说明阶段；当前不写代码、不修改文件、不放行 frontend。
+- TWA-001 前置架构冻结与用户最终确认已完成；当前已放行 `yuan-frontend` 进入第二阶段静态实现。
 
 ## 变更记录
 
-- 2026-05-07：完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改前置架构说明；已覆盖现有结构识别、总览双轨进度、Roadmap 与 Agent 合并、任务看板列表 + 详情、Project Wiki 沉浸式阅读、风险降级、待确认事项和 schema 边界。当前不派 `yuan-frontend`，不修改 `src/main.tsx` / `src/styles.css`。
+- 2026-05-07：完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改前置架构说明；已覆盖现有结构识别、总览双轨进度、Roadmap 与 Agent 合并、任务看板列表 + 详情、Project Wiki 沉浸式阅读、风险降级、待确认事项和 schema 边界。历史阶段未派 `yuan-frontend`，未修改 `src/main.tsx` / `src/styles.css`；该 T-010 流程后续已完成。
 
 - 2026-05-03：完成 Dashboard Markdown 事实源编译，生成 `summary.md` 与 `dashboard.json`，并更新 T-004 状态。
 - 2026-05-03：记录 Architect 前置门禁；T-005 Project Wiki Viewer 开工前必须先输出轻量架构说明。
@@ -110,4 +110,6 @@
 
 - 2026-05-08：TWA-001 前置架构说明已完成；结论为先冻结技术栈、数据库方向、部署基准、100 用户同时在线基准和移动端优先基线，再放行 frontend。
 
-- 2026-05-08：用户已确认采纳 TWA-001 deep research 技术路线；当前事实源需按 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo 等目标栈同步，仍不安装依赖、不实现 UI、不创建 API / DB schema。
+- 2026-05-08：用户已最终确认采纳 TWA-001 deep research 技术路线；事实源已按 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo 等目标栈同步，当前放行 frontend 做静态 App Shell，不创建真实 API / DB schema。
+
+- 2026-05-08：TWA-001 前置架构冻结与用户最终确认已完成，当前支持 `yuan-frontend` 按边界实施。

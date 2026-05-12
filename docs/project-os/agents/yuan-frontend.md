@@ -74,3 +74,5 @@
 - 2026-05-07：已完成 T-010 Dev OS Dashboard v1.0 收尾整改实现：总览双轨进度、Roadmap + Agent 合并、任务列表 + 详情筛选、Project Wiki 沉浸式阅读与快捷入口联动；未新增 API、未改数据库 schema、未改 dashboard schema、未进入业务功能。
 
 - 2026-05-07：T-010 已通过 `yuan-reviewer` 与 `gpt-5.3-codex` 二审验收，Dev OS Dashboard v1.0 收尾完成。
+
+- 2026-05-08：已正式接手 TWA-001 第二阶段实现：移动端优先 App Shell / 首页 / 工作台基础静态 mock；必须严格遵守允许 / 禁止边界，不接真实登录、短信、生图、试卷、支付、DB schema、API handler 或 secret。

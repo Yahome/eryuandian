@@ -3,12 +3,12 @@
     "name": "两元店",
     "slug": "eryuandian",
     "rootPath": "/root/eryuandian",
-    "status": "Phase 1 / TWA-001 deep research 技术路线已采纳",
-    "phase": "TWA-001 技术栈冻结进行中",
+    "status": "Phase 1 / TWA-001 frontend 实现阶段",
+    "phase": "TWA-001 App Shell 静态实现进行中",
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "TWA-001 已按用户确认采纳 deep research 技术路线；当前只同步事实源，不安装依赖、不实现 UI、不创建真实 API 或数据库 schema。",
+    "currentFocus": "TWA-001 已完成技术冻结与用户最终确认，当前由 yuan-frontend 开始移动端优先 App Shell / 首页 / 工作台静态 mock 实现。",
     "updatedAt": "2026-05-08"
   },
   "agents": [
@@ -36,7 +36,8 @@
         "已完成 T-009 reviewer 二审方式调整与复核（gpt-5.3-codex）验收收口",
         "已完成 T-011 Project OS 文档体系中文化与任务线分离：放行后完成 git mv 迁移、路径同步与 validator 收口",
         "已创建 TWA-001，当前派发 yuan-architect 前置架构说明；yuan-control 不参与技术判断，只调度和收口",
-        "TWA-001 已采纳用户 deep research 技术路线；目标栈为 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo"
+        "TWA-001 已采纳用户 deep research 技术路线；目标栈为 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo",
+        "TWA-001 最终确认已完成，已正式放行 yuan-frontend 进入第二阶段实现"
       ],
       "wiki": "docs/project-os/agents/yuan-control.md"
     },
@@ -66,7 +67,8 @@
         "T-010 前置架构说明已完成：复用现有 dashboard JSON 字段，不变更 dashboard schema，不修改前端源码",
         "T-011 已完成：任务文档已分 dev-os / web-app 任务线，T-000 至 T-010 已迁移为中文文件名，validator 支持嵌套任务目录",
         "当前负责 TWA-001 前置架构说明：技术栈、数据库、部署、100 并发、移动端优先和 App Shell 边界",
-        "TWA-001 已采纳用户 deep research 技术路线；目标栈为 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo"
+        "TWA-001 已采纳用户 deep research 技术路线；目标栈为 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo",
+        "TWA-001 前置架构冻结已收口，当前转入实现支持 / 约束监督"
       ],
       "wiki": "docs/project-os/agents/yuan-architect.md"
     },
@@ -92,7 +94,8 @@
         "已完成 T-006 Dashboard 视觉对齐 / Shell 重构并验收通过",
         "T-007 等待 yuan-architect 前置架构说明确认；确认前不得开工",
         "T-007 已通过架构门禁，当前负责实现只读任务看板详情页",
-        "T-007 只读任务看板详情页已完成前端实现，并已通过 yuan-reviewer 验收"
+        "T-007 只读任务看板详情页已完成前端实现，并已通过 yuan-reviewer 验收",
+        "已正式接手 TWA-001 第二阶段实现：移动端优先 App Shell / 首页 / 工作台基础静态 mock，严格禁止真实 API / DB schema / provider / 支付越界"
       ],
       "wiki": "docs/project-os/agents/yuan-frontend.md"
     },
@@ -277,12 +280,12 @@
     },
     {
       "id": "TWA-001",
-      "title": "Web App 技术栈冻结与移动优先 App Shell 基础",
-      "owner": "yuan-architect",
+      "title": "技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础",
+      "owner": "yuan-frontend",
       "status": "in_progress",
       "priority": "P0",
       "progress": 60,
-      "summary": "已按用户确认采纳 deep research 技术路线，冻结 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ 与 pnpm workspace + Turborepo 等目标栈；本轮不实现 UI、不安装依赖、不创建真实 API 或数据库 schema。",
+      "summary": "已完成技术冻结与用户最终确认，当前由 yuan-frontend 开始移动端优先 App Shell / 首页 / 工作台静态 mock 实现；仍禁止真实 API、数据库 schema、真实登录/短信/生图/试卷/支付和 secret。",
       "wiki": "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md"
     }
   ],
@@ -307,8 +310,8 @@
       "id": "R-005",
       "title": "Phase 1 技术栈 / API / 数据模型未冻结",
       "impact": "Web App 开工后返工",
-      "status": "monitoring",
-      "mitigation": "TWA-001 已按 deep research 冻结目标技术路线；后续仍需在工程底座任务中落地 Next.js / NestJS / monorepo / contract，不得直接跳到业务功能。",
+      "status": "closed",
+      "mitigation": "TWA-001 已完成技术冻结与用户最终确认；当前转为实现阶段边界风险监控。",
       "wiki": "docs/project-os/RISKS.md"
     },
     {
@@ -317,6 +320,30 @@
       "impact": "Next.js / NestJS / Redis / BullMQ / monorepo 一次性落地可能拖慢 MVP",
       "status": "monitoring",
       "mitigation": "按任务分阶段落地：先工程底座与 contract，再 mock/adapter，再真实 provider；本轮只同步事实源，不安装依赖或写业务代码。",
+      "wiki": "docs/project-os/RISKS.md"
+    },
+    {
+      "id": "R-007",
+      "title": "TWA-001 实现阶段越界",
+      "impact": "误接真实 API / schema / provider 或提前实现后续任务",
+      "status": "monitoring",
+      "mitigation": "reviewer 重点检查无真实登录、短信、生图、试卷、支付、额度扣费、DB schema、API handler、secret。",
+      "wiki": "docs/project-os/RISKS.md"
+    },
+    {
+      "id": "R-008",
+      "title": "前端偏离移动端优先",
+      "impact": "95% 移动端使用场景体验失真",
+      "status": "monitoring",
+      "mitigation": "TWA-001 必须覆盖 375 / 390 / 430px，底部 Tab、轻量 header、单列内容流和 44px 触控区域。",
+      "wiki": "docs/project-os/RISKS.md"
+    },
+    {
+      "id": "R-009",
+      "title": "App Shell 未按 deep research 路线建立可复用结构",
+      "impact": "后续 TWA-002 至 TWA-007 返工",
+      "status": "monitoring",
+      "mitigation": "实现需按 Next.js / contract / mock / adapter / 移动优先结构组织，不把 mock 逻辑散落到 UI 组件。",
       "wiki": "docs/project-os/RISKS.md"
     }
   ],
@@ -375,31 +402,31 @@
           "done": true
         },
         {
-          "title": "TWA-001 技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础（已确认 deep research 技术路线）",
+          "title": "TWA-001：技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础",
           "done": false
         },
         {
-          "title": "TWA-002 登录与会话 Mock / Adapter",
+          "title": "TWA-002：登录与会话 Mock / Adapter",
           "done": false
         },
         {
-          "title": "TWA-003 额度账本 Mock / Adapter",
+          "title": "TWA-003：额度账本 Mock / Adapter",
           "done": false
         },
         {
-          "title": "TWA-004 营销生图工作台 Mock 流程",
+          "title": "TWA-004：营销生图工作台 Mock 流程",
           "done": false
         },
         {
-          "title": "TWA-005 试卷生成工作台 Mock 流程",
+          "title": "TWA-005：试卷生成工作台 Mock 流程",
           "done": false
         },
         {
-          "title": "TWA-006 我的作品 / 生成记录",
+          "title": "TWA-006：我的作品 / 生成记录",
           "done": false
         },
         {
-          "title": "TWA-007 账户 / 商业化占位 + 移动端体验回归",
+          "title": "TWA-007：账户 / 商业化占位 + 移动端体验回归",
           "done": false
         }
       ],
@@ -483,6 +510,26 @@
     }
   ],
   "recentUpdates": [
+    {
+      "id": "twa-001-final-confirmation-frontend-release",
+      "date": "2026-05-08",
+      "title": "TWA-001 最终确认收口并放行 frontend",
+      "files": [
+        "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md",
+        "docs/project-os/TECH_STACK.md",
+        "docs/project-os/DECISIONS.md",
+        "docs/project-os/ROADMAP.md",
+        "docs/project-os/RISKS.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json",
+        "docs/project-os/agents/yuan-control.md",
+        "docs/project-os/agents/yuan-architect.md",
+        "docs/project-os/agents/yuan-frontend.md"
+      ],
+      "description": "用户最终确认 deep research 技术栈、PostgreSQL + Drizzle、Docker Compose + Caddy + Redis + MinIO、B+ 顺序和移动端优先基线；TWA-001 owner 切换为 yuan-frontend，进入 App Shell 静态实现阶段。"
+    },
     {
       "id": "twa-001-deep-research-adopted",
       "date": "2026-05-08",

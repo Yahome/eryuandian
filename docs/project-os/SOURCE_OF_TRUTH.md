@@ -1,7 +1,7 @@
 # SOURCE_OF_TRUTH：两元店项目事实源
 
 状态：活跃（内部标识：`active`）
-更新时间：2026-05-03
+更新时间：2026-05-08
 
 ## 事实源原则
 
@@ -55,9 +55,10 @@
 
 ## 当前硬边界
 
-- 当前 Dev OS 阶段聚焦 T-007：Dev OS 任务看板详情页 + 进度汇总机制。
-- 当前不开发登录、生图、试卷、支付等业务功能。
-- 当前不修改数据库 schema。
+- 当前 Web App 阶段聚焦 TWA-001：移动端优先 App Shell / 首页 / 工作台基础静态实现。
+- TWA-001 技术冻结与用户最终确认已完成，`yuan-frontend` 已正式放行。
+- 当前不开发真实登录、生图、试卷、支付等业务功能。
+- 当前不修改数据库 schema，不创建真实 API handler，不写 secret / token / key。
 - Dev OS Dashboard 继续以 Markdown-first / `dashboard.json` 为事实源，不硬编码示例数字。
 
 ## 视觉基准
@@ -134,7 +135,7 @@ yuan-control：同步状态和派发下一步
 
 ## 当前阶段
 
-当前处于 P0：开发操作系统与事实源建立阶段。
+当前处于 Phase 1：Web App MVP 基础阶段，TWA-001 已进入 frontend 静态实现阶段。
 
 已完成：
 
@@ -149,9 +150,11 @@ yuan-control：同步状态和派发下一步
 - Dev OS 流程纠偏：触发结构、数据、接口、边界变化的任务必须先经过 `yuan-architect`
 - T-005 Project Wiki Viewer，已完成并验收通过
 - T-006 Dashboard 视觉对齐 / Shell 重构，已完成并验收通过
+- T-007 / T-008 / T-009 / T-010 / T-011 均已完成并收口。
+- TWA-000 Web App MVP 架构冻结与开发基线已完成。
+- TWA-001 技术冻结、deep research 路线、B+ 顺序、移动端优先基线和 frontend 放行已完成。
 
 下一步：
 
-- T-007：Dev OS 任务看板详情页 + 进度汇总机制。
-- T-007 属于新页面 / 新模块 / 进度数据汇总机制，开工前必须先由 `yuan-architect` 输出轻量架构说明。
-- `yuan-frontend` / `yuan-backend` 只能在架构说明完成后按边界实现，`yuan-reviewer` 验收时必须检查实现是否遵守 architect 的结构、数据和边界说明。
+- TWA-001 第二阶段：`yuan-frontend` 实现移动端优先 App Shell / 首页 / 工作台基础静态 mock。
+- 实现必须严格遵守 TWA-001 允许 / 禁止边界，不得提前进入真实登录、生图、试卷、支付、数据库 schema、真实 API handler 或 secret。

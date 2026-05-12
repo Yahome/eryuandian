@@ -184,7 +184,7 @@ docs/project-os/images/redesign/taskboard-list-detail-v1.png — 任务列表 + 
 
 - Dev OS / Web App 任务线区分：需要在总览和任务列表中清晰分离，避免 Dev OS 完成度误导 Web App MVP 完成度。
 - Dashboard JSON 手动 / 自动维护方式：继续保留为待确认事项，当前对应 `PA-003`。
-- Phase 1 技术栈 / API / 数据模型冻结：继续保留为待确认事项，当前对应 `PA-004`。
+- Phase 1 技术栈 / API / 数据模型冻结：历史记录中曾对应 `PA-004`；已由 TWA-001 deep research 技术路线和用户最终确认收口。
 - 多 Agent 并行控制：继续保留为开放风险，实施前仍需 `yuan-control` 控制写入范围，避免多个 Agent 同时修改 Dashboard 前端文件。
 
 ### 7. 数据来源与 schema 边界

@@ -19,7 +19,7 @@
 - `INFORMATION_ARCHITECTURE.md`：信息架构
 - `API_CONTRACT.md`：前后端接口契约草案
 - `DATA_MODEL.md`：数据模型草案
-- `TECH_STACK.md`：技术栈草案
+- `TECH_STACK.md`：Web App 正式冻结技术栈
 - `AGENT_WORKFLOW.md`：多 Agent 工作流
 
 ## 过程管理文件
@@ -33,7 +33,7 @@
 - `dashboard.json`：Dashboard 初始数据接口
 - `agents/`：各 Agent 进度记录
 - `tasks/dev-os/`：Dev OS / Project OS 治理任务文档
-- `tasks/web-app/README.md`：Web App 任务线说明；当前不包含真实功能任务
+- `tasks/web-app/README.md`：Web App 任务线说明；TWA-001 已进入 frontend 静态实现阶段
 
 ## 核心链路
 

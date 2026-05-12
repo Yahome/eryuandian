@@ -65,7 +65,7 @@ yuan-control：同步状态和派发下一步
 - 已完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改并通过验收；Dev OS Dashboard v1.0 收尾完成。
 - 已完成 T-011 Project OS 文档体系中文化与任务线分离；Dev OS / Web App 任务线已拆分。
 - 已完成 TWA-000 Web App MVP 架构冻结与开发基线；Web App 业务任务统一使用 `TWA-xxx`。
-- 已创建 TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础，当前派发 `yuan-architect` 前置架构说明；`yuan-control` 不参与技术判断，只调度和收口。
+- TWA-001 用户最终确认已完成，已正式放行 `yuan-frontend` 进入第二阶段 App Shell / 首页 / 工作台静态实现；`yuan-control` 继续调度与边界收口。
 
 ## 当前边界
 
@@ -77,8 +77,8 @@ yuan-control：同步状态和派发下一步
 
 ## 变更记录
 
-- 2026-05-07：已同步 T-010 进入执行状态（已完成 / `in_progress`，progress 10%），当前等待 `yuan-architect` 前置架构说明；说明确认前不放行 `yuan-frontend` 修改 Dashboard 前端文件。
-- 2026-05-07：`yuan-architect` 已完成 T-010 前置架构说明并同步必要事实源；确认是否放行前，仍不派 `yuan-frontend` 修改 `src/main.tsx` 或 `src/styles.css`。
+- 2026-05-07：已同步 T-010 进入执行状态（已完成 / `in_progress`，progress 10%），历史阶段曾处于 `yuan-architect` 前置架构说明期；说明确认前处于未放行 Dashboard 前端修改的历史状态；该状态已在 T-010 后续记录中完成收口。
+- 2026-05-07：`yuan-architect` 已完成 T-010 前置架构说明并同步必要事实源；确认是否放行前，历史阶段未进入 `src/main.tsx` 或 `src/styles.css` 修改；后续已放行并完成。
 
 - 2026-05-07：已确认 T-010 前置架构说明通过，放行 `yuan-frontend` 实施 Dev OS Dashboard v1.0 收尾整改；继续禁止业务功能、API、数据库 schema 和 dashboard schema 越界。
 
@@ -86,6 +86,8 @@ yuan-control：同步状态和派发下一步
 - 2026-05-08：已完成 T-011 Project OS 文档体系中文化与任务线分离（已完成 / `done`，progress 100%）；T-000 至 T-010 已使用 `git mv` 迁入 `tasks/dev-os/` 中文文件名，`tasks/web-app/README.md` 仅作为任务线说明，未修改业务代码。
 - 2026-05-08：已完成 TWA-000 Web App MVP 架构冻结与开发基线（已完成 / `done`，progress 100%）；已同步 TWA 命名规则、任务板、dashboard JSON、summary、roadmap、risks 与 validator，未进入真实业务功能。
 
-- 2026-05-08：已创建 TWA-001（进行中 / `in_progress`，progress 40%），当前已完成 `yuan-architect` 前置架构说明并等待用户确认；确认前不放行 `yuan-frontend`，不实现 UI、不新增真实 API、不修改数据库 schema。
+- 2026-05-08：TWA-001 技术冻结与用户最终确认已完成（进行中 / `in_progress`，progress 60%）；已正式放行 `yuan-frontend`，仍不新增真实 API、不修改数据库 schema。
 
-- 2026-05-08：用户已确认采纳 TWA-001 deep research 技术路线；当前事实源需按 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo 等目标栈同步，仍不安装依赖、不实现 UI、不创建 API / DB schema。
+- 2026-05-08：用户已最终确认采纳 TWA-001 deep research 技术路线；事实源已按 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo 等目标栈同步，当前放行 frontend 做静态 App Shell，不创建真实 API / DB schema。
+
+- 2026-05-08：TWA-001 最终确认收口完成，正式放行 `yuan-frontend`；当前进入移动端优先 App Shell / 首页 / 工作台基础静态实现，仍禁止真实 API / DB schema / provider / 支付。
