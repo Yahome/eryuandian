@@ -5,7 +5,7 @@
 
 ## 结论
 
-两元店 Dev OS 的 Markdown 事实源已经建立，T-000 到 T-011 均已完成。TWA-000 Web App MVP 架构冻结与开发基线已完成，TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础已创建并进入 `yuan-architect` 前置架构说明阶段。
+两元店 Dev OS 的 Markdown 事实源已经建立，T-000 到 T-011 均已完成。TWA-000 Web App MVP 架构冻结与开发基线已完成。TWA-001 已完成技术冻结、用户最终确认和 frontend 放行，当前进入移动端优先 App Shell / 首页 / 工作台基础静态实现阶段。
 
 TWA-001 已完成技术冻结与用户最终确认，当前由 `yuan-frontend` 开始移动端优先 App Shell / 首页 / 工作台静态 mock 实现。仍禁止真实登录、短信、生图、试卷生成、支付、额度扣费、真实 API handler、数据库 schema / migration 和 secret。
 

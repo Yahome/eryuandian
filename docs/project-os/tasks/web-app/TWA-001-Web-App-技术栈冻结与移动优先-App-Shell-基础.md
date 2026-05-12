@@ -146,7 +146,9 @@ B+ 推荐顺序如下：
 - `yuan-backend`：本轮不实现，只可对技术栈 / mock / adapter 边界提供意见。
 - `yuan-reviewer`：后续验收 TWA-001 架构说明和边界。
 
-## 验收标准
+## 历史阶段记录：第一阶段验收标准
+
+以下内容仅对应 TWA-001 技术冻结前阶段，已被最终确认收口替代，不再表示当前状态。
 
 TWA-001 第一阶段验收标准：
 
@@ -168,9 +170,10 @@ TWA-001 第一阶段验收标准：
 - 未接真实短信 / 模型 / 支付。
 - 未修改 dashboard schema。
 
-## 本轮不做
+## 第二阶段当前不做
 
-- 不实现 App Shell。
+当前已允许实现 App Shell / 首页 / 工作台基础静态 mock，但仍禁止以下越界事项：
+
 - 不创建真实 API。
 - 不创建数据库迁移。
 - 不接短信。
@@ -179,7 +182,7 @@ TWA-001 第一阶段验收标准：
 - 不做真实额度扣费。
 - 不写 secret / token。
 - 不修改 dashboard schema。
-- 不直接让 frontend 开工。
+- 不提前进入 TWA-002 至 TWA-007。
 
 ## 当前状态
 
@@ -192,13 +195,13 @@ TWA-001 第一阶段验收标准：
 
 ### yuan-architect 前置架构说明摘要
 
-结论：TWA-001 不能直接进入 App Shell UI 实现，必须先冻结技术栈、数据库方向、部署基准、Mock/Adapter 边界、100 用户同时在线 MVP 基准和移动端优先设计基线。确认前，`yuan-frontend` 不得开工。
+历史结论：TWA-001 在技术冻结前不能直接进入 App Shell UI 实现，必须先冻结技术栈、数据库方向、部署基准、Mock/Adapter 边界、100 用户同时在线 MVP 基准和移动端优先设计基线。该前置阶段已被用户最终确认收口，当前 `yuan-frontend` 已正式放行。
 
 #### 1. 总体结论
 
 - TWA-001 应先完成技术栈冻结与移动端基线，再放行 frontend。
 - 当前任务定位应是“Web App 技术栈冻结与移动优先 App Shell 基础”，不是完整 UI 实现。
-- 用户确认前，不进入真实 App Shell 实现。
+- 历史阶段要求用户确认前不进入真实 App Shell 实现；当前已确认并进入静态 App Shell 实现。
 
 #### 2. 推荐技术栈
 
@@ -258,7 +261,7 @@ TWA-001 第一阶段验收标准：
 - 用户确认后续任务顺序。
 - yuan-reviewer 对架构说明无 blocker。
 
-满足以上条件后，才允许 yuan-frontend 开工。
+以上条件已满足，`yuan-frontend` 已正式放行。
 
 #### 9. 风险与注意事项
 
@@ -313,14 +316,15 @@ TWA-001 第一阶段验收标准：
 
 ### 仍然保持的硬边界
 
-- 本轮不实现 UI。
-- 本轮不安装依赖。
-- 本轮不创建真实 API handler。
-- 本轮不创建数据库 schema / migration / ORM model。
-- 本轮不部署 PostgreSQL / Redis / BullMQ / MinIO。
-- 本轮不接真实短信、生图模型、试卷模型、支付或对象存储。
-- 本轮不写 secret / token / key。
-- `yuan-frontend` 仍需等 TWA-001 进入实现任务并通过 reviewer 无 blocker 后才开工。
+当前已进入第二阶段静态 UI 实现，但仍然保持以下硬边界：
+
+- 不安装真实业务依赖，除非实现 App Shell 静态结构所必需并经任务边界允许。
+- 不创建真实 API handler。
+- 不创建数据库 schema / migration / ORM model。
+- 不部署 PostgreSQL / Redis / BullMQ / MinIO。
+- 不接真实短信、生图模型、试卷模型、支付或对象存储。
+- 不写 secret / token / key。
+- 不提前进入 TWA-002 至 TWA-007。
 
 ## 技术冻结最终确认
 
