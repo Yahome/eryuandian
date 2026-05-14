@@ -1,7 +1,7 @@
 # yuan-control
 
 状态：活跃（内部标识：`active`）
-更新时间：2026-05-08
+更新时间：2026-05-14
 
 ## 角色
 
@@ -65,7 +65,7 @@ yuan-control：同步状态和派发下一步
 - 已完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改并通过验收；Dev OS Dashboard v1.0 收尾完成。
 - 已完成 T-011 Project OS 文档体系中文化与任务线分离；Dev OS / Web App 任务线已拆分。
 - 已完成 TWA-000 Web App MVP 架构冻结与开发基线；Web App 业务任务统一使用 `TWA-xxx`。
-- TWA-001 用户最终确认已完成，已正式放行 `yuan-frontend` 进入第二阶段 App Shell / 首页 / 工作台静态实现；`yuan-control` 继续调度与边界收口。
+- TWA-001 用户最终确认已完成，已正式放行 `yuan-frontend`；本轮已收口国际化 / 双市场版本架构补充，下一步才重新派发 frontend 实现 prompt，要求按 locale-aware / market-aware 方向预留。
 
 ## 当前边界
 
@@ -91,3 +91,4 @@ yuan-control：同步状态和派发下一步
 - 2026-05-08：用户已最终确认采纳 TWA-001 deep research 技术路线；事实源已按 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo 等目标栈同步，当前放行 frontend 做静态 App Shell，不创建真实 API / DB schema。
 
 - 2026-05-08：TWA-001 最终确认收口完成，正式放行 `yuan-frontend`；当前进入移动端优先 App Shell / 首页 / 工作台基础静态实现，仍禁止真实 API / DB schema / provider / 支付。
+- 2026-05-14：收口 TWA-001 国际化 / 双市场版本架构补充；下一步才重新派发 frontend 实现 prompt，且必须写入 locale-aware / market-aware 约束。

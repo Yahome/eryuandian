@@ -1,7 +1,7 @@
 # TECH_STACK：正式冻结版
 
 状态：已冻结（内部标识：`frozen`）
-更新时间：2026-05-08
+更新时间：2026-05-14
 
 ## 结论
 
@@ -121,6 +121,19 @@ MVP 单机部署基准：
 - NativeWind
 
 原则：移动 App 独立 UI，共享契约、API client、鉴权、design token 和少量无平台依赖 domain logic，不强求共享复杂 Web UI。
+
+## 国际化与双市场版本基线
+
+Web App 首期架构正式支持 `zh-CN` 与 `en` 两个 locale。当前推荐采用 locale-aware route 的设计方向，后续 App Shell / 首页 / 工作台基础应预留 `/zh-CN`、`/en`、`/zh-CN/app`、`/en/app`、`/zh-CN/app/dashboard`、`/en/app/dashboard` 等路径组织空间。
+
+本基线明确把语言层与市场版本层分离：
+
+- Locale：`zh-CN`、`en`，用于通用 UI 文案、导航、表单标签、空状态、loading / error 基础态等。
+- Market / Site Variant：中文市场版本、国际市场版本，用于首页模块、CTA、价格展示策略、功能可见性和市场级运营文案差异。
+
+中文市场版与国际市场版未来允许在页面内容、CTA、定价展示、功能显隐、商业化策略、后续支付方式和运营内容组织上存在差异。后续实现不应把定价、CTA、首页模块差异直接硬编码进页面组件。
+
+TWA-001 当前只冻结设计基线：不安装 i18n 依赖，不创建真实多语言运行时代码，不实现动态切换，不实现真实多市场定价系统、国际支付、复杂 CMS 或运营配置后台。
 
 ## TWA-001 实现边界
 

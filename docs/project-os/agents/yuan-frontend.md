@@ -76,3 +76,4 @@
 - 2026-05-07：T-010 已通过 `yuan-reviewer` 与 `gpt-5.3-codex` 二审验收，Dev OS Dashboard v1.0 收尾完成。
 
 - 2026-05-08：已正式接手 TWA-001 第二阶段实现：移动端优先 App Shell / 首页 / 工作台基础静态 mock；必须严格遵守允许 / 禁止边界，不接真实登录、短信、生图、试卷、支付、DB schema、API handler 或 secret。
+- 2026-05-14：TWA-001 新增国际化 / 双市场版本基线；实现 App Shell / 首页 / 工作台基础时必须遵循 locale-aware / market-aware 预留原则，不把关键导航、首页 Hero、CTA、价格型占位文案或市场差异写死为单一中文版本。

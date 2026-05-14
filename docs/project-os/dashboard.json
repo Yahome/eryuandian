@@ -3,13 +3,13 @@
     "name": "两元店",
     "slug": "eryuandian",
     "rootPath": "/root/eryuandian",
-    "status": "Phase 1 / TWA-001 frontend 实现阶段",
-    "phase": "TWA-001 App Shell 静态实现进行中",
+    "status": "Phase 1 / TWA-001 frontend 实现前架构补充收口",
+    "phase": "TWA-001 国际化 / 双市场版本基线已冻结",
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "TWA-001 已完成技术冻结与用户最终确认，当前由 yuan-frontend 开始移动端优先 App Shell / 首页 / 工作台静态 mock 实现。",
-    "updatedAt": "2026-05-08"
+    "currentFocus": "TWA-001 已完成技术冻结、用户最终确认与国际化 / 双市场版本基线补充；后续 frontend 静态实现需预留 locale-aware 与 market-aware 结构。",
+    "updatedAt": "2026-05-14"
   },
   "agents": [
     {
@@ -37,7 +37,8 @@
         "已完成 T-011 Project OS 文档体系中文化与任务线分离：放行后完成 git mv 迁移、路径同步与 validator 收口",
         "已创建 TWA-001，当前派发 yuan-architect 前置架构说明；yuan-control 不参与技术判断，只调度和收口",
         "TWA-001 已采纳用户 deep research 技术路线；目标栈为 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo",
-        "TWA-001 最终确认已完成，已正式放行 yuan-frontend 进入第二阶段实现"
+        "TWA-001 最终确认已完成，已正式放行 yuan-frontend 进入第二阶段实现",
+        "TWA-001 国际化 / 双市场版本架构补充已收口；下一步重新生成更小步 frontend 实现 prompt"
       ],
       "wiki": "docs/project-os/agents/yuan-control.md"
     },
@@ -68,7 +69,8 @@
         "T-011 已完成：任务文档已分 dev-os / web-app 任务线，T-000 至 T-010 已迁移为中文文件名，validator 支持嵌套任务目录",
         "当前负责 TWA-001 前置架构说明：技术栈、数据库、部署、100 并发、移动端优先和 App Shell 边界",
         "TWA-001 已采纳用户 deep research 技术路线；目标栈为 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo",
-        "TWA-001 前置架构冻结已收口，当前转入实现支持 / 约束监督"
+        "TWA-001 前置架构冻结已收口，当前转入实现支持 / 约束监督",
+        "TWA-001 国际化 / 双市场版本基线已作为架构冻结项之一"
       ],
       "wiki": "docs/project-os/agents/yuan-architect.md"
     },
@@ -95,7 +97,8 @@
         "T-007 等待 yuan-architect 前置架构说明确认；确认前不得开工",
         "T-007 已通过架构门禁，当前负责实现只读任务看板详情页",
         "T-007 只读任务看板详情页已完成前端实现，并已通过 yuan-reviewer 验收",
-        "已正式接手 TWA-001 第二阶段实现：移动端优先 App Shell / 首页 / 工作台基础静态 mock，严格禁止真实 API / DB schema / provider / 支付越界"
+        "已正式接手 TWA-001 第二阶段实现：移动端优先 App Shell / 首页 / 工作台基础静态 mock，严格禁止真实 API / DB schema / provider / 支付越界",
+        "TWA-001 App Shell / 首页 / 工作台基础实现需预留 locale-aware / market-aware 结构，不把关键文案与市场差异写死"
       ],
       "wiki": "docs/project-os/agents/yuan-frontend.md"
     },
@@ -285,7 +288,7 @@
       "status": "in_progress",
       "priority": "P0",
       "progress": 60,
-      "summary": "已完成技术冻结与用户最终确认，当前由 yuan-frontend 开始移动端优先 App Shell / 首页 / 工作台静态 mock 实现；仍禁止真实 API、数据库 schema、真实登录/短信/生图/试卷/支付和 secret。",
+      "summary": "已完成技术冻结、用户最终确认，并已冻结国际化 / 双市场版本基线；后续 frontend 静态实现需预留 locale-aware 与 market-aware 结构，仍禁止真实 API、数据库 schema、真实登录/短信/生图/试卷/支付和 secret。",
       "wiki": "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md"
     }
   ],
@@ -345,6 +348,14 @@
       "status": "monitoring",
       "mitigation": "实现需按 Next.js / contract / mock / adapter / 移动优先结构组织，不把 mock 逻辑散落到 UI 组件。",
       "wiki": "docs/project-os/RISKS.md"
+    },
+    {
+      "id": "R-010",
+      "title": "国际化 / 双市场能力后置导致路由与首页重构",
+      "impact": "App Shell、首页、导航、定价文案、功能展示可能返工",
+      "status": "monitoring",
+      "mitigation": "TWA-001 现在先冻结 locale-aware / market-aware 基线；后续 frontend 按该基线组织文案和路由。",
+      "wiki": "docs/project-os/RISKS.md"
     }
   ],
   "roadmap": [
@@ -402,7 +413,7 @@
           "done": true
         },
         {
-          "title": "TWA-001：技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础",
+          "title": "TWA-001：技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础（已纳入国际化 / 双市场版本基线）",
           "done": false
         },
         {
@@ -510,6 +521,28 @@
     }
   ],
   "recentUpdates": [
+    {
+      "id": "twa-001-i18n-dual-market-baseline",
+      "date": "2026-05-14",
+      "title": "TWA-001 国际化 / 中英文双市场版本基线收口",
+      "files": [
+        "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md",
+        "docs/project-os/SOURCE_OF_TRUTH.md",
+        "docs/project-os/TECH_STACK.md",
+        "docs/project-os/DECISIONS.md",
+        "docs/project-os/RISKS.md",
+        "docs/project-os/ROADMAP.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json",
+        "docs/project-os/CHANGELOG.md",
+        "docs/project-os/agents/yuan-control.md",
+        "docs/project-os/agents/yuan-frontend.md",
+        "docs/project-os/agents/yuan-architect.md"
+      ],
+      "description": "正式冻结 zh-CN / en 的 locale-aware 路由方向与中文市场 / 国际市场的 market-aware 内容组织原则；当前只补事实源，不实现 UI、不创建 Next.js workspace、不安装 i18n 依赖、不实现真实多语言运行时、多市场定价、国际支付或 CMS。"
+    },
     {
       "id": "twa-001-final-confirmation-frontend-release",
       "date": "2026-05-08",

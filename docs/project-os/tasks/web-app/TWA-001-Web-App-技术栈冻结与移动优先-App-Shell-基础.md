@@ -100,9 +100,12 @@ TWA-000 已完成 MVP 架构冻结与开发基线，多 Agent 已完成 TWA-001 
 
 ### TWA-001 后续允许实现的 UI 范围
 
-- `/`
-- `/app`
-- `/app/dashboard`
+- `/zh-CN`
+- `/en`
+- `/zh-CN/app`
+- `/en/app`
+- `/zh-CN/app/dashboard`
+- `/en/app/dashboard`
 - 基础 App Shell
 - 首页
 - 工作台
@@ -377,6 +380,85 @@ TWA-001 第一阶段验收标准：
 - Expo Router
 - NativeWind
 
+## 国际化与双市场版本基线（第 11 项最终确认）
+
+TWA-001 正式新增第 11 项架构冻结：Web App 首期架构需要支持 `zh-CN` 与 `en`，且这不是单纯文案翻译，而是同时预留两层能力。
+
+### Locale 与 Market Variant 分层
+
+- Locale：语言层，首期支持 `zh-CN` 与 `en`。
+- Market / Site Variant：市场版本层，首期按中文市场版本与国际市场版本预留。
+
+中文版与英文版未来允许在以下方面存在差异：
+
+- 首页主文案。
+- CTA。
+- 定价展示。
+- 功能展示顺序。
+- 可见功能。
+- 商业化策略。
+- 后续支付方式。
+- 运营内容组织。
+
+### 路由建议
+
+优先采用 locale-aware 子路径：
+
+- `/zh-CN`
+- `/en`
+- `/zh-CN/app`
+- `/en/app`
+- `/zh-CN/app/dashboard`
+- `/en/app/dashboard`
+
+当前只是架构冻结，不落地代码。后续 TWA-001A / TWA-001B 或重新派发 `yuan-frontend` 实现时，应按该方向预留目录与导航设计。是否采用具体 i18n 库，后续工程落地时再结合 Next.js 16 生态细化，但不得偏离 locale-aware routing 目标。
+
+### 内容组织建议
+
+普通 UI 文案层建议预留：
+
+- `messages/zh-CN`
+- `messages/en`
+
+用于通用按钮、导航文案、表单标签、空状态、loading / error 基础态等。
+
+市场版本配置层建议预留：
+
+- `market-config/china`
+- `market-config/global`
+
+用于首页模块差异、CTA 差异、价格展示策略差异、功能可见性差异和市场级运营文案差异。
+
+当前只冻结组织原则，不创建真实目录文件。后续实现时不应把定价、CTA、首页模块差异直接硬编码进页面组件。
+
+### 当前冻结与不实现边界
+
+TWA-001 当前只冻结：
+
+- 国际化路由方向。
+- 文案组织原则。
+- market config 组织原则。
+- frontend 实现 App Shell 时不得把核心文案写死。
+- 后续页面应能区分 locale 与 market variant。
+
+TWA-001 当前不实现：
+
+- 真实多语言运行时代码。
+- 真实动态切换。
+- 真实多市场定价系统。
+- 真实国际支付。
+- 复杂 CMS。
+- 真实运营配置后台。
+
+### 对第二阶段 frontend 的新增约束
+
+`yuan-frontend` 后续实现 App Shell / 首页 / 工作台基础静态 mock 时：
+
+- 不得把核心导航、首页 Hero、CTA、价格型占位文案硬编码为单一中文版本。
+- 至少应在设计和任务说明上保留 locale / market 拆分空间。
+- 如果当前仍未创建代码，则只写入文档与约束，不提前实现。
+- 下一轮真正派发 frontend 时，应在 prompt 中明确要求按 locale-aware 架构推进。
+
 ## 用户最终确认结果
 
 以下事项已全部正式确认：
@@ -391,6 +473,7 @@ TWA-001 第一阶段验收标准：
 8. TWA-001 实现范围只包含 App Shell / 首页 / 工作台基础静态 mock。
 9. 后续任务顺序正式采用 B+。
 10. `yuan-frontend` 已正式放行，开始 TWA-001 第二阶段实现。
+11. 国际化 / 中英文双市场版本基线正式纳入 TWA-001 架构冻结；当前只冻结 locale-aware 与 market-aware 方向，不实现真实多语言运行时、多市场定价或国际支付。
 
 ## MinIO + 试卷参考仓库方向
 
@@ -453,12 +536,16 @@ frontend 放行条件已满足：
 
 允许：
 
-- `/`
-- `/app`
-- `/app/dashboard`
+- `/zh-CN`
+- `/en`
+- `/zh-CN/app`
+- `/en/app`
+- `/zh-CN/app/dashboard`
+- `/en/app/dashboard`
 - App Shell
 - 首页
 - 工作台基础
+- locale-aware / market-aware 结构预留
 - 移动端底部 Tab
 - PC 增强导航
 - Empty / Loading / Error 基础态

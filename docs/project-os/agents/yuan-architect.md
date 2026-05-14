@@ -1,7 +1,7 @@
 # yuan-architect
 
 状态：活跃（内部标识：`active`）
-更新时间：2026-05-08
+更新时间：2026-05-14
 
 ## 角色
 
@@ -67,7 +67,7 @@
 - 已完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改前置架构说明；结论为复用现有 dashboard JSON 字段，不变更 dashboard schema，不更新 `SCHEMA.md`，不改 `scripts/dev-os-validate.mjs`，不修改 `src/main.tsx` 或 `src/styles.css`。
 - 已完成 T-011 Project OS 文档体系中文化与任务线分离；Dev OS 治理任务使用 `T-xxx` 并放在 `tasks/dev-os/`，Web App 任务线已建立。
 - 已完成 TWA-000 Web App MVP 架构冻结与开发基线；冻结 MVP 范围、暂不做范围、前端路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界、Agent 分工和 TWA-001 至 TWA-007 拆分。
-- TWA-001 前置架构冻结已完成并收口，当前转入实现支持 / 约束监督；重点防止 frontend 越界接真实 API、schema、provider 或偏离移动端优先。
+- TWA-001 前置架构冻结已完成并收口，国际化 / 双市场版本基线已作为 TWA-001 架构冻结项之一；当前转入实现支持 / 约束监督，重点防止 frontend 越界接真实 API、schema、provider、偏离移动端优先或把 locale / market 差异写死。
 
 ## 当前边界
 
@@ -86,7 +86,7 @@
 - T-009 已完成并通过 `yuan-reviewer` 复核。
 - T-010 已完成并通过验收。
 - T-011 已完成并通过事实源收口。
-- TWA-001 前置架构冻结与用户最终确认已完成；当前已放行 `yuan-frontend` 进入第二阶段静态实现。
+- TWA-001 前置架构冻结、用户最终确认和国际化 / 双市场版本基线补充均已完成；当前已放行 `yuan-frontend`，后续实现必须预留 locale-aware / market-aware 结构。
 
 ## 变更记录
 
@@ -113,3 +113,4 @@
 - 2026-05-08：用户已最终确认采纳 TWA-001 deep research 技术路线；事实源已按 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo 等目标栈同步，当前放行 frontend 做静态 App Shell，不创建真实 API / DB schema。
 
 - 2026-05-08：TWA-001 前置架构冻结与用户最终确认已完成，当前支持 `yuan-frontend` 按边界实施。
+- 2026-05-14：TWA-001 国际化 / 双市场版本基线已作为架构冻结项之一，确认 `zh-CN` / `en`、locale-aware routing 与 market-aware 内容组织原则；不实现真实多语言运行时、多市场定价、国际支付或 CMS。

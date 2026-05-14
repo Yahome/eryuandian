@@ -1,7 +1,7 @@
 # SOURCE_OF_TRUTH：两元店项目事实源
 
 状态：活跃（内部标识：`active`）
-更新时间：2026-05-08
+更新时间：2026-05-14
 
 ## 事实源原则
 
@@ -50,14 +50,15 @@
 - 完整支付闭环
 - 多租户组织管理
 - 复杂后台运营系统
-- 多语言国际化
+- 真实多语言运行时代码、动态切换和复杂多市场运营后台（TWA-001 仅冻结 `zh-CN` / `en` 的 locale-aware 与 market-aware 架构基线）
 - 原生 App
 
 ## 当前硬边界
 
 - 当前 Web App 阶段聚焦 TWA-001：移动端优先 App Shell / 首页 / 工作台基础静态实现。
-- TWA-001 技术冻结与用户最终确认已完成，`yuan-frontend` 已正式放行。
+- TWA-001 技术冻结、用户最终确认与“国际化 / 中英文双市场版本基线”补充确认已完成，`yuan-frontend` 已正式放行。
 - 当前不开发真实登录、生图、试卷、支付等业务功能。
+- 当前只冻结 `zh-CN` / `en`、locale-aware routing 与 market-aware 内容组织原则，不实现真实多语言运行时代码、多市场定价、国际支付或 CMS。
 - 当前不修改数据库 schema，不创建真实 API handler，不写 secret / token / key。
 - Dev OS Dashboard 继续以 Markdown-first / `dashboard.json` 为事实源，不硬编码示例数字。
 
@@ -152,9 +153,9 @@ yuan-control：同步状态和派发下一步
 - T-006 Dashboard 视觉对齐 / Shell 重构，已完成并验收通过
 - T-007 / T-008 / T-009 / T-010 / T-011 均已完成并收口。
 - TWA-000 Web App MVP 架构冻结与开发基线已完成。
-- TWA-001 技术冻结、deep research 路线、B+ 顺序、移动端优先基线和 frontend 放行已完成。
+- TWA-001 技术冻结、deep research 路线、B+ 顺序、移动端优先基线、国际化 / 双市场版本基线和 frontend 放行已完成。
 
 下一步：
 
-- TWA-001 第二阶段：`yuan-frontend` 实现移动端优先 App Shell / 首页 / 工作台基础静态 mock。
+- TWA-001 第二阶段：`yuan-frontend` 实现移动端优先 App Shell / 首页 / 工作台基础静态 mock；重新派发时必须按 locale-aware / market-aware 方向预留结构。
 - 实现必须严格遵守 TWA-001 允许 / 禁止边界，不得提前进入真实登录、生图、试卷、支付、数据库 schema、真实 API handler 或 secret。
