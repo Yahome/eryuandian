@@ -1,6 +1,6 @@
 # TASK_BOARD
 
-状态：Phase 1 / TWA-001B 已完成，TWA-001 收口前
+状态：Phase 1 / TWA-001 已完成，准备进入 TWA-002 前置规划
 更新时间：2026-05-15
 
 ## Dev OS / Project OS 治理任务
@@ -29,7 +29,7 @@ Web App 业务任务统一使用 `TWA-xxx`，任务文档统一放在 `docs/proj
 | ID | 标题 | 负责人 | 状态 | 优先级 | 文档 |
 |---|---|---|---|---|---|
 | TWA-000 | Web App MVP 架构冻结与开发基线 | yuan-architect | 已完成 | P0 | `tasks/web-app/TWA-000-Web-App-MVP-架构冻结与开发基线.md` |
-| TWA-001 | 技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础 | yuan-frontend | 进行中 | P0 | `tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md` |
+| TWA-001 | 技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础 | yuan-frontend | 已完成 | P0 | `tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md` |
 
 ## 状态枚举
 
@@ -52,9 +52,10 @@ Web App 业务任务统一使用 `TWA-xxx`，任务文档统一放在 `docs/proj
 7. T-010 Dev OS Dashboard 信息架构与交互收尾整改已完成，并通过 `yuan-reviewer` 与 `gpt-5.3-codex` 二审；Dev OS Dashboard v1.0 收尾完成，后续 Web App 正式开发需新任务承接。
 8. T-011 Project OS 文档体系中文化与任务线分离已完成：T-000 至 T-010 已使用 `git mv` 迁移到 `tasks/dev-os/` 中文文件名，`tasks/web-app/README.md` 仅作为任务线说明创建；未修改 dashboard schema 或业务代码。
 9. TWA-000 Web App MVP 架构冻结与开发基线已完成：Web App 任务线命名规则、MVP 范围、路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界、Agent 分工和 TWA-001 至 TWA-007 拆分已冻结；未新增真实 API 文件、未修改数据库 schema、未进入真实业务功能。
-10. TWA-001A 已完成：`pnpm workspace`、`apps/web`、Next.js 16 最小 App Router 与 locale-aware 最小路由已落地，TWA-001 仍为进行中，owner 仍为 `yuan-frontend`。
-11. TWA-001B 已完成：已对照 `pic/desktop*` 与 `pic/mobile*` 设计稿落地 App Shell / 首页 / 工作台基础静态视觉和移动端响应式布局，继续预留 locale-aware / market-aware 结构，仍禁止真实 API、数据库 schema、短信、生图、试卷、支付和 secret。
-12. 下一步建议：进入 TWA-001C 视觉细节 / 浏览器截图回归收口，或由 `yuan-architect` 与 `yuan-reviewer` 判断是否可直接收口 TWA-001；不得提前进入 TWA-002。
+10. TWA-001A 已完成：`pnpm workspace`、`apps/web`、Next.js 16 最小 App Router 与 locale-aware 最小路由已落地。
+11. TWA-001B 已完成：已对照 `pic/desktop*` 与 `pic/mobile*` 设计稿落地 App Shell / 首页 / 工作台基础静态视觉和移动端响应式布局，继续预留 locale-aware / market-aware 结构。
+12. TWA-001C 已完成：修正 i18n Root Layout 结构、移动端 overflow / 底部 Tab 遮挡风险、补齐 12 张 closeout 截图矩阵，并通过 `yuan-reviewer` closeout 复核。
+13. TWA-001 已正式收口为已完成（内部枚举：`done`），owner 保持 `yuan-frontend`，progress 为 `100`；下一步准备 TWA-002 前置规划，不得直接越界进入真实登录。
 
 ## Architect 前置门禁
 

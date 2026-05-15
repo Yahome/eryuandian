@@ -48,6 +48,7 @@ HOME=/root/.hermes/profiles/yuan-reviewer/home \
 - 2026-05-06：已完成 T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate 验收，结论 PASS；Gemini 二审因 CLI 工具提示、429 / 网络错误无有效输出，不阻塞自身验收。
 - 2026-05-06：已完成 T-009 Gemini CLI Prompt File 二审通道 / Reviewer Smoke Test 验收，结论 PASS；Gemini prompt-file smoke test 因 429 / 模型容量不可用未返回 marker，已记录脱敏摘要且临时文件清理通过。
 - 2026-05-06：按 T-009 二审方式调整，后续统一使用 Codex CLI `gpt-5.3-codex` 做 reviewer 第二审查，不再依赖 Gemini CLI。
+- 2026-05-16：完成 TWA-001 closeout 复核；首轮发现事实源未写清 TWA-001C 完成状态，已交回 `yuan-control` 修复，复核无 Blocker / Major 后 TWA-001 可同步为 `done / 100`。
 
 ## T-009 Gemini CLI Prompt File 二审通道验收记录（2026-05-06）
 

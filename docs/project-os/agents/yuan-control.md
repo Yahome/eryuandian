@@ -65,7 +65,7 @@ yuan-control：同步状态和派发下一步
 - 已完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改并通过验收；Dev OS Dashboard v1.0 收尾完成。
 - 已完成 T-011 Project OS 文档体系中文化与任务线分离；Dev OS / Web App 任务线已拆分。
 - 已完成 TWA-000 Web App MVP 架构冻结与开发基线；Web App 业务任务统一使用 `TWA-xxx`。
-- TWA-001 用户最终确认已完成，已正式放行 `yuan-frontend`；本轮已收口国际化 / 双市场版本架构补充，下一步才重新派发 frontend 实现 prompt，要求按 locale-aware / market-aware 方向预留。
+- TWA-001 已完成并收口：技术冻结、国际化 / 双市场版本基线、TWA-001A 工程骨架、TWA-001B 静态视觉实现与 TWA-001C 视觉回归 / 截图补齐均已完成；下一步准备 TWA-002 前置规划。
 
 ## 当前边界
 
@@ -92,3 +92,4 @@ yuan-control：同步状态和派发下一步
 
 - 2026-05-08：TWA-001 最终确认收口完成，正式放行 `yuan-frontend`；当前进入移动端优先 App Shell / 首页 / 工作台基础静态实现，仍禁止真实 API / DB schema / provider / 支付。
 - 2026-05-14：收口 TWA-001 国际化 / 双市场版本架构补充；下一步才重新派发 frontend 实现 prompt，且必须写入 locale-aware / market-aware 约束。
+- 2026-05-16：TWA-001 已完成 closeout：TWA-001A/B/C 均完成，`yuan-reviewer` 复核无 Blocker / Major 后同步为 `done / 100`。

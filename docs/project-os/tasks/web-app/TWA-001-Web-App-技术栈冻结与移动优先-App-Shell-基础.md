@@ -1,9 +1,9 @@
 id: TWA-001
 title: Web App 技术栈冻结与移动优先 App Shell 基础
 owner: yuan-frontend
-status: in_progress
+status: done
 priority: P0
-progress: 85
+progress: 100
 
 # TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础
 
@@ -189,10 +189,10 @@ TWA-001 第一阶段验收标准：
 
 ## 当前状态
 
-- status: in_progress
+- status: done
 - owner: yuan-frontend
-- progress: 85
-- 当前阶段：TWA-001B App Shell / 首页 / 工作台基础静态视觉与移动端响应式布局已完成并通过 `yuan-reviewer` PASS with notes；TWA-001 仍保持 `in_progress`，未进入真实业务与 TWA-002。
+- progress: 100
+- 当前阶段：TWA-001 已完成并收口；技术冻结、国际化 / 双市场基线、TWA-001A 工程骨架、TWA-001B 静态视觉实现与 TWA-001C 视觉回归 / 截图补齐均已完成。
 
 ## 前置架构说明
 
@@ -807,17 +807,17 @@ TWA-001B 已按 `pic/desktop*` 与 `pic/mobile*` 设计稿完成 App Shell / 首
 - Redis / BullMQ / MinIO 接入。
 - TWA-002 至 TWA-007。
 
-当前 TWA-001 仍为 `in_progress`，owner 仍为 `yuan-frontend`，progress 更新为 `85`。下一步建议：由 `yuan-architect` 与 `yuan-reviewer` 判断是否需要 TWA-001C 视觉细节 / 浏览器截图回归收口，或直接准备 TWA-001 closeout。
+该阶段完成后，TWA-001 进入 TWA-001C 视觉回归 / 截图补齐收口。
 
 ## TWA-001C 收口前架构与视觉审查说明
 
-`yuan-architect` 已完成 TWA-001C 只读收口前审查。本节作为后续 `yuan-frontend` 必要修复与 `yuan-reviewer` closeout 判断依据。
+`yuan-architect` 已完成 TWA-001C 只读收口前审查。本节记录当时的修复依据；其中 Must Fix 已在 TWA-001C 完成并由 closeout 复核确认。
 
 ### 1. 总体结论
 
 - TWA-001B 已达到“locale-aware 静态 UI 骨架 + 主视觉方向”的预期，桌面与移动端均无 404、白屏或崩溃。
-- TWA-001 已接近 closeout，但收口前必须先完成 TWA-001C：结构校正、截图矩阵补齐、移动端轻微视觉问题修复与最终 reviewer 判断。
-- 若本轮完成 Must Fix 且 reviewer 无 Blocker / Major，建议将 TWA-001 标记为 `done`，progress 更新为 `100`。
+- TWA-001C 已完成：结构校正、截图矩阵补齐、移动端轻微视觉问题修复与最终 reviewer 判断均已收口。
+- reviewer 无 Blocker / Major 后，TWA-001 已标记为 `done`，progress 更新为 `100`。
 
 ### 2. 原始设计稿与当前截图映射表
 
@@ -831,14 +831,14 @@ TWA-001B 已按 `pic/desktop*` 与 `pic/mobile*` 设计稿完成 App Shell / 首
 
 ### 3. 视觉差异分类
 
-#### Must Fix before TWA-001 closeout
+#### Must Fix before TWA-001 closeout（已完成）
 
 - 修正 Root Layout / locale layout 结构：移除无 `<html>` / `<body>` 的空壳 `apps/web/app/layout.tsx`，由 `apps/web/app/[locale]/layout.tsx` 作为 i18n root layout。
 - 补齐截图矩阵：`zh-CN` / `en`、landing / app / dashboard、mobile / desktop 的关键 closeout 证据。
 - 修复移动端 390px 下右侧轻微 overflow / 文案裁切。
 - 修复移动端底部 Tab 遮挡内容风险，确保页面底部有足够 safe-area / padding。
 - 截图流程避免 dev `N` 浮层污染。
-- 核对 `summary.md` 下一步漂移已修为 TWA-001C / closeout 判断阶段。
+- 核对 `summary.md` 下一步漂移已从 TWA-001C / closeout 判断阶段更新为 TWA-001 已完成、准备 TWA-002 前置规划。
 
 #### Nice to Improve later
 
@@ -857,7 +857,7 @@ TWA-001B 已按 `pic/desktop*` 与 `pic/mobile*` 设计稿完成 App Shell / 首
 
 ### 4. 当前截图覆盖完整性判断
 
-当前 7 张截图不足以支撑最终 closeout，需要补齐以下 5 张。以下截图均属于视觉 closeout / QA 证据，不是新增业务功能。
+历史审查时当前 7 张截图不足以支撑最终 closeout；TWA-001C 已补齐以下 5 张。以下截图均属于视觉 closeout / QA 证据，不是新增业务功能。
 
 | 缺失截图 | 是否需要补 | 原因 |
 |---|---|---|
@@ -885,9 +885,9 @@ TWA-001B 已按 `pic/desktop*` 与 `pic/mobile*` 设计稿完成 App Shell / 首
 4. 后续如需统一默认 locale 协商，可再评估 middleware / proxy；本轮不引入该复杂度。
 5. 这是 TWA-001 架构收口修正，不属于 TWA-002。
 
-### 6. TWA-001C 前端修复清单
+### 6. TWA-001C 前端修复清单（已完成）
 
-必须修：
+已完成：
 
 - Root Layout / locale layout 官方结构问题：移除空壳 `apps/web/app/layout.tsx`，保留 locale layout。
 - 移动端 overflow / 右侧裁切与底部 Tab 遮挡问题。
@@ -907,9 +907,9 @@ TWA-001B 已按 `pic/desktop*` 与 `pic/mobile*` 设计稿完成 App Shell / 首
 - 不得安装完整 i18n 框架或实现真实多语言 runtime。
 - 不得提前进入 TWA-002 至 TWA-007。
 
-### 7. closeout 判断标准
+### 7. closeout 判断标准（已满足）
 
-TWA-001 可标记 `done / 100` 的条件：
+TWA-001 已标记 `done / 100`，满足条件：
 
 - Root Layout / locale layout 结构已按 i18n root layout 方案收口。
 - `/` → `/zh-CN` redirect 保持。
@@ -918,3 +918,46 @@ TWA-001 可标记 `done / 100` 的条件：
 - 截图矩阵补齐，且截图文件归档到 `pic/dev/`。
 - reviewer 结论无 Blocker / Major。
 - 未进入登录、生图、试卷、支付、API、DB schema、secret 或 TWA-002 至 TWA-007。
+
+
+## TWA-001 closeout 最终结论
+
+TWA-001 已正式收口为已完成（内部枚举：`done`），owner 保持 `yuan-frontend`，progress 为 `100`。
+
+### 完成范围
+
+- 技术栈冻结与 deep research 路线采纳已完成。
+- 移动端优先 App Shell / 首页 / 工作台基础静态实现已完成。
+- `zh-CN` / `en` locale-aware route skeleton 已落地。
+- locale 与 market variant 分层原则已冻结并体现在文案组织中。
+- TWA-001C 已完成 Root Layout / locale layout 结构收口、移动端 overflow 与底部 Tab 风险修复、12 张截图矩阵补齐。
+- `yuan-reviewer` closeout 复核无 Blocker / Major 后，已由 `yuan-control` 同步事实源为 `done / 100`。
+
+### 最终截图证据
+
+`pic/dev/` 已归档 12 张截图，覆盖 `zh-CN` / `en` × landing / app / dashboard × mobile / desktop：
+
+- `zh-CN-landing-desktop-1440.png`
+- `zh-CN-landing-mobile-390.png`
+- `zh-CN-app-desktop-1440.png`
+- `zh-CN-app-mobile-390.png`
+- `zh-CN-dashboard-desktop-1440.png`
+- `zh-CN-dashboard-mobile-390.png`
+- `en-landing-desktop-1440.png`
+- `en-landing-mobile-390.png`
+- `en-app-desktop-1440.png`
+- `en-app-mobile-390.png`
+- `en-dashboard-desktop-1440.png`
+- `en-dashboard-mobile-390.png`
+
+### 仍未进入的范围
+
+- 未实现真实登录 / 注册 / 短信。
+- 未实现真实生图 / 试卷 / 支付 / 额度扣费。
+- 未创建真实 API handler、NestJS API、数据库 schema / migration、Redis / BullMQ / MinIO 接入。
+- 未安装完整 i18n framework，未实现复杂 CMS 或真实 market 后台。
+- 未提前进入 TWA-002 至 TWA-007。
+
+### 下一步
+
+下一步进入 TWA-002 登录与会话 Mock / Adapter 的前置规划；TWA-002 开工前仍需明确 Mock / Adapter 边界，并继续禁止真实短信、真实生产登录、真实数据库 schema、支付、生图、试卷或 secret 越界。

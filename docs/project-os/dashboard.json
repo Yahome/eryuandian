@@ -3,13 +3,13 @@
     "name": "两元店",
     "slug": "eryuandian",
     "rootPath": "/root/eryuandian",
-    "status": "Phase 1 / TWA-001B 静态视觉与移动端响应式布局已完成",
-    "phase": "TWA-001B 已完成，TWA-001 收口前",
+    "status": "Phase 1 / TWA-001 已完成，准备进入 TWA-002 前置规划",
+    "phase": "TWA-001 已完成，TWA-002 前置规划前",
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "TWA-001B 已完成 App Shell / 首页 / 工作台基础静态视觉与移动端响应式布局；UI 已对照 desktop/mobile 设计稿落地，仍禁止真实业务越界。",
-    "updatedAt": "2026-05-15"
+    "currentFocus": "TWA-001 已完成技术冻结、locale-aware 工程骨架、App Shell 静态视觉、移动端响应式与 TWA-001C 视觉回归 / 截图补齐；下一步准备 TWA-002 登录与会话 Mock / Adapter 前置规划。",
+    "updatedAt": "2026-05-16"
   },
   "agents": [
     {
@@ -40,7 +40,8 @@
         "TWA-001 最终确认已完成，已正式放行 yuan-frontend 进入第二阶段实现",
         "TWA-001 国际化 / 双市场版本架构补充已收口；下一步重新生成更小步 frontend 实现 prompt",
         "TWA-001A Web App 工程骨架与 locale-aware 最小路由已完成并通过 reviewer 验收；下一步 TWA-001B",
-        "TWA-001B 已完成并通过 reviewer PASS with notes；下一步判断 TWA-001C 或 TWA-001 closeout"
+        "TWA-001B 历史阶段已完成并通过 reviewer PASS with notes；后续 TWA-001C 与 closeout 已完成",
+        "TWA-001 closeout 已完成：reviewer 复核无 Blocker / Major 后同步为 done / 100；下一步准备 TWA-002 前置规划"
       ],
       "wiki": "docs/project-os/agents/yuan-control.md"
     },
@@ -102,7 +103,8 @@
         "已正式接手 TWA-001 第二阶段实现：移动端优先 App Shell / 首页 / 工作台基础静态 mock，严格禁止真实 API / DB schema / provider / 支付越界",
         "TWA-001 App Shell / 首页 / 工作台基础实现需预留 locale-aware / market-aware 结构，不把关键文案与市场差异写死",
         "TWA-001A 已完成：pnpm workspace、apps/web、Next.js 16 最小 App Router 与 locale-aware route skeleton",
-        "TWA-001B 已完成：App Shell / 首页 / 工作台基础静态视觉与移动端响应式布局已对照 desktop/mobile 设计稿落地"
+        "TWA-001B 已完成：App Shell / 首页 / 工作台基础静态视觉与移动端响应式布局已对照 desktop/mobile 设计稿落地",
+        "TWA-001C 已完成：Root Layout 结构收口、移动端视觉回归、12 张截图矩阵补齐；TWA-001 已收口"
       ],
       "wiki": "docs/project-os/agents/yuan-frontend.md"
     },
@@ -151,7 +153,8 @@
         "已完成 T-008 Dev OS 事实源一致性校验脚本验收；Gemini 二审 429 / 网络错误无有效输出，不阻塞自身验收",
         "已完成 T-009 reviewer 二审方式调整与复核（gpt-5.3-codex）验收；后续二审统一使用 gpt-5.3-codex",
         "TWA-001A 已验收通过：PASS with notes，无 Blocker / Major",
-        "TWA-001B 已验收通过：PASS with notes，无 Blocker / Major"
+        "TWA-001B 已验收通过：PASS with notes，无 Blocker / Major",
+        "TWA-001 closeout 复核完成：验证命令通过、截图矩阵齐全、事实源修复后无 Blocker / Major"
       ],
       "wiki": "docs/project-os/agents/yuan-reviewer.md"
     }
@@ -291,10 +294,10 @@
       "id": "TWA-001",
       "title": "技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础",
       "owner": "yuan-frontend",
-      "status": "in_progress",
+      "status": "done",
       "priority": "P0",
-      "progress": 85,
-      "summary": "已完成 App Shell / 首页 / 工作台基础静态视觉与移动端响应式布局；UI 已对照 desktop/mobile 设计稿落地，仍禁止真实业务、API handler、数据库 schema、登录/短信、生图/试卷、支付、额度扣费和 secret 越界。",
+      "progress": 100,
+      "summary": "TWA-001 已完成：技术栈冻结、国际化 / 双市场基线、TWA-001A Next.js workspace 与 locale 路由骨架、TWA-001B App Shell / 首页 / 工作台静态视觉、TWA-001C 视觉回归与截图矩阵补齐均已收口；未进入真实登录、短信、生图、试卷、支付、API handler、数据库 schema 或 secret。",
       "wiki": "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md"
     }
   ],
@@ -419,8 +422,8 @@
           "done": true
         },
         {
-          "title": "TWA-001：技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础（已纳入国际化 / 双市场版本基线）",
-          "done": false
+          "title": "TWA-001：技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础（已完成；含国际化 / 双市场版本基线、TWA-001A/B/C 收口）",
+          "done": true
         },
         {
           "title": "TWA-002：登录与会话 Mock / Adapter",
