@@ -23,6 +23,7 @@ body {
 
 body {
   margin: 0;
+  overflow-x: clip;
   color: var(--text-primary);
   background:
     radial-gradient(1200px 800px at -10% -20%, rgba(104, 99, 255, 0.15), transparent 70%),
@@ -164,6 +165,7 @@ a {
   margin-top: 6px;
   font-size: 30px;
   line-height: 1.12;
+  overflow-wrap: anywhere;
 }
 
 .landing-hero > p {
@@ -225,6 +227,7 @@ a {
 .entry-card h2 {
   font-size: 24px;
   line-height: 1.15;
+  overflow-wrap: anywhere;
 }
 
 .entry-card p {
@@ -272,7 +275,9 @@ a {
 
 .workspace-surface {
   min-height: 100svh;
-  padding-bottom: calc(74px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
 }
 
 .workspace-topbar {
@@ -280,7 +285,7 @@ a {
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
   padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
@@ -290,10 +295,12 @@ a {
 }
 
 .mobile-brand {
+  max-width: 54%;
   min-width: 0;
 }
 
 .search-placeholder {
+  min-width: 0;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -312,6 +319,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  min-width: 0;
 }
 
 .locale-chip {
@@ -329,9 +337,10 @@ a {
 
 .workspace-main {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 12px;
-  padding: 14px 14px 0;
+  padding: 14px 14px 16px;
 }
 
 .welcome-card {
@@ -341,6 +350,7 @@ a {
 .welcome-card h1 {
   font-size: clamp(28px, 7.5vw, 34px);
   line-height: 1.1;
+  overflow-wrap: anywhere;
 }
 
 .welcome-card p {
@@ -360,19 +370,22 @@ a {
 }
 
 .feature-card {
-  min-height: 184px;
-  border-radius: 18px;
-  padding: 18px;
-  color: #ffffff;
+  min-height: 152px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
+  border-radius: 18px;
+  padding: 20px;
+  overflow: hidden;
+  color: #ffffff;
   box-shadow: var(--shadow);
 }
 
 .feature-card h2 {
   font-size: 33px;
   line-height: 1.08;
+  overflow-wrap: anywhere;
 }
 
 .feature-card p {
@@ -405,6 +418,7 @@ a {
 
 .snapshot-card {
   padding: 16px;
+  scroll-margin-bottom: calc(92px + env(safe-area-inset-bottom));
 }
 
 .snapshot-card > p {
@@ -592,14 +606,12 @@ a {
 }
 
 .bottom-tabs {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: static;
   z-index: 25;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 2px;
+  margin-top: auto;
   padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.98);
@@ -611,10 +623,12 @@ a {
   align-items: center;
   justify-content: center;
   min-height: 44px;
+  padding: 0 2px;
   border-radius: 10px;
   color: #67738d;
   font-size: 11px;
   font-weight: 600;
+  text-align: center;
 }
 
 .tab-link.is-active {
@@ -633,6 +647,21 @@ a {
   }
 }
 
+@media (max-width: 420px) {
+  .workspace-topbar {
+    gap: 8px;
+  }
+
+  .workspace-topbar .brand-copy small {
+    display: none;
+  }
+
+  .search-placeholder {
+    padding-inline: 10px;
+    font-size: 12px;
+  }
+}
+
 @media (min-width: 430px) {
   .landing-main,
   .workspace-main {
@@ -640,7 +669,7 @@ a {
   }
 
   .feature-card {
-    min-height: 198px;
+    min-height: 176px;
   }
 }
 

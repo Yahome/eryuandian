@@ -1,6 +1,13 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { isSupportedLocale, SUPPORTED_LOCALES } from "@/i18n/routing";
+import "../globals.css";
+
+export const metadata: Metadata = {
+  title: "Eryuandian Web",
+  description: "Locale-aware route skeleton for the Eryuandian Web App.",
+};
 
 type LocaleLayoutProps = {
   children: ReactNode;

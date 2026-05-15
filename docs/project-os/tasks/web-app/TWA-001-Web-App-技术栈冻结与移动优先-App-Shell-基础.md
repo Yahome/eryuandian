@@ -808,3 +808,113 @@ TWA-001B 已按 `pic/desktop*` 与 `pic/mobile*` 设计稿完成 App Shell / 首
 - TWA-002 至 TWA-007。
 
 当前 TWA-001 仍为 `in_progress`，owner 仍为 `yuan-frontend`，progress 更新为 `85`。下一步建议：由 `yuan-architect` 与 `yuan-reviewer` 判断是否需要 TWA-001C 视觉细节 / 浏览器截图回归收口，或直接准备 TWA-001 closeout。
+
+## TWA-001C 收口前架构与视觉审查说明
+
+`yuan-architect` 已完成 TWA-001C 只读收口前审查。本节作为后续 `yuan-frontend` 必要修复与 `yuan-reviewer` closeout 判断依据。
+
+### 1. 总体结论
+
+- TWA-001B 已达到“locale-aware 静态 UI 骨架 + 主视觉方向”的预期，桌面与移动端均无 404、白屏或崩溃。
+- TWA-001 已接近 closeout，但收口前必须先完成 TWA-001C：结构校正、截图矩阵补齐、移动端轻微视觉问题修复与最终 reviewer 判断。
+- 若本轮完成 Must Fix 且 reviewer 无 Blocker / Major，建议将 TWA-001 标记为 `done`，progress 更新为 `100`。
+
+### 2. 原始设计稿与当前截图映射表
+
+| 原设计稿 | 当前截图 | 对应路由 | 评价 | 是否需要修 |
+|---|---|---|---|---|
+| `pic/desktop-home-dashboard.png` | `pic/dev/zh-CN-app-desktop-1440.png`、`pic/dev/zh-CN-dashboard-desktop-1440.png`、`pic/dev/en-dashboard-desktop-1440.png` | `/zh-CN/app`、`/zh-CN/app/dashboard`、`/en/app/dashboard` | 左侧导航、顶部搜索、欢迎区、功能卡、统计区和快速开始结构已对齐；仍有占位文案与缺少 3D 插画的完成度差异。 | Must Fix 只修结构与明显遮挡；插画完成度留后续。 |
+| `pic/mobile-home-dashboard.png` | `pic/dev/zh-CN-app-mobile-390.png`、`pic/dev/zh-CN-dashboard-mobile-390.png` | `/zh-CN/app`、`/zh-CN/app/dashboard` | 顶部品牌、欢迎卡、两张核心功能卡、底部 Tab 信息架构一致。 | 需修移动端右侧轻微裁切、底部 Tab 遮挡风险。 |
+| `pic/desktop-login.png`、`pic/mobile-login-register.png` | `pic/dev/zh-CN-landing-mobile-390.png`、`pic/dev/en-landing-mobile-390.png` | `/zh-CN`、`/en` | Landing 仅作为风格参考，保留品牌、卡片和入口气质。 | 不补真实登录 / 注册；需补 desktop landing 截图证据。 |
+| `pic/desktop-marketing-image-generator.png`、`pic/mobile-image-generator.png` | App / dashboard 内“生图”入口卡 | `/zh-CN/app#image-entry`、`/en/app#image-entry` | 当前只实现入口卡，符合 TWA-001 静态范围。 | 不补真实生图页。 |
+| `pic/desktop-paper-generator.png`、`pic/mobile-paper-generator.png` | App / dashboard 内“试卷”入口卡 | `/zh-CN/app#paper-entry`、`/en/app#paper-entry` | 当前只实现入口卡，符合 TWA-001 静态范围。 | 不补真实试卷页。 |
+
+### 3. 视觉差异分类
+
+#### Must Fix before TWA-001 closeout
+
+- 修正 Root Layout / locale layout 结构：移除无 `<html>` / `<body>` 的空壳 `apps/web/app/layout.tsx`，由 `apps/web/app/[locale]/layout.tsx` 作为 i18n root layout。
+- 补齐截图矩阵：`zh-CN` / `en`、landing / app / dashboard、mobile / desktop 的关键 closeout 证据。
+- 修复移动端 390px 下右侧轻微 overflow / 文案裁切。
+- 修复移动端底部 Tab 遮挡内容风险，确保页面底部有足够 safe-area / padding。
+- 截图流程避免 dev `N` 浮层污染。
+- 核对 `summary.md` 下一步漂移已修为 TWA-001C / closeout 判断阶段。
+
+#### Nice to Improve later
+
+- 将 `MARKET_PLACEHOLDER` 与“静态 / 占位”直白文案降噪为更自然的预览态表达。
+- 后续补轻量插画 / 装饰视觉，缩小与原设计稿 3D 插画完成度差异。
+- 完整最近创作缩略图、推荐模板缩略图与会员权益横幅可在后续任务继续 polish。
+
+#### Out of TWA-001 scope
+
+- 真实登录、注册、短信验证码和会话。
+- 真实生图页、真实试卷页、真实生成流程。
+- 支付、额度扣费、国际支付、动态定价。
+- API handler、NestJS API、DB schema / migration、Redis / BullMQ / MinIO。
+- 完整 i18n runtime、复杂 CMS、真实 market 运营后台。
+- TWA-002 至 TWA-007。
+
+### 4. 当前截图覆盖完整性判断
+
+当前 7 张截图不足以支撑最终 closeout，需要补齐以下 5 张。以下截图均属于视觉 closeout / QA 证据，不是新增业务功能。
+
+| 缺失截图 | 是否需要补 | 原因 |
+|---|---|---|
+| `pic/dev/zh-CN-landing-desktop-1440.png` | 需要 | 补齐中文 landing 的 desktop 视口证据。 |
+| `pic/dev/en-landing-desktop-1440.png` | 需要 | 补齐英文 landing 的 desktop 视口证据。 |
+| `pic/dev/en-app-desktop-1440.png` | 需要 | 目前只有英文 dashboard desktop，缺英文 app desktop。 |
+| `pic/dev/en-app-mobile-390.png` | 需要 | 补齐英文 app mobile，验证英文文案与 mobile 布局。 |
+| `pic/dev/en-dashboard-mobile-390.png` | 需要 | 补齐英文 dashboard mobile，验证 dashboard 移动端英文布局。 |
+
+### 5. Root Layout / locale layout 结构判断
+
+当前结构：
+
+- `apps/web/app/layout.tsx` 仅 `return children`，没有输出 `<html>` / `<body>`。
+- `apps/web/app/[locale]/layout.tsx` 输出 `<html lang={locale}><body>...</body></html>`。
+- `apps/web/app/page.tsx` 通过 `redirect(`/${DEFAULT_LOCALE}`)` 保持 `/` → `/zh-CN`。
+
+判断：当前空壳 root layout 与 Next.js root layout 必须包含 `<html>` / `<body>` 的常规约定不一致；i18n 场景允许把 root layout 放在动态 segment（如 `app/[lang]/layout.tsx`），因此不应同时保留一个无 `<html>` / `<body>` 的空壳 root layout。
+
+推荐方案：
+
+1. 移除 `apps/web/app/layout.tsx`。
+2. 保留 `apps/web/app/[locale]/layout.tsx` 作为 i18n root layout，继续输出 `<html lang={locale}>` 与 `<body>`。
+3. 保留 `apps/web/app/page.tsx` 的 `/` → `/zh-CN` redirect 作为本轮最小改动。
+4. 后续如需统一默认 locale 协商，可再评估 middleware / proxy；本轮不引入该复杂度。
+5. 这是 TWA-001 架构收口修正，不属于 TWA-002。
+
+### 6. TWA-001C 前端修复清单
+
+必须修：
+
+- Root Layout / locale layout 官方结构问题：移除空壳 `apps/web/app/layout.tsx`，保留 locale layout。
+- 移动端 overflow / 右侧裁切与底部 Tab 遮挡问题。
+- 补齐第 4 节列出的 5 张截图。
+- 截图时避免 dev `N` 浮层，截图内容不得是错误页、空白页或 404。
+- 确认 `summary.md` 已修复 TWA-001B 完成后的下一步状态漂移。
+
+可以修：
+
+- 对 `MARKET_PLACEHOLDER` 与“静态 / 占位”文案做轻微降噪，但不得引入真实 market 业务、真实定价或 CMS。
+
+禁止修：
+
+- 不得实现真实登录 / 注册 / 短信。
+- 不得实现真实生图 / 试卷 / 支付 / 额度扣费。
+- 不得创建 API handler、NestJS API、DB schema / migration、Redis / BullMQ / MinIO 接入。
+- 不得安装完整 i18n 框架或实现真实多语言 runtime。
+- 不得提前进入 TWA-002 至 TWA-007。
+
+### 7. closeout 判断标准
+
+TWA-001 可标记 `done / 100` 的条件：
+
+- Root Layout / locale layout 结构已按 i18n root layout 方案收口。
+- `/` → `/zh-CN` redirect 保持。
+- `/zh-CN`、`/en`、`/zh-CN/app`、`/en/app`、`/zh-CN/app/dashboard`、`/en/app/dashboard` 均可 build。
+- desktop / mobile 主界面已对照设计稿完成基础静态实现，移动端无明显裁切或底部遮挡。
+- 截图矩阵补齐，且截图文件归档到 `pic/dev/`。
+- reviewer 结论无 Blocker / Major。
+- 未进入登录、生图、试卷、支付、API、DB schema、secret 或 TWA-002 至 TWA-007。
