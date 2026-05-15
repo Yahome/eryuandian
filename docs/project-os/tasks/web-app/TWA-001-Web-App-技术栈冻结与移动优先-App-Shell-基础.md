@@ -3,7 +3,7 @@ title: Web App 技术栈冻结与移动优先 App Shell 基础
 owner: yuan-frontend
 status: in_progress
 priority: P0
-progress: 70
+progress: 85
 
 # TWA-001 Web App 技术栈冻结与移动优先 App Shell 基础
 
@@ -191,8 +191,8 @@ TWA-001 第一阶段验收标准：
 
 - status: in_progress
 - owner: yuan-frontend
-- progress: 70
-- 当前阶段：TWA-001A Web App 工程骨架与 locale-aware 最小路由已完成；下一步进入 TWA-001B App Shell / 首页 / 工作台基础静态视觉与移动端响应式实现。
+- progress: 85
+- 当前阶段：TWA-001B App Shell / 首页 / 工作台基础静态视觉与移动端响应式布局已完成并通过 `yuan-reviewer` PASS with notes；TWA-001 仍保持 `in_progress`，未进入真实业务与 TWA-002。
 
 ## 前置架构说明
 
@@ -564,6 +564,85 @@ TWA-001 当前不实现：
 
 TWA-001A 经 reviewer PASS / PASS with notes 且无 Blocker / Major 后，TWA-001 可保持 `owner: yuan-frontend`、`status: in_progress`，progress 从 `60` 更新到 `70`。`summary.md`、两个 dashboard JSON、`TASK_BOARD.md`、`CHANGELOG.md` 和本任务文档做最小同步：记录已完成 workspace / `apps/web` / locale-aware route skeleton，下一步进入 TWA-001B 静态视觉与移动端响应式实现；不得标记 TWA-001 done，不得修改 dashboard schema。
 
+
+## TWA-001B UI 实现级前置说明
+
+`yuan-architect` 已完成 TWA-001B“设计稿对照 + UI 实现级前置说明”，并经 `yuan-control` 补充纠偏后放行 frontend。结论：当前可以进入 App Shell / 首页 / 工作台基础静态视觉实现；本轮目标是对照 `pic/desktop*` 与 `pic/mobile*` 设计稿做高保真结构还原和响应式落地，不是完整真实业务实现。
+
+### 设计稿清单
+
+Desktop 设计稿：
+
+- `pic/desktop-home-dashboard.png`
+- `pic/desktop-login.png`
+- `pic/desktop-marketing-image-generator.png`
+- `pic/desktop-paper-generator.png`
+
+Mobile 设计稿：
+
+- `pic/mobile-home-dashboard.png`
+- `pic/mobile-image-generator.png`
+- `pic/mobile-login-register.png`
+- `pic/mobile-paper-generator.png`
+
+### 设计映射与范围纠偏
+
+| 设计稿 | 对应路由 / 用途 | 主要页面区域 | 本轮是否实现 | 说明 |
+|---|---|---|---|---|
+| `desktop-home-dashboard.png` / `mobile-home-dashboard.png` | `/zh-CN`、`/en`、`/zh-CN/app`、`/en/app`、`/zh-CN/app/dashboard`、`/en/app/dashboard` | 品牌 header、App Shell、首页入口聚合、dashboard 卡片、快速开始、最近创作、推荐模板、底部 Tab / PC 侧边栏 | 是 | 本轮主要结构参考，按移动优先 + PC 增强还原 |
+| `desktop-login.png` / `mobile-login-register.png` | 视觉参考 / 禁止提前实现登录 | 品牌、配色、卡片层级、按钮风格、移动顶部视觉 | 否 | 仅作为视觉语言参考；不得实现登录表单、手机号、验证码、密码、微信登录、协议勾选、注册切换、忘记密码 |
+| `desktop-marketing-image-generator.png` / `mobile-image-generator.png` | 工作台模块占位与后续 TWA-004 页面结构参考 | 生图入口、表单式工作台结构、生成预览占位 | 仅静态占位 | 不实现真实生图、上传、下载、编辑、批量下载或水印业务 |
+| `desktop-paper-generator.png` / `mobile-paper-generator.png` | 工作台模块占位与后续 TWA-005 页面结构参考 | 试卷入口、配置列表、预览卡、导出按钮占位 | 仅静态占位 | 不实现真实试卷生成、题库、编辑、Word/PDF 导出 |
+
+### 本轮应实现页面范围
+
+- Locale landing：`/zh-CN` 与 `/en` 实现首页入口 / landing 静态结构，不实现任何认证 UI。
+- App Shell：desktop 复现左侧导航 + 顶部 header + 主工作区；mobile 复现顶部轻量 header + 底部 Tab + 单列内容流。
+- Dashboard：复现欢迎区、两张核心功能卡、快速开始、最近创作、推荐模板、静态状态块、基础占位模块。
+- Generator / paper 相关内容只允许作为首页 / dashboard 中的静态入口卡或工作台占位，不进入真实流程。
+
+### Desktop 设计实现基线
+
+- desktop 设计稿存在左侧导航、顶部 header、主工作区、卡片区、引导区和 dashboard 型结构。
+- 本轮必须复现：左侧品牌导航、当前页高亮、会员 / 额度类静态卡、顶部搜索 / 通知 / 用户占位、主内容欢迎区、渐变功能卡、统计 / 最近作品 / 推荐模板等卡片层级。
+
+### Mobile 设计实现基线
+
+- mobile 设计稿存在底部 Tab、顶部轻量 header、单列内容流、吸底 CTA / 操作区、横向卡片滑动区。
+- 本轮必须覆盖 375px / 390px / 430px；考虑 safe-area、移动浏览器 viewport，避免只用固定 `100vh`；触控区域建议不小于 44px。
+
+### locale-aware / market-aware UI 实施原则
+
+- 页面文案不得全部硬编码为单一中文；至少对 `zh-CN` / `en` 使用最小静态文案映射。
+- market-aware 只做结构预留，不做真实 market 业务。
+- 不得把 `zh-CN === china`、`en === global` 写死，不得把 market 直接等同 locale。
+
+### html lang 修正建议
+
+本轮应修正 `apps/web/app/layout.tsx` 中 `<html lang="zh-CN">` 写死问题。推荐在不引入复杂 i18n runtime 的前提下，让 locale-aware layout 根据 `params.locale` 设置 `<html lang>`，并保留当前最小 locale 校验。
+
+### 推荐最小目录拆分
+
+可按最小合理粒度拆分：
+
+- `components/shell/*`：DesktopShell、MobileShell、TopHeader、SideNav、BottomTab。
+- `components/landing/*`：Hero、FeatureEntry 等 landing 视觉块。
+- `components/dashboard/*`：Welcome、QuickStart、RecentWorks、TemplateGrid、StatsCard 等 dashboard visual blocks。
+- `src/i18n/text-map.ts`：`zh-CN` / `en` 最小静态文案映射。
+- `src/market/placeholder.ts`：market 结构占位常量；不得承载真实商业化策略。
+
+### frontend 实施清单
+
+必须做：对照 8 张 desktop / mobile 设计稿、六条 locale 路由可渲染、移动优先布局、PC 增强布局、html lang 修正、最小 `zh-CN` / `en` 静态文案区分。
+
+可以做：静态 mock 数据、空 / loading / error 基础态、少量视觉过渡。
+
+禁止做：TWA-002 至 TWA-007、真实登录、短信、真实生图、真实试卷生成、支付、额度扣费、API handler、DB schema / migration、NestJS API、Redis / BullMQ / MinIO 接入、secret / token / key。
+
+### reviewer 验收重点
+
+`yuan-reviewer` 必须检查：是否真实对照 `desktop*` / `mobile*` 设计稿；是否移动优先；375 / 390 / 430px、safe-area 与 44px 触控是否满足；六条 locale 路由是否可构建可访问；是否修正 html lang；是否没有登录、生图、试卷、支付、API、DB、secret 或提前进入 TWA-002 的越界。
+
 ## 用户最终确认结果
 
 以下事项已全部正式确认：
@@ -702,3 +781,30 @@ TWA-001A 已经完成并通过 `yuan-reviewer` 验收，结论为 PASS with note
 - TWA-002 至 TWA-007。
 
 当前 TWA-001 仍为 `in_progress`，owner 仍为 `yuan-frontend`，progress 更新为 `70`。下一步是 TWA-001B：App Shell / 首页 / 工作台基础静态视觉 + 移动端响应式布局。
+
+
+## TWA-001B 完成记录
+
+TWA-001B 已按 `pic/desktop*` 与 `pic/mobile*` 设计稿完成 App Shell / 首页 / 工作台基础静态视觉和移动端响应式布局，并通过 `yuan-reviewer` 修正后验收，结论为 PASS with notes，无 Blocker / Major。
+
+已完成：
+
+- `/zh-CN` 与 `/en` locale landing / 首页入口静态视觉。
+- `/zh-CN/app`、`/en/app` App Shell / 首页入口聚合静态视觉。
+- `/zh-CN/app/dashboard`、`/en/app/dashboard` 工作台 dashboard 静态视觉。
+- 移动端顶部轻量 header、单列内容流、底部 Tab、safe-area 与 44px 触控区域。
+- PC 端 sidebar、topbar、欢迎区、渐变功能卡、快速开始、最近创作、推荐模板、会员 / 额度静态卡。
+- `zh-CN` / `en` 最小静态文案映射。
+- market variant 仅保留结构预留，未把 locale 与 market 强绑定。
+- `<html lang>` 已根据 locale route 修正，不再固定为 `zh-CN`。
+
+仍未进入：
+
+- 登录、短信验证码、会话 Mock。
+- 真实生图、真实试卷生成。
+- 支付、额度扣费、国际支付。
+- API handler、DB schema / migration、NestJS API。
+- Redis / BullMQ / MinIO 接入。
+- TWA-002 至 TWA-007。
+
+当前 TWA-001 仍为 `in_progress`，owner 仍为 `yuan-frontend`，progress 更新为 `85`。下一步建议：由 `yuan-architect` 与 `yuan-reviewer` 判断是否需要 TWA-001C 视觉细节 / 浏览器截图回归收口，或直接准备 TWA-001 closeout。

@@ -3,12 +3,12 @@
     "name": "两元店",
     "slug": "eryuandian",
     "rootPath": "/root/eryuandian",
-    "status": "Phase 1 / TWA-001A Web App 工程骨架已完成",
-    "phase": "TWA-001A locale-aware 最小路由已落地",
+    "status": "Phase 1 / TWA-001B 静态视觉与移动端响应式布局已完成",
+    "phase": "TWA-001B 已完成，TWA-001 收口前",
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "TWA-001A 已完成 Web App 工程骨架和 locale-aware 最小路由；下一步进入 TWA-001B 静态视觉与移动端响应式实现，仍禁止真实业务越界。",
+    "currentFocus": "TWA-001B 已完成 App Shell / 首页 / 工作台基础静态视觉与移动端响应式布局；UI 已对照 desktop/mobile 设计稿落地，仍禁止真实业务越界。",
     "updatedAt": "2026-05-15"
   },
   "agents": [
@@ -39,7 +39,8 @@
         "TWA-001 已采纳用户 deep research 技术路线；目标栈为 Next.js 16 + React 19、NestJS + Fastify、PostgreSQL + Drizzle、Redis + BullMQ、pnpm workspace + Turborepo",
         "TWA-001 最终确认已完成，已正式放行 yuan-frontend 进入第二阶段实现",
         "TWA-001 国际化 / 双市场版本架构补充已收口；下一步重新生成更小步 frontend 实现 prompt",
-        "TWA-001A Web App 工程骨架与 locale-aware 最小路由已完成并通过 reviewer 验收；下一步 TWA-001B"
+        "TWA-001A Web App 工程骨架与 locale-aware 最小路由已完成并通过 reviewer 验收；下一步 TWA-001B",
+        "TWA-001B 已完成并通过 reviewer PASS with notes；下一步判断 TWA-001C 或 TWA-001 closeout"
       ],
       "wiki": "docs/project-os/agents/yuan-control.md"
     },
@@ -100,7 +101,8 @@
         "T-007 只读任务看板详情页已完成前端实现，并已通过 yuan-reviewer 验收",
         "已正式接手 TWA-001 第二阶段实现：移动端优先 App Shell / 首页 / 工作台基础静态 mock，严格禁止真实 API / DB schema / provider / 支付越界",
         "TWA-001 App Shell / 首页 / 工作台基础实现需预留 locale-aware / market-aware 结构，不把关键文案与市场差异写死",
-        "TWA-001A 已完成：pnpm workspace、apps/web、Next.js 16 最小 App Router 与 locale-aware route skeleton"
+        "TWA-001A 已完成：pnpm workspace、apps/web、Next.js 16 最小 App Router 与 locale-aware route skeleton",
+        "TWA-001B 已完成：App Shell / 首页 / 工作台基础静态视觉与移动端响应式布局已对照 desktop/mobile 设计稿落地"
       ],
       "wiki": "docs/project-os/agents/yuan-frontend.md"
     },
@@ -148,7 +150,8 @@
         "已完成 T-007 任务看板详情页 + 进度汇总机制验收；Gemini 二审 429 不阻塞自身验收",
         "已完成 T-008 Dev OS 事实源一致性校验脚本验收；Gemini 二审 429 / 网络错误无有效输出，不阻塞自身验收",
         "已完成 T-009 reviewer 二审方式调整与复核（gpt-5.3-codex）验收；后续二审统一使用 gpt-5.3-codex",
-        "TWA-001A 已验收通过：PASS with notes，无 Blocker / Major"
+        "TWA-001A 已验收通过：PASS with notes，无 Blocker / Major",
+        "TWA-001B 已验收通过：PASS with notes，无 Blocker / Major"
       ],
       "wiki": "docs/project-os/agents/yuan-reviewer.md"
     }
@@ -290,8 +293,8 @@
       "owner": "yuan-frontend",
       "status": "in_progress",
       "priority": "P0",
-      "progress": 70,
-      "summary": "已完成工程骨架和 locale-aware 最小路由；下一步进入静态视觉与响应式实现，仍禁止真实业务、API handler、数据库 schema、登录/短信、生图/试卷、支付、额度扣费和 secret 越界。",
+      "progress": 85,
+      "summary": "已完成 App Shell / 首页 / 工作台基础静态视觉与移动端响应式布局；UI 已对照 desktop/mobile 设计稿落地，仍禁止真实业务、API handler、数据库 schema、登录/短信、生图/试卷、支付、额度扣费和 secret 越界。",
       "wiki": "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md"
     }
   ],
@@ -524,6 +527,23 @@
     }
   ],
   "recentUpdates": [
+    {
+      "id": "twa-001b-static-visual-responsive-layout",
+      "date": "2026-05-15",
+      "title": "完成 TWA-001B 静态视觉与移动端响应式布局",
+      "files": [
+        "apps/web/app/",
+        "apps/web/src/components/app-ui.tsx",
+        "apps/web/src/i18n/copy.ts",
+        "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json",
+        "docs/project-os/CHANGELOG.md"
+      ],
+      "description": "对照 pic/desktop* 与 pic/mobile* 设计稿，实现 App Shell / 首页 / 工作台基础静态视觉和移动端响应式布局；修正 html lang，增加 zh-CN/en 静态文案映射和 market placeholder，未进入登录、生图、试卷、支付、API 或数据库 schema。"
+    },
     {
       "id": "twa-001a-web-workspace-locale-routes",
       "date": "2026-05-15",
