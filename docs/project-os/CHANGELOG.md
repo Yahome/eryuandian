@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- 2026-05-15：完成 TWA-001A Web App workspace 与 locale-aware 最小路由骨架；建立 `pnpm workspace`、`apps/web`、Next.js 16 最小 App Router 工程，跑通 `/zh-CN`、`/en`、`/zh-CN/app`、`/en/app`、`/zh-CN/app/dashboard`、`/en/app/dashboard`，保留 Dev OS Vite 工程，未进入完整视觉、真实业务、API handler、数据库 schema、支付或后续任务。
 ## 2026-05-14
 
 - 收口 TWA-001 国际化 / 中英文双市场版本基线：正式冻结 locale-aware 路由方向与 market-aware 内容组织原则；当前不实现真实多语言运行时代码、多市场定价、国际支付或 CMS。

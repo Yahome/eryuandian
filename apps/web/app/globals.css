@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  background: #f7f4ed;
+  color: #1c2430;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Arial,
+    "Helvetica Neue",
+    sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.route-placeholder {
+  min-height: 100svh;
+  padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+}
+
+.route-placeholder__content {
+  width: min(100%, 720px);
+  margin: 0 auto;
+}
+
+.route-placeholder__eyebrow {
+  margin: 0 0 12px;
+  color: #596273;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.route-placeholder__title {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.route-placeholder__body {
+  max-width: 58ch;
+  margin: 14px 0 0;
+  color: #3b4656;
+  font-size: 16px;
+  line-height: 1.6;
+}

@@ -1,10 +1,15 @@
 {
+  "packageManager": "pnpm@11.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "typecheck": "tsc -b --pretty false"
+    "typecheck": "tsc -b --pretty false",
+    "web:dev": "pnpm --filter @eryuandian/web dev",
+    "web:build": "pnpm --filter @eryuandian/web build",
+    "web:typecheck": "pnpm --filter @eryuandian/web typecheck",
+    "web:lint": "pnpm --filter @eryuandian/web lint"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
