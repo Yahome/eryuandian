@@ -116,3 +116,4 @@
 - 2026-05-08：TWA-001 前置架构冻结与用户最终确认已完成，当前支持 `yuan-frontend` 按边界实施。
 - 2026-05-14：TWA-001 国际化 / 双市场版本基线已作为架构冻结项之一，确认 `zh-CN` / `en`、locale-aware routing 与 market-aware 内容组织原则；不实现真实多语言运行时、多市场定价、国际支付或 CMS。
 - 2026-05-16：TWA-001 closeout 已完成，状态同步为 `done / 100`；后续进入 TWA-002 前置规划时继续防止真实业务越界。
+- 2026-05-16：TWA-002A 登录与会话 Mock / Adapter 实现前架构冻结已完成；冻结 `/[locale]/login`、Auth DTO、session/logout/error code、Mock/Adapter 分层和 frontend/backend 并行条件。

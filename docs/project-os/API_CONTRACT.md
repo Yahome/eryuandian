@@ -9,66 +9,20 @@
 
 注意：本文档包含 TWA-002 的 Mock/Adapter 契约补充，均为前置规划草案，不代表真实 API handler、真实短信通道、真实鉴权或真实数据库实现已落地。
 
-TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Adapter 契约补充（草案）”为当前前置规划基准；下方“账号登录”中的旧 `/api/auth/sms-code` 与旧 token 响应保留为历史草案，仅用于追溯，不作为后续实现基准。
+TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Adapter 契约补充（实现前冻结）
 
-## 通用约定
+说明：本节只定义 Mock / Adapter 约定，不代表真实实现。当前阶段禁止创建真实 API handler、真实短信供应商接入、真实会话存储、数据库 schema / migration 或 secret。TWA-000 与旧账号登录草案仅保留追溯；若路径或字段冲突，以本节为准。
 
-Base path 建议：`/api`
+### Endpoint 冻结
 
-通用响应（`success` 为 API 布尔字段，`true` 表示请求成功，不是任务状态枚举）：
+- `POST /api/auth/send-code`
+- `POST /api/auth/login-phone`
+- `GET /api/auth/session`
+- `POST /api/auth/logout`
 
-```json
-{
-  "success": true,
-  "data": {},
-  "error": null
-}
-```
+旧 `/api/auth/login`、旧 `/api/auth/sms-code`、camelCase `codeId` / `expiresAt` 不再作为当前实现基准。当前 public DTO 统一使用 snake_case。
 
-错误响应（`success` 为 API 布尔字段，`false` 表示请求失败，不是任务状态枚举）：
-
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "INVALID_INPUT",
-    "message": "参数不合法"
-  }
-}
-```
-
-## 账号登录
-
-### 发送验证码（历史草案，TWA-002 后已由 `/api/auth/send-code` Mock 契约替代）
-
-`POST /api/auth/sms-code`
-
-请求：
-
-```json
-{
-  "phone": "13800000000"
-}
-```
-
-响应：
-
-```json
-{
-  "success": true,
-  "data": {
-    "cooldown_seconds": 60
-  },
-  "error": null
-}
-```
-
-## TWA-002 登录与会话 Mock / Adapter 契约补充（草案）
-
-说明：本节只定义 Mock/Adapter 约定，不代表真实实现。当前阶段禁止创建真实 API handler、真实短信供应商接入和真实会话存储。
-
-### 发送验证码（Mock 约束）
+### SendCodeRequest / SendCodeResponse
 
 `POST /api/auth/send-code`
 
@@ -77,7 +31,9 @@ Base path 建议：`/api`
 ```json
 {
   "phone": "13800000000",
-  "scene": "login"
+  "scene": "login",
+  "agree_terms": true,
+  "captcha_token": null
 }
 ```
 
@@ -89,13 +45,14 @@ Base path 建议：`/api`
   "data": {
     "code_id": "mock_code_001",
     "cooldown_seconds": 60,
+    "expires_at": "2026-05-16T10:05:00Z",
     "delivery": "mock"
   },
   "error": null
 }
 ```
 
-### 登录并建立会话（Mock 约束）
+### LoginPhoneRequest / LoginPhoneResponse
 
 `POST /api/auth/login-phone`
 
@@ -106,7 +63,8 @@ Base path 建议：`/api`
   "phone": "13800000000",
   "code": "123456",
   "code_id": "mock_code_001",
-  "agree_terms": true
+  "agree_terms": true,
+  "return_to": "/zh-CN/app/dashboard"
 }
 ```
 
@@ -118,13 +76,50 @@ Base path 建议：`/api`
   "data": {
     "session": {
       "session_id": "sess_mock_001",
+      "user_id": "user_001",
       "status": "active",
       "issued_at": "2026-05-16T10:00:00Z",
-      "expires_at": "2026-05-23T10:00:00Z"
+      "expires_at": "2026-05-23T10:00:00Z",
+      "last_seen_at": "2026-05-16T10:05:00Z",
+      "is_mock": true
     },
     "user": {
       "id": "user_001",
       "phone": "13800000000",
+      "phone_masked": "138****0000",
+      "nickname": "用户001",
+      "membership": "free",
+      "credits": 20
+    },
+    "redirect_to": "/zh-CN/app/dashboard"
+  },
+  "error": null
+}
+```
+
+### SessionDTO / UserDTO 与查询语义
+
+`GET /api/auth/session` 用于“鉴权态探测”；`GET /api/me` 后续仅用于已登录用户资料域读取。
+
+有有效会话时：
+
+```json
+{
+  "success": true,
+  "data": {
+    "session": {
+      "session_id": "sess_mock_001",
+      "user_id": "user_001",
+      "status": "active",
+      "issued_at": "2026-05-16T10:00:00Z",
+      "expires_at": "2026-05-23T10:00:00Z",
+      "last_seen_at": "2026-05-16T10:05:00Z",
+      "is_mock": true
+    },
+    "user": {
+      "id": "user_001",
+      "phone": "13800000000",
+      "phone_masked": "138****0000",
       "nickname": "用户001",
       "membership": "free",
       "credits": 20
@@ -134,9 +129,39 @@ Base path 建议：`/api`
 }
 ```
 
-### 查询当前会话（Mock 约束）
+无会话时返回 `200`，不是错误：
 
-`GET /api/auth/session`
+```json
+{
+  "success": true,
+  "data": {
+    "session": null,
+    "user": null
+  },
+  "error": null
+}
+```
+
+过期会话返回 `SESSION_EXPIRED`，并由 mock session context 清理失效标识：
+
+```json
+{
+  "success": false,
+  "data": null,
+  "error": {
+    "code": "SESSION_EXPIRED",
+    "message": "Session expired.",
+    "request_id": "req_mock_001",
+    "details": { "endpoint": "/api/auth/session" }
+  }
+}
+```
+
+### LogoutRequest / LogoutResponse
+
+`POST /api/auth/logout` 选择 A 方案：无 body，由当前 session context 注销。理由：更贴近 cookie/session 模式，客户端不传 `session_id` 更安全，也避免多端参数歧义。
+
+请求：无 body。
 
 响应：
 
@@ -144,47 +169,62 @@ Base path 建议：`/api`
 {
   "success": true,
   "data": {
-    "session": {
-      "session_id": "sess_mock_001",
-      "status": "active",
-      "issued_at": "2026-05-16T10:00:00Z",
-      "expires_at": "2026-05-23T10:00:00Z",
-      "last_seen_at": "2026-05-16T10:05:00Z"
+    "logged_out": true,
+    "cleared": true
+  },
+  "error": null
+}
+```
+
+### ErrorDTO 与错误码
+
+统一错误结构：
+
+```json
+{
+  "success": false,
+  "data": null,
+  "error": {
+    "code": "INVALID_CODE",
+    "message": "Verification code is invalid.",
+    "request_id": "req_20260516_01",
+    "details": {
+      "endpoint": "/api/auth/login-phone"
     }
-  },
-  "error": null
+  }
 }
 ```
 
-### 注销会话（Mock 约束）
+| 错误码 | 适用 endpoint | 说明 |
+|---|---|---|
+| `INVALID_PHONE` | `POST /api/auth/send-code`、`POST /api/auth/login-phone` | 手机号格式不合法 |
+| `UNSUPPORTED_SCENE` | `POST /api/auth/send-code` | `scene` 不支持；当前仅 `login` |
+| `SEND_CODE_TOO_FREQUENT` | `POST /api/auth/send-code` | 冷却期内重复发送 |
+| `CODE_ID_NOT_FOUND` | `POST /api/auth/login-phone` | `code_id` 不存在或不属于该手机号 |
+| `INVALID_CODE` | `POST /api/auth/login-phone` | 验证码错误 |
+| `CODE_EXPIRED` | `POST /api/auth/login-phone` | 验证码过期 |
+| `TERMS_NOT_AGREED` | `POST /api/auth/login-phone` | 未勾选协议 |
+| `SESSION_NOT_FOUND` | `GET /api/me` | 需要会话但未找到；`POST /api/auth/logout` 按幂等成功清理，不暴露为失败分支 |
+| `SESSION_EXPIRED` | `GET /api/auth/session`、`GET /api/me` | 会话已过期；`POST /api/auth/logout` 按幂等成功清理，不暴露为失败分支 |
 
-`POST /api/auth/logout`
+### Public DTO 与内部概念模型边界
 
-请求：
+Public DTO 是前后端共享的稳定契约；`DATA_MODEL.md` 中的 `AuthLoginCode` / `AuthSession` 是内部概念模型，可能包含验证码摘要、尝试次数、provider 原始回包、风控标签、存储 key 等字段，不等价于 API 暴露字段，不得直接外露。
 
-```json
-{
-  "session_id": "sess_mock_001"
-}
-```
+### Adapter 接口冻结
 
-响应：
+`SmsAdapter`：
 
-```json
-{
-  "success": true,
-  "data": {
-    "revoked": true
-  },
-  "error": null
-}
-```
+- `send_code(input: { phone: string; scene: "login"; code_id: string; ttl_seconds: number }): Promise<{ accepted: true; provider_message_id: string }>`
+- `verify_code(input: { phone: string; scene: "login"; code_id: string; code: string }): Promise<{ ok: true } | { ok: false; reason: "CODE_ID_NOT_FOUND" | "INVALID_CODE" | "CODE_EXPIRED" }>`
+- 责任边界：处理验证码 provider 交互与结果归一化，不负责会话创建、协议校验或 HTTP 响应封装。
 
-### Adapter 接口占位（仅边界说明）
+`SessionAdapter`：
 
-- `SmsAdapter`：后续真实实现可替换 mock 发送逻辑；TWA-002 当前固定 `delivery: "mock"`。
-- `SessionAdapter`：后续真实实现可替换 mock 会话存储与过期策略；TWA-002 当前只定义字段，不定义存储实现。
-
+- `create(input: { user_id: string; ttl_seconds: number; context: { ip?: string; ua?: string } }): Promise<SessionDTO>`
+- `get_current(input: { session_token?: string }): Promise<{ state: "active" | "not_found" | "expired"; session: SessionDTO | null; user: UserDTO | null }>`
+- `revoke_current(input: { session_token?: string }): Promise<{ revoked: boolean }>`
+- 责任边界：处理会话生命周期，不处理短信验证码逻辑。
 ### 手机号登录 / 注册（历史草案，TWA-002 后以“登录并建立会话”Mock 契约为准）
 
 `POST /api/auth/login-phone`

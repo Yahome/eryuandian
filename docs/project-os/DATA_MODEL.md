@@ -152,3 +152,10 @@ Dev OS 首期不进业务数据库，直接读取 Markdown / JSON。
 - `DECISIONS.md`：决策。
 
 后续如需数据库化，必须保持 Markdown 仍为事实源或明确迁移规则。
+
+## TWA-002A Public DTO 与内部模型边界
+
+- Public DTO 以 `API_CONTRACT.md` 的 TWA-002 实现前冻结章节为准。
+- `AuthLoginCode` 与 `AuthSession` 是内部概念模型，不代表数据库 schema / migration / ORM model 已创建。
+- 内部模型可包含验证码摘要、尝试次数、provider 原始回包、风控标签、会话存储 key、设备上下文等字段；这些字段不得默认暴露给前端。
+- API 暴露字段与内部字段不等价，后续真实 provider / DB 阶段必须重新审查最小暴露原则。

@@ -3,12 +3,12 @@
     "name": "两元店",
     "slug": "eryuandian",
     "rootPath": "/root/eryuandian",
-    "status": "Phase 1 / TWA-002 登录与会话 Mock / Adapter 前置规划进行中",
-    "phase": "TWA-002 前置规划进行中",
+    "status": "Phase 1 / TWA-002A 实现前架构冻结已完成",
+    "phase": "TWA-002A 架构冻结完成，TWA-002 实现前",
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "TWA-002 登录与会话 Mock / Adapter 前置规划已启动：先冻结 mock auth/session DTO、adapter 替换点、允许/禁止范围与验收标准；不得越界进入真实登录、真实短信、真实 API handler、数据库 schema、支付、生图、试卷或 secret。",
+    "currentFocus": "TWA-002A 登录与会话 Mock / Adapter 实现前架构冻结已完成：已冻结 /[locale]/login、Auth endpoint、DTO、session/logout/error code 与 Mock/Adapter 分层；下一轮可生成 frontend/backend 实现 prompt，但仍禁止真实登录、短信、API handler、DB schema 或 secret。",
     "updatedAt": "2026-05-16"
   },
   "agents": [
@@ -306,8 +306,8 @@
       "owner": "yuan-architect",
       "status": "in_progress",
       "priority": "P0",
-      "progress": 30,
-      "summary": "TWA-002 前置规划进行中：冻结登录与会话 Mock / Adapter 分层边界、最小 DTO、adapter 替换点、允许/禁止范围和 reviewer 验收清单；当前仅文档/契约草案，不实现真实登录、短信、API handler、数据库 schema 或 secret。",
+      "progress": 70,
+      "summary": "TWA-002A 实现前架构冻结已完成：冻结 locale-aware /[locale]/login 同页登录/注册、return_to、send-code/login-phone/session/logout endpoint、snake_case DTO、session/logout/error code、SmsAdapter / SessionAdapter 粒度与 frontend/backend 并行条件；本轮未写真实业务代码。",
       "wiki": "docs/project-os/tasks/web-app/TWA-002-登录与会话-Mock-Adapter.md"
     }
   ],
@@ -341,12 +341,12 @@
       "title": "技术路线复杂度上升",
       "impact": "Next.js / NestJS / Redis / BullMQ / monorepo 一次性落地可能拖慢 MVP",
       "status": "monitoring",
-      "mitigation": "按任务分阶段落地：先工程底座与 contract，再 mock/adapter，再真实 provider；本轮只同步事实源，不安装依赖或写业务代码。",
+      "mitigation": "按任务分阶段落地：先工程底座与 contract，再 mock/adapter，再真实 provider；当前 TWA-002 只做前置规划与事实源同步。",
       "wiki": "docs/project-os/RISKS.md"
     },
     {
       "id": "R-007",
-      "title": "TWA-001 实现阶段越界",
+      "title": "Web App 后续任务实现阶段越界",
       "impact": "误接真实 API / schema / provider 或提前实现后续任务",
       "status": "monitoring",
       "mitigation": "reviewer 重点检查无真实登录、短信、生图、试卷、支付、额度扣费、DB schema、API handler、secret。",
@@ -357,7 +357,7 @@
       "title": "前端偏离移动端优先",
       "impact": "95% 移动端使用场景体验失真",
       "status": "monitoring",
-      "mitigation": "TWA-001 必须覆盖 375 / 390 / 430px，底部 Tab、轻量 header、单列内容流和 44px 触控区域。",
+      "mitigation": "后续新增业务页继续复用 TWA-001 的移动优先基线，保持 375 / 390 / 430px、轻 header、单列流和 44px 触控。",
       "wiki": "docs/project-os/RISKS.md"
     },
     {
@@ -365,7 +365,7 @@
       "title": "App Shell 未按 deep research 路线建立可复用结构",
       "impact": "后续 TWA-002 至 TWA-007 返工",
       "status": "monitoring",
-      "mitigation": "实现需按 Next.js / contract / mock / adapter / 移动优先结构组织，不把 mock 逻辑散落到 UI 组件。",
+      "mitigation": "TWA-001 已建立 App Shell 基座；后续 TWA-002 至 TWA-007 必须复用该结构，不得重新散装造壳。",
       "wiki": "docs/project-os/RISKS.md"
     },
     {
@@ -373,7 +373,7 @@
       "title": "国际化 / 双市场能力后置导致路由与首页重构",
       "impact": "App Shell、首页、导航、定价文案、功能展示可能返工",
       "status": "monitoring",
-      "mitigation": "TWA-001 现在先冻结 locale-aware / market-aware 基线；后续 frontend 按该基线组织文案和路由。",
+      "mitigation": "TWA-001 已冻结 locale-aware / market-aware 基线；后续业务页和商业化页继续沿用 locale / market 分层。",
       "wiki": "docs/project-os/RISKS.md"
     },
     {
@@ -444,7 +444,7 @@
           "done": true
         },
         {
-          "title": "TWA-002：登录与会话 Mock / Adapter（前置规划进行中）",
+          "title": "TWA-002：登录与会话 Mock / Adapter（进行中：TWA-002A 实现前架构冻结已完成，owner yuan-architect，progress 70）",
           "done": false
         },
         {
@@ -548,6 +548,23 @@
     }
   ],
   "recentUpdates": [
+    {
+      "id": "twa-002a-auth-session-architecture-freeze",
+      "date": "2026-05-16",
+      "title": "冻结 TWA-002 登录会话实现前架构",
+      "files": [
+        "docs/project-os/tasks/web-app/TWA-002-登录与会话-Mock-Adapter.md",
+        "docs/project-os/API_CONTRACT.md",
+        "docs/project-os/DATA_MODEL.md",
+        "docs/project-os/DECISIONS.md",
+        "docs/project-os/RISKS.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json"
+      ],
+      "description": "完成 TWA-002A 实现前架构冻结：/[locale]/login 同页登录/注册、return_to、Auth endpoint、DTO、session/logout/error code 与 Mock/Adapter 分层已统一；progress 推进到 70，本轮不实现真实登录、短信、API handler、DB schema 或 secret。"
+    },
     {
       "id": "twa-002-auth-session-mock-adapter-planning-started",
       "date": "2026-05-16",

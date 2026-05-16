@@ -1,6 +1,6 @@
 # TASK_BOARD
 
-状态：Phase 1 / TWA-002 前置规划进行中
+状态：Phase 1 / TWA-002A 实现前架构冻结已完成
 更新时间：2026-05-16
 
 ## Dev OS / Project OS 治理任务
@@ -57,7 +57,7 @@ Web App 业务任务统一使用 `TWA-xxx`，任务文档统一放在 `docs/proj
 11. TWA-001B 已完成：已对照 `pic/desktop*` 与 `pic/mobile*` 设计稿落地 App Shell / 首页 / 工作台基础静态视觉和移动端响应式布局，继续预留 locale-aware / market-aware 结构。
 12. TWA-001C 已完成：修正 i18n Root Layout 结构、移动端 overflow / 底部 Tab 遮挡风险、补齐 12 张 closeout 截图矩阵，并通过 `yuan-reviewer` closeout 复核。
 13. TWA-001 已正式收口为已完成（内部枚举：`done`），owner 保持 `yuan-frontend`，progress 为 `100`。
-14. TWA-002 已进入进行中（内部枚举：`in_progress`，owner：`yuan-architect`，progress：`30`）：当前仅允许前置架构与事实源同步，明确登录与会话 Mock / Adapter 边界、允许/禁止范围、验收标准与 frontend/backend/reviewer 分工；不得越界进入真实登录、真实短信、真实 API handler、真实数据库 schema 或 secret。
+14. TWA-002A 已完成实现前架构冻结（内部枚举：`in_progress`，owner：`yuan-architect`，progress：`70`）：已冻结 `/[locale]/login`、登录/注册同页 Tab、`return_to`、四个 Auth endpoint、DTO、session/logout/error code、Mock/Adapter 分层与 frontend/backend 并行条件；下一轮可生成实现 prompt，但本轮尚未写业务代码。
 
 ## Architect 前置门禁
 

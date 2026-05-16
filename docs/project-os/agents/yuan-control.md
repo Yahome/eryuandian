@@ -65,8 +65,8 @@ yuan-control：同步状态和派发下一步
 - 已完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改并通过验收；Dev OS Dashboard v1.0 收尾完成。
 - 已完成 T-011 Project OS 文档体系中文化与任务线分离；Dev OS / Web App 任务线已拆分。
 - 已完成 TWA-000 Web App MVP 架构冻结与开发基线；Web App 业务任务统一使用 `TWA-xxx`。
-- TWA-001 已完成并收口：技术冻结、国际化 / 双市场版本基线、TWA-001A 工程骨架、TWA-001B 静态视觉实现与 TWA-001C 视觉回归 / 截图补齐均已完成；下一步准备 TWA-002 前置规划。
-- 已创建并同步 TWA-002 登录与会话 Mock / Adapter 前置规划任务：当前 `owner: yuan-architect`、`status: in_progress`、`progress: 30`，未放行 frontend/backend 业务代码实现。
+- TWA-001 已完成并收口：技术冻结、国际化 / 双市场版本基线、TWA-001A 工程骨架、TWA-001B 静态视觉实现与 TWA-001C 视觉回归 / 截图补齐均已完成。
+- TWA-002A 实现前架构冻结已完成：当前 `owner: yuan-architect`、`status: in_progress`、`progress: 70`，下一轮可生成 frontend/backend 实现 prompt，但本轮未写业务代码。
 
 ## 当前边界
 
@@ -95,3 +95,4 @@ yuan-control：同步状态和派发下一步
 - 2026-05-14：收口 TWA-001 国际化 / 双市场版本架构补充；下一步才重新派发 frontend 实现 prompt，且必须写入 locale-aware / market-aware 约束。
 - 2026-05-16：TWA-001 已完成 closeout：TWA-001A/B/C 均完成，`yuan-reviewer` 复核无 Blocker / Major 后同步为 `done / 100`。
 - 2026-05-16：TWA-002 前置规划已启动并同步事实源：只允许文档/契约草案更新，不允许进入真实登录、真实 API handler、数据库 schema 或 secret。
+- 2026-05-16：TWA-002A 实现前架构冻结已完成；progress 推进到 `70`，下一轮可生成 frontend/backend 实现 prompt，但本轮未写业务代码。

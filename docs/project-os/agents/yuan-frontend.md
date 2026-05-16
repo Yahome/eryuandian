@@ -79,3 +79,4 @@
 - 2026-05-14：TWA-001 新增国际化 / 双市场版本基线；实现 App Shell / 首页 / 工作台基础时必须遵循 locale-aware / market-aware 预留原则，不把关键导航、首页 Hero、CTA、价格型占位文案或市场差异写死为单一中文版本。
 - 2026-05-16：TWA-001 已完成：TWA-001A 工程骨架、TWA-001B 静态视觉、TWA-001C 视觉回归 / 截图矩阵补齐均已收口；未进入真实登录、短信、生图、试卷、支付、API 或 DB schema。
 - 2026-05-16：TWA-002 已启动前置规划，但尚未放行 `yuan-frontend` 实现；不得提前开发登录页真实流程、短信调用、会话接入、真实 API 或后端联调，只能等待 `yuan-architect` 边界和 `yuan-control` 放行。
+- 2026-05-16：TWA-002A 已完成实现前架构冻结；下一轮若放行，`yuan-frontend` 仅实现 `/[locale]/login` 同页登录/注册 mock UI、状态机、session badge 与静态入口，不接真实短信/鉴权。

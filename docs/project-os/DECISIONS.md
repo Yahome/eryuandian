@@ -52,12 +52,22 @@
 边界：不做国际支付，不做动态定价，不做 CMS，不做真实运营配置后台，不做真实登录 / 生图 / 试卷 / 支付 / 额度扣费等业务功能。
 
 
-## D-006：TWA-002 先做 Mock / Adapter 前置规划，不直接进入真实登录实现
+## D-006：TWA-002 先做 Mock / Adapter 前置规划，不直接进入真实登录实现（历史阶段）
 
 日期：2026-05-16
 
-决策：TWA-002 首阶段固定为文档与事实源规划（owner `yuan-architect`，`status: in_progress`，`progress: 30`），先冻结登录与会话 Mock/Adapter 边界、允许/禁止范围、验收标准与 frontend/backend/reviewer 分工。
+决策：TWA-002 首阶段固定为文档与事实源规划，先冻结登录与会话 Mock/Adapter 边界、允许/禁止范围、验收标准与 frontend/backend/reviewer 分工；该历史阶段已被 D-007 的实现前冻结契约承接。
 
 原因：若在契约和边界未对齐前直接实现真实登录，会引入短信供应商接入、会话存储、安全策略和数据库设计返工风险，且与当前 Phase 1 “先 mock 后 provider”顺序冲突。
 
 边界：当前阶段不创建/修改 `apps/web` 或后端源码，不创建真实 API handler，不创建数据库 schema/migration，不接真实短信/登录/支付/生图/试卷，不保存 secret/token/key，不修改 dashboard schema。
+
+## D-007：TWA-002 登录与会话采用 Mock / Adapter 实现前冻结契约
+
+日期：2026-05-16
+
+决策：TWA-002 登录与会话实现前冻结以 `/[locale]/login` 单页登录/注册 Tab、`return_to` 预留、`/api/auth/send-code`、`/api/auth/login-phone`、`/api/auth/session`、`/api/auth/logout` 四个 Mock / Adapter endpoint、snake_case Public DTO、无 body logout、无会话 `session: null` 语义为基准。
+
+原因：TWA-002 需要在 frontend/backend 开工前统一路由、状态机、DTO、session/logout/error code 和 adapter 替换点，避免旧 TWA-000 Auth 草案、camelCase 字段或真实 provider 误入实现。
+
+边界：本决策不代表真实登录、真实短信、真实微信授权、真实 API handler、数据库 schema / migration、真实会话存储或 secret 已实现；本轮只做架构冻结与事实源同步。

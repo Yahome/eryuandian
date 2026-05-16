@@ -62,6 +62,8 @@ T-011 已完成 Project OS 文档体系中文化与任务线分离：Dev OS / Pr
 
 ### Auth
 
+> 注意：本节 Auth contract 为 TWA-000 阶段历史基线；登录与会话当前实现基准以 TWA-002 Mock / Adapter 契约为准。若字段、路径与 TWA-002 不一致，以 TWA-002 当前契约为准。
+
 - `POST /api/auth/send-code`
   - request：`{ phone: string, scene: "login" }`
   - response：`{ codeId: string, expiresAt: string, delivery: "mock" | "sms" }`

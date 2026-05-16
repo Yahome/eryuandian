@@ -56,7 +56,7 @@
 ## 当前硬边界
 
 - TWA-001 已完成：技术冻结、用户最终确认、国际化 / 中英文双市场版本基线、TWA-001A 工程骨架、TWA-001B 静态视觉实现与 TWA-001C 视觉回归 / 截图补齐均已收口。
-- 当前正在执行 TWA-002 登录与会话 Mock / Adapter 前置规划（`in_progress` / `30`）；当前阶段只允许文档与事实源规划，未获得新任务放行前不得直接实现真实登录。
+- 当前正在执行 TWA-002 登录与会话 Mock / Adapter；TWA-002A 实现前架构冻结已完成（`in_progress` / `70`），下一轮可生成 frontend/backend 实现 prompt，但本轮仍未实现真实登录。
 - 当前不开发真实登录、生图、试卷、支付等业务功能。
 - 当前只冻结 `zh-CN` / `en`、locale-aware routing 与 market-aware 内容组织原则，不实现真实多语言运行时代码、多市场定价、国际支付或 CMS。
 - 当前不修改数据库 schema，不创建真实 API handler，不写 secret / token / key。
@@ -136,7 +136,7 @@ yuan-control：同步状态和派发下一步
 
 ## 当前阶段
 
-当前处于 Phase 1：Web App MVP 基础阶段，TWA-001 已完成，TWA-002 前置规划进行中。
+当前处于 Phase 1：Web App MVP 基础阶段，TWA-001 已完成，TWA-002A 实现前架构冻结已完成。
 
 已完成：
 
@@ -157,5 +157,5 @@ yuan-control：同步状态和派发下一步
 
 下一步：
 
-- 推进 TWA-002 登录与会话 Mock / Adapter 前置规划与事实源同步（owner `yuan-architect`，progress `30`）。
-- TWA-002 当前阶段必须先明确 Mock / Adapter 边界；不得直接进入真实短信、真实登录生产接入、真实数据库 schema、支付、生图、试卷或 secret。
+- 下一轮可生成 TWA-002 frontend/backend 实现 prompt：frontend 做 `/[locale]/login` 同页登录/注册 mock UI，backend 做 mock auth service 与 adapter interfaces。
+- TWA-002 当前仍不创建真实登录、真实短信、真实 API handler、数据库 schema / migration 或 secret；frontend/backend 实现须严格遵守 TWA-002A 架构冻结。
