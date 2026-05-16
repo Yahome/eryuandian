@@ -1,4 +1,5 @@
 # CHANGELOG
+- 2026-05-16：收口 TWA-002A.1 契约唯一化与文档一致性：修复 API_CONTRACT 顶部断句，恢复通用响应约定，统一 TWA-002 唯一实现基准，归档旧 Auth 草案，继续禁止真实业务实现。
 - 2026-05-16：冻结 TWA-002 登录会话实现前架构：确认 `/[locale]/login` 同页登录/注册、`return_to`、四个 Auth endpoint、snake_case DTO、session/logout/error code 与 Mock/Adapter 分层；TWA-002 progress 推进到 `70`，本轮不实现真实业务代码。
 - 2026-05-16：启动 TWA-002 登录与会话 Mock / Adapter 前置规划：创建任务文档并同步 TASK_BOARD / ROADMAP / SOURCE_OF_TRUTH / dashboard / API_CONTRACT / DATA_MODEL / RISKS / DECISIONS；当前仅文档与契约草案，未进入真实登录、短信、API handler、数据库 schema 或 secret。
 - 2026-05-16：完成 TWA-001 closeout：同步 TWA-001A/B/C 完成事实，将 TWA-001 标记为已完成（内部枚举：`done`，progress 100），保留 owner 为 `yuan-frontend`；下一步准备 TWA-002 登录与会话 Mock / Adapter 前置规划。

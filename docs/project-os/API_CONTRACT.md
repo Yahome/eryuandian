@@ -7,11 +7,42 @@
 
 本文档是首期 API 契约草案，用于前后端并行开发前对齐字段和边界。最终实现前，`yuan-architect` 需要进一步细化状态码、错误码、鉴权方式和请求限制。
 
-注意：本文档包含 TWA-002 的 Mock/Adapter 契约补充，均为前置规划草案，不代表真实 API handler、真实短信通道、真实鉴权或真实数据库实现已落地。
+注意：本文档包含 TWA-002 的 Mock / Adapter 契约补充，均为实现前冻结契约，不代表真实 API handler、真实短信通道、真实鉴权或真实数据库实现已落地。
 
-TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Adapter 契约补充（实现前冻结）
+TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Adapter 契约补充（实现前冻结）”为当前实现前冻结基准。TWA-000 与旧账号登录草案仅保留追溯；若路径或字段冲突，以本节为准。
 
-说明：本节只定义 Mock / Adapter 约定，不代表真实实现。当前阶段禁止创建真实 API handler、真实短信供应商接入、真实会话存储、数据库 schema / migration 或 secret。TWA-000 与旧账号登录草案仅保留追溯；若路径或字段冲突，以本节为准。
+## 通用约定
+
+Base path 建议：`/api`
+
+### 通用成功响应
+
+```json
+{
+  "success": true,
+  "data": {},
+  "error": null
+}
+```
+
+### 通用错误响应
+
+```json
+{
+  "success": false,
+  "data": null,
+  "error": {
+    "code": "INVALID_INPUT",
+    "message": "参数不合法"
+  }
+}
+```
+
+说明：TWA-002 专属 `ErrorDTO` 可继续扩展 `request_id`、`details`；通用响应与 TWA-002 特化响应并存，逻辑上是“通用基线 + TWA-002 细化”。
+
+## TWA-002 登录与会话 Mock / Adapter 契约补充（实现前冻结）
+
+说明：本节是 TWA-002B / TWA-002C 的唯一实现基准，只定义 Mock / Adapter 约定，不代表真实实现。当前阶段禁止创建真实 API handler、真实短信供应商接入、真实会话存储、数据库 schema / migration 或 secret。
 
 ### Endpoint 冻结
 
@@ -20,7 +51,7 @@ TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Ad
 - `GET /api/auth/session`
 - `POST /api/auth/logout`
 
-旧 `/api/auth/login`、旧 `/api/auth/sms-code`、camelCase `codeId` / `expiresAt` 不再作为当前实现基准。当前 public DTO 统一使用 snake_case。
+旧 `/api/auth/login`、旧 `/api/auth/sms-code`、camelCase `codeId` / `expiresAt` 仅保留历史追溯，不作为当前实现基准。当前 public DTO 统一使用 snake_case。
 
 ### SendCodeRequest / SendCodeResponse
 
@@ -31,9 +62,7 @@ TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Ad
 ```json
 {
   "phone": "13800000000",
-  "scene": "login",
-  "agree_terms": true,
-  "captcha_token": null
+  "scene": "login"
 }
 ```
 
@@ -51,6 +80,24 @@ TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Ad
   "error": null
 }
 ```
+
+TypeScript 定稿：
+
+```ts
+type SendCodeRequest = {
+  phone: string;
+  scene: "login";
+};
+
+type SendCodeResponse = {
+  code_id: string;
+  cooldown_seconds: number;
+  expires_at: string;
+  delivery: "mock";
+};
+```
+
+当前冻结契约中 `send-code` 不包含 `agree_terms` 或 `captcha_token`。`agree_terms` 由登录提交阶段负责；`captcha_token` 留到真实 provider / 风控阶段。
 
 ### LoginPhoneRequest / LoginPhoneResponse
 
@@ -97,7 +144,25 @@ TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Ad
 }
 ```
 
-### SessionDTO / UserDTO 与查询语义
+TypeScript 定稿：
+
+```ts
+type LoginPhoneRequest = {
+  phone: string;
+  code: string;
+  code_id: string;
+  agree_terms: boolean;
+  return_to?: string | null;
+};
+
+type LoginPhoneResponse = {
+  session: SessionDTO;
+  user: UserDTO;
+  redirect_to: string;
+};
+```
+
+### SessionResponse / SessionDTO / UserDTO
 
 `GET /api/auth/session` 用于“鉴权态探测”；`GET /api/me` 后续仅用于已登录用户资料域读取。
 
@@ -129,7 +194,7 @@ TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Ad
 }
 ```
 
-无会话时返回 `200`，不是错误：
+无会话时：
 
 ```json
 {
@@ -142,24 +207,41 @@ TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Ad
 }
 ```
 
-过期会话返回 `SESSION_EXPIRED`，并由 mock session context 清理失效标识：
+携带过期会话时：HTTP 401，error code 为 `SESSION_EXPIRED`，并由 mock session context 清理失效标识。
 
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "SESSION_EXPIRED",
-    "message": "Session expired.",
-    "request_id": "req_mock_001",
-    "details": { "endpoint": "/api/auth/session" }
-  }
-}
+TypeScript 定稿：
+
+```ts
+type SessionDTO = {
+  session_id: string;
+  user_id: string;
+  status: "active" | "revoked" | "expired";
+  issued_at: string;
+  expires_at: string;
+  last_seen_at?: string;
+  is_mock: true;
+};
+
+type UserDTO = {
+  id: string;
+  phone: string;
+  phone_masked: string;
+  nickname: string | null;
+  membership: "free" | "pro";
+  credits: number;
+};
+
+type SessionResponse = {
+  session: SessionDTO | null;
+  user: UserDTO | null;
+};
 ```
+
+当前冻结契约不使用 `authenticated: true` 或 `authenticated: false` 字段。
 
 ### LogoutRequest / LogoutResponse
 
-`POST /api/auth/logout` 选择 A 方案：无 body，由当前 session context 注销。理由：更贴近 cookie/session 模式，客户端不传 `session_id` 更安全，也避免多端参数歧义。
+`POST /api/auth/logout` 选择无 body 方案，由当前 session context 注销。理由：更贴近 cookie/session 模式，客户端不传 `session_id` 更安全，也避免多端参数歧义。
 
 请求：无 body。
 
@@ -176,9 +258,38 @@ TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Ad
 }
 ```
 
+TypeScript 定稿：
+
+```ts
+type LogoutRequest = Record<string, never>;
+
+type LogoutResponse = {
+  logged_out: true;
+  cleared: true;
+};
+```
+
 ### ErrorDTO 与错误码
 
-统一错误结构：
+```ts
+type ErrorDTO = {
+  code:
+    | "INVALID_PHONE"
+    | "UNSUPPORTED_SCENE"
+    | "SEND_CODE_TOO_FREQUENT"
+    | "CODE_ID_NOT_FOUND"
+    | "INVALID_CODE"
+    | "CODE_EXPIRED"
+    | "TERMS_NOT_AGREED"
+    | "SESSION_NOT_FOUND"
+    | "SESSION_EXPIRED";
+  message: string;
+  request_id: string;
+  details?: Record<string, string | number | boolean | null>;
+};
+```
+
+统一错误结构示例：
 
 ```json
 {
@@ -195,17 +306,17 @@ TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Ad
 }
 ```
 
-| 错误码 | 适用 endpoint | 说明 |
-|---|---|---|
-| `INVALID_PHONE` | `POST /api/auth/send-code`、`POST /api/auth/login-phone` | 手机号格式不合法 |
-| `UNSUPPORTED_SCENE` | `POST /api/auth/send-code` | `scene` 不支持；当前仅 `login` |
-| `SEND_CODE_TOO_FREQUENT` | `POST /api/auth/send-code` | 冷却期内重复发送 |
-| `CODE_ID_NOT_FOUND` | `POST /api/auth/login-phone` | `code_id` 不存在或不属于该手机号 |
-| `INVALID_CODE` | `POST /api/auth/login-phone` | 验证码错误 |
-| `CODE_EXPIRED` | `POST /api/auth/login-phone` | 验证码过期 |
-| `TERMS_NOT_AGREED` | `POST /api/auth/login-phone` | 未勾选协议 |
-| `SESSION_NOT_FOUND` | `GET /api/me` | 需要会话但未找到；`POST /api/auth/logout` 按幂等成功清理，不暴露为失败分支 |
-| `SESSION_EXPIRED` | `GET /api/auth/session`、`GET /api/me` | 会话已过期；`POST /api/auth/logout` 按幂等成功清理，不暴露为失败分支 |
+| Error Code | 适用 Endpoint |
+|---|---|
+| `INVALID_PHONE` | `POST /api/auth/send-code`, `POST /api/auth/login-phone` |
+| `UNSUPPORTED_SCENE` | `POST /api/auth/send-code` |
+| `SEND_CODE_TOO_FREQUENT` | `POST /api/auth/send-code` |
+| `CODE_ID_NOT_FOUND` | `POST /api/auth/login-phone` |
+| `INVALID_CODE` | `POST /api/auth/login-phone` |
+| `CODE_EXPIRED` | `POST /api/auth/login-phone` |
+| `TERMS_NOT_AGREED` | `POST /api/auth/login-phone` |
+| `SESSION_NOT_FOUND` | `GET /api/me` |
+| `SESSION_EXPIRED` | `GET /api/auth/session`, `GET /api/me` |
 
 ### Public DTO 与内部概念模型边界
 
@@ -215,16 +326,17 @@ Public DTO 是前后端共享的稳定契约；`DATA_MODEL.md` 中的 `AuthLogin
 
 `SmsAdapter`：
 
-- `send_code(input: { phone: string; scene: "login"; code_id: string; ttl_seconds: number }): Promise<{ accepted: true; provider_message_id: string }>`
-- `verify_code(input: { phone: string; scene: "login"; code_id: string; code: string }): Promise<{ ok: true } | { ok: false; reason: "CODE_ID_NOT_FOUND" | "INVALID_CODE" | "CODE_EXPIRED" }>`
+- `sendCode(input: { phone: string; scene: "login"; code_id: string; ttl_seconds: number }): Promise<{ accepted: true; provider_message_id: string }>`
+- `verifyCode(input: { phone: string; scene: "login"; code_id: string; code: string }): Promise<{ ok: true } | { ok: false; reason: "CODE_ID_NOT_FOUND" | "INVALID_CODE" | "CODE_EXPIRED" }>`
 - 责任边界：处理验证码 provider 交互与结果归一化，不负责会话创建、协议校验或 HTTP 响应封装。
 
 `SessionAdapter`：
 
 - `create(input: { user_id: string; ttl_seconds: number; context: { ip?: string; ua?: string } }): Promise<SessionDTO>`
-- `get_current(input: { session_token?: string }): Promise<{ state: "active" | "not_found" | "expired"; session: SessionDTO | null; user: UserDTO | null }>`
-- `revoke_current(input: { session_token?: string }): Promise<{ revoked: boolean }>`
+- `getCurrent(input: { session_token?: string }): Promise<{ state: "active" | "not_found" | "expired"; session: SessionDTO | null; user: UserDTO | null }>`
+- `revokeCurrent(input: { session_token?: string }): Promise<{ revoked: boolean }>`
 - 责任边界：处理会话生命周期，不处理短信验证码逻辑。
+
 ### 手机号登录 / 注册（历史草案，TWA-002 后以“登录并建立会话”Mock 契约为准）
 
 `POST /api/auth/login-phone`
