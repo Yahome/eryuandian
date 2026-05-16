@@ -50,3 +50,14 @@
 原因：国际化与双市场能力会影响路由、文案组织、首页模块、CTA、定价展示和后续商业化设计；当前 frontend 真正工程尚未落地，现阶段补充成本最低，能避免 App Shell / 首页实现后再大改。
 
 边界：不做国际支付，不做动态定价，不做 CMS，不做真实运营配置后台，不做真实登录 / 生图 / 试卷 / 支付 / 额度扣费等业务功能。
+
+
+## D-006：TWA-002 先做 Mock / Adapter 前置规划，不直接进入真实登录实现
+
+日期：2026-05-16
+
+决策：TWA-002 首阶段固定为文档与事实源规划（owner `yuan-architect`，`status: in_progress`，`progress: 30`），先冻结登录与会话 Mock/Adapter 边界、允许/禁止范围、验收标准与 frontend/backend/reviewer 分工。
+
+原因：若在契约和边界未对齐前直接实现真实登录，会引入短信供应商接入、会话存储、安全策略和数据库设计返工风险，且与当前 Phase 1 “先 mock 后 provider”顺序冲突。
+
+边界：当前阶段不创建/修改 `apps/web` 或后端源码，不创建真实 API handler，不创建数据库 schema/migration，不接真实短信/登录/支付/生图/试卷，不保存 secret/token/key，不修改 dashboard schema。

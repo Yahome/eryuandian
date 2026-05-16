@@ -87,6 +87,7 @@
 - T-010 已完成并通过验收。
 - T-011 已完成并通过事实源收口。
 - TWA-001 前置架构冻结、用户最终确认、国际化 / 双市场版本基线、TWA-001A 工程骨架、TWA-001B 静态视觉与 TWA-001C closeout 均已完成；下一步支持 TWA-002 前置规划，仍需守住 Mock / Adapter 与真实业务边界。
+- 已接手 TWA-002 登录与会话 Mock / Adapter 前置规划：当前负责冻结 mock auth/session DTO、adapter 替换点、验收标准与 frontend/backend/reviewer 分工；不得写业务代码或真实 provider。
 
 ## 变更记录
 

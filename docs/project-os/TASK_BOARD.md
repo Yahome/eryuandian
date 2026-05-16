@@ -1,7 +1,7 @@
 # TASK_BOARD
 
-状态：Phase 1 / TWA-001 已完成，准备进入 TWA-002 前置规划
-更新时间：2026-05-15
+状态：Phase 1 / TWA-002 前置规划进行中
+更新时间：2026-05-16
 
 ## Dev OS / Project OS 治理任务
 
@@ -30,6 +30,7 @@ Web App 业务任务统一使用 `TWA-xxx`，任务文档统一放在 `docs/proj
 |---|---|---|---|---|---|
 | TWA-000 | Web App MVP 架构冻结与开发基线 | yuan-architect | 已完成 | P0 | `tasks/web-app/TWA-000-Web-App-MVP-架构冻结与开发基线.md` |
 | TWA-001 | 技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础 | yuan-frontend | 已完成 | P0 | `tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md` |
+| TWA-002 | 登录与会话 Mock / Adapter | yuan-architect | 进行中 | P0 | `tasks/web-app/TWA-002-登录与会话-Mock-Adapter.md` |
 
 ## 状态枚举
 
@@ -55,7 +56,8 @@ Web App 业务任务统一使用 `TWA-xxx`，任务文档统一放在 `docs/proj
 10. TWA-001A 已完成：`pnpm workspace`、`apps/web`、Next.js 16 最小 App Router 与 locale-aware 最小路由已落地。
 11. TWA-001B 已完成：已对照 `pic/desktop*` 与 `pic/mobile*` 设计稿落地 App Shell / 首页 / 工作台基础静态视觉和移动端响应式布局，继续预留 locale-aware / market-aware 结构。
 12. TWA-001C 已完成：修正 i18n Root Layout 结构、移动端 overflow / 底部 Tab 遮挡风险、补齐 12 张 closeout 截图矩阵，并通过 `yuan-reviewer` closeout 复核。
-13. TWA-001 已正式收口为已完成（内部枚举：`done`），owner 保持 `yuan-frontend`，progress 为 `100`；下一步准备 TWA-002 前置规划，不得直接越界进入真实登录。
+13. TWA-001 已正式收口为已完成（内部枚举：`done`），owner 保持 `yuan-frontend`，progress 为 `100`。
+14. TWA-002 已进入进行中（内部枚举：`in_progress`，owner：`yuan-architect`，progress：`30`）：当前仅允许前置架构与事实源同步，明确登录与会话 Mock / Adapter 边界、允许/禁止范围、验收标准与 frontend/backend/reviewer 分工；不得越界进入真实登录、真实短信、真实 API handler、真实数据库 schema 或 secret。
 
 ## Architect 前置门禁
 

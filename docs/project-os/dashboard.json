@@ -3,12 +3,12 @@
     "name": "两元店",
     "slug": "eryuandian",
     "rootPath": "/root/eryuandian",
-    "status": "Phase 1 / TWA-001 已完成，准备进入 TWA-002 前置规划",
-    "phase": "TWA-001 已完成，TWA-002 前置规划前",
+    "status": "Phase 1 / TWA-002 登录与会话 Mock / Adapter 前置规划进行中",
+    "phase": "TWA-002 前置规划进行中",
     "sourceOfTruth": "docs/project-os",
     "principle": "Markdown 文档是事实源，Dashboard 只是可视化层。",
     "productPositioning": "AI 内容生成 Web App，首期包含本地商家营销生图和智能生成试卷两个业务入口。",
-    "currentFocus": "TWA-001 已完成技术冻结、locale-aware 工程骨架、App Shell 静态视觉、移动端响应式与 TWA-001C 视觉回归 / 截图补齐；下一步准备 TWA-002 登录与会话 Mock / Adapter 前置规划。",
+    "currentFocus": "TWA-002 登录与会话 Mock / Adapter 前置规划已启动：先冻结 mock auth/session DTO、adapter 替换点、允许/禁止范围与验收标准；不得越界进入真实登录、真实短信、真实 API handler、数据库 schema、支付、生图、试卷或 secret。",
     "updatedAt": "2026-05-16"
   },
   "agents": [
@@ -299,6 +299,16 @@
       "progress": 100,
       "summary": "TWA-001 已完成：技术栈冻结、国际化 / 双市场基线、TWA-001A Next.js workspace 与 locale 路由骨架、TWA-001B App Shell / 首页 / 工作台静态视觉、TWA-001C 视觉回归与截图矩阵补齐均已收口；未进入真实登录、短信、生图、试卷、支付、API handler、数据库 schema 或 secret。",
       "wiki": "docs/project-os/tasks/web-app/TWA-001-Web-App-技术栈冻结与移动优先-App-Shell-基础.md"
+    },
+    {
+      "id": "TWA-002",
+      "title": "登录与会话 Mock / Adapter",
+      "owner": "yuan-architect",
+      "status": "in_progress",
+      "priority": "P0",
+      "progress": 30,
+      "summary": "TWA-002 前置规划进行中：冻结登录与会话 Mock / Adapter 分层边界、最小 DTO、adapter 替换点、允许/禁止范围和 reviewer 验收清单；当前仅文档/契约草案，不实现真实登录、短信、API handler、数据库 schema 或 secret。",
+      "wiki": "docs/project-os/tasks/web-app/TWA-002-登录与会话-Mock-Adapter.md"
     }
   ],
   "risks": [
@@ -365,6 +375,14 @@
       "status": "monitoring",
       "mitigation": "TWA-001 现在先冻结 locale-aware / market-aware 基线；后续 frontend 按该基线组织文案和路由。",
       "wiki": "docs/project-os/RISKS.md"
+    },
+    {
+      "id": "R-011",
+      "title": "TWA-002 Mock / Adapter 边界漂移",
+      "impact": "前置规划未收口即进入真实登录实现，导致返工与安全风险",
+      "status": "open",
+      "mitigation": "TWA-002 当前 owner 固定为 yuan-architect，先冻结契约/字段/验收标准；reviewer 必查无真实 handler、无 schema、无 secret。",
+      "wiki": "docs/project-os/RISKS.md"
     }
   ],
   "roadmap": [
@@ -415,7 +433,7 @@
     {
       "id": "phase-1",
       "title": "Phase 1：MVP 基础",
-      "status": "pending",
+      "status": "in_progress",
       "items": [
         {
           "title": "TWA-000 Web App MVP 架构冻结与开发基线",
@@ -426,7 +444,7 @@
           "done": true
         },
         {
-          "title": "TWA-002：登录与会话 Mock / Adapter",
+          "title": "TWA-002：登录与会话 Mock / Adapter（前置规划进行中）",
           "done": false
         },
         {
@@ -530,6 +548,22 @@
     }
   ],
   "recentUpdates": [
+    {
+      "id": "twa-002-auth-session-mock-adapter-planning-started",
+      "date": "2026-05-16",
+      "title": "启动 TWA-002 登录与会话 Mock / Adapter 前置规划",
+      "files": [
+        "docs/project-os/tasks/web-app/TWA-002-登录与会话-Mock-Adapter.md",
+        "docs/project-os/API_CONTRACT.md",
+        "docs/project-os/DATA_MODEL.md",
+        "docs/project-os/RISKS.md",
+        "docs/project-os/TASK_BOARD.md",
+        "docs/project-os/dashboard/summary.md",
+        "docs/project-os/dashboard/dashboard.json",
+        "docs/project-os/dashboard.json"
+      ],
+      "description": "创建 TWA-002 前置规划任务，冻结登录与会话 Mock / Adapter 边界、DTO 草案、adapter 替换点和验收标准；当前仅文档/契约草案，不进入真实登录、短信、API handler、数据库 schema 或 secret。"
+    },
     {
       "id": "twa-001b-static-visual-responsive-layout",
       "date": "2026-05-15",

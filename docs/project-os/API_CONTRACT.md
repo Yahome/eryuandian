@@ -1,11 +1,15 @@
 # API_CONTRACT：前后端接口契约草案
 
 状态：草稿（内部标识：`draft`）
-更新时间：2026-05-02
+更新时间：2026-05-16
 
 ## 说明
 
 本文档是首期 API 契约草案，用于前后端并行开发前对齐字段和边界。最终实现前，`yuan-architect` 需要进一步细化状态码、错误码、鉴权方式和请求限制。
+
+注意：本文档包含 TWA-002 的 Mock/Adapter 契约补充，均为前置规划草案，不代表真实 API handler、真实短信通道、真实鉴权或真实数据库实现已落地。
+
+TWA-002 之后，登录与会话契约以“## TWA-002 登录与会话 Mock / Adapter 契约补充（草案）”为当前前置规划基准；下方“账号登录”中的旧 `/api/auth/sms-code` 与旧 token 响应保留为历史草案，仅用于追溯，不作为后续实现基准。
 
 ## 通用约定
 
@@ -36,7 +40,7 @@ Base path 建议：`/api`
 
 ## 账号登录
 
-### 发送验证码
+### 发送验证码（历史草案，TWA-002 后已由 `/api/auth/send-code` Mock 契约替代）
 
 `POST /api/auth/sms-code`
 
@@ -60,7 +64,128 @@ Base path 建议：`/api`
 }
 ```
 
-### 手机号登录 / 注册
+## TWA-002 登录与会话 Mock / Adapter 契约补充（草案）
+
+说明：本节只定义 Mock/Adapter 约定，不代表真实实现。当前阶段禁止创建真实 API handler、真实短信供应商接入和真实会话存储。
+
+### 发送验证码（Mock 约束）
+
+`POST /api/auth/send-code`
+
+请求：
+
+```json
+{
+  "phone": "13800000000",
+  "scene": "login"
+}
+```
+
+响应：
+
+```json
+{
+  "success": true,
+  "data": {
+    "code_id": "mock_code_001",
+    "cooldown_seconds": 60,
+    "delivery": "mock"
+  },
+  "error": null
+}
+```
+
+### 登录并建立会话（Mock 约束）
+
+`POST /api/auth/login-phone`
+
+请求：
+
+```json
+{
+  "phone": "13800000000",
+  "code": "123456",
+  "code_id": "mock_code_001",
+  "agree_terms": true
+}
+```
+
+响应：
+
+```json
+{
+  "success": true,
+  "data": {
+    "session": {
+      "session_id": "sess_mock_001",
+      "status": "active",
+      "issued_at": "2026-05-16T10:00:00Z",
+      "expires_at": "2026-05-23T10:00:00Z"
+    },
+    "user": {
+      "id": "user_001",
+      "phone": "13800000000",
+      "nickname": "用户001",
+      "membership": "free",
+      "credits": 20
+    }
+  },
+  "error": null
+}
+```
+
+### 查询当前会话（Mock 约束）
+
+`GET /api/auth/session`
+
+响应：
+
+```json
+{
+  "success": true,
+  "data": {
+    "session": {
+      "session_id": "sess_mock_001",
+      "status": "active",
+      "issued_at": "2026-05-16T10:00:00Z",
+      "expires_at": "2026-05-23T10:00:00Z",
+      "last_seen_at": "2026-05-16T10:05:00Z"
+    }
+  },
+  "error": null
+}
+```
+
+### 注销会话（Mock 约束）
+
+`POST /api/auth/logout`
+
+请求：
+
+```json
+{
+  "session_id": "sess_mock_001"
+}
+```
+
+响应：
+
+```json
+{
+  "success": true,
+  "data": {
+    "revoked": true
+  },
+  "error": null
+}
+```
+
+### Adapter 接口占位（仅边界说明）
+
+- `SmsAdapter`：后续真实实现可替换 mock 发送逻辑；TWA-002 当前固定 `delivery: "mock"`。
+- `SessionAdapter`：后续真实实现可替换 mock 会话存储与过期策略；TWA-002 当前只定义字段，不定义存储实现。
+
+### 手机号登录 / 注册（历史草案，TWA-002 后以“登录并建立会话”Mock 契约为准）
 
 `POST /api/auth/login-phone`
 

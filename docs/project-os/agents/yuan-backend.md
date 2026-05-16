@@ -20,4 +20,5 @@
 
 - profile 已创建。
 - `SOUL.md` 已审计存在。
-- 当前未派业务任务；保持“准备中 / 计划中”（内部标识：`ready` / `planned`），不参与 T-003/T-005/T-006 Dev OS 前端任务。
+- 当前未派业务实现任务；保持“准备中 / 计划中”（内部标识：`ready` / `planned`），不参与 T-003/T-005/T-006 Dev OS 前端任务。
+- TWA-002 当前处于 `yuan-architect` 前置规划阶段；`yuan-backend` 暂不创建真实 API handler、数据库 schema/migration、短信 provider、会话存储或 secret。

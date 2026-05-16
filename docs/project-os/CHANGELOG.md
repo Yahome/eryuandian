@@ -1,4 +1,5 @@
 # CHANGELOG
+- 2026-05-16：启动 TWA-002 登录与会话 Mock / Adapter 前置规划：创建任务文档并同步 TASK_BOARD / ROADMAP / SOURCE_OF_TRUTH / dashboard / API_CONTRACT / DATA_MODEL / RISKS / DECISIONS；当前仅文档与契约草案，未进入真实登录、短信、API handler、数据库 schema 或 secret。
 - 2026-05-16：完成 TWA-001 closeout：同步 TWA-001A/B/C 完成事实，将 TWA-001 标记为已完成（内部枚举：`done`，progress 100），保留 owner 为 `yuan-frontend`；下一步准备 TWA-002 登录与会话 Mock / Adapter 前置规划。
 - 2026-05-15：修复 TWA-001B 完成后的 summary 下一步状态漂移，统一为 TWA-001C / closeout 判断阶段。
 - 2026-05-15：完成 TWA-001B：对照 `pic/desktop*` 与 `pic/mobile*` 设计稿，实现 App Shell / 首页 / 工作台基础静态视觉和移动端响应式布局。

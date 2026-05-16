@@ -15,7 +15,7 @@
 - [x] T-008 Dev OS 事实源一致性校验脚本 / Closeout Gate：已完成，`yuan-architect` 实现，`yuan-reviewer` 验收通过；Gemini 二审因 429 / 网络错误无有效输出，已记录且不阻塞验收
 - [x] TWA-000 Web App MVP 架构冻结与开发基线：已完成，冻结 MVP 范围、路由草案、API contract 草案、概念数据模型、Mock/Adapter 边界和后续 TWA-001 至 TWA-007 拆分
 - [x] TWA-001：技术栈冻结 + 移动优先 App Shell / 首页 / 工作台基础（已完成；含国际化 / 双市场版本基线、TWA-001A/B/C 收口）
-- [ ] TWA-002：登录与会话 Mock / Adapter
+- [ ] TWA-002：登录与会话 Mock / Adapter（进行中：前置架构规划，owner `yuan-architect`，progress `30`）
 - [ ] TWA-003：额度账本 Mock / Adapter
 - [ ] TWA-004：营销生图工作台 Mock 流程
 - [ ] TWA-005：试卷生成工作台 Mock 流程

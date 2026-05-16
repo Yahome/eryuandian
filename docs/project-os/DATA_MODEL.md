@@ -1,11 +1,13 @@
 # DATA_MODEL：数据模型草案
 
 状态：草稿（内部标识：`draft`）
-更新时间：2026-05-02
+更新时间：2026-05-16
 
 ## 说明
 
 本文档定义首期业务数据模型草案。字段用于前后端协作和后续数据库设计，不代表最终数据库 schema。
+
+注意：TWA-002 新增的登录与会话字段仅为 Mock/Adapter 概念字段，不代表真实数据库表、migration 或 ORM 实现已创建。
 
 ## User
 
@@ -22,6 +24,36 @@
 | `today_usage` | number | 今日使用次数 |
 | `created_at` | datetime | 创建时间 |
 | `updated_at` | datetime | 更新时间 |
+
+## AuthLoginCode（TWA-002 概念字段）
+
+登录验证码记录（mock / adapter 规划字段，不代表真实落库）。
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| `id` | string | 验证码记录 ID（例如 `mock_code_001`） |
+| `phone` | string | 手机号 |
+| `scene` | enum | `login` |
+| `delivery` | enum | `mock`、`sms`（当前仅允许 `mock`） |
+| `code_hash` | string | 验证码摘要；不保存明文验证码 |
+| `expires_at` | datetime | 过期时间 |
+| `consumed_at` | datetime/null | 使用时间 |
+| `created_at` | datetime | 创建时间 |
+
+## AuthSession（TWA-002 概念字段）
+
+会话记录（mock / adapter 规划字段，不代表真实落库）。
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| `session_id` | string | 会话 ID |
+| `user_id` | string | 用户 ID |
+| `status` | enum | `active`、`revoked`、`expired` |
+| `issued_at` | datetime | 签发时间 |
+| `expires_at` | datetime | 过期时间 |
+| `last_seen_at` | datetime | 最后活跃时间 |
+| `revoked_at` | datetime/null | 注销时间 |
+| `client_meta` | object/null | 终端信息摘要（如设备、平台、locale） |
 
 ## CreditLedger
 

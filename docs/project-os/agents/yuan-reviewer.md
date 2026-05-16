@@ -432,3 +432,4 @@ Gemini 结论：**无有效二审输出**。
 - `yuan-reviewer` 自身审查未发现 Blocker/Major，T-007 可收口为已完成。
 
 - 2026-05-07：已完成 T-010 Dev OS Dashboard 信息架构与交互收尾整改验收，结论 PASS；`gpt-5.3-codex` 二审 PASS，无 Blocker/Major。
+- 2026-05-16：TWA-002 登录与会话 Mock / Adapter 前置规划已启动；后续验收需重点检查：无真实 API handler、无数据库 schema/migration、无真实短信/登录 provider、无 secret/token/key、dashboard schema 未变更，且 API_CONTRACT / DATA_MODEL / task doc / dashboard JSON 状态一致。
